@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+                xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                wsdlLocation="admin.wsdl"
+                version="2.1">
+
+    <!--<jaxws:enableWrapperStyle>false</jaxws:enableWrapperStyle>-->
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='http://webservice.conversant.com/']">
+        <jaxb:globalBindings>
+            <jaxb:javaType name="java.util.Date" xmlType="xs:dateTime"
+                           parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime"
+                           printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDateTime"/>
+
+            <!--<jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"-->
+            <!--parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"-->
+            <!--printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>-->
+
+        </jaxb:globalBindings>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readBusinessPartnerResponse']">
+        <jaxb:factoryMethod name="ReadBusinessPartnerResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readBusinessPartnerResponse']">
+        <jaxb:class name="ReadBusinessPartnerResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readCallRecordingResponse']">
+        <jaxb:factoryMethod name="ReadCallRecordingResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readCallRecordingResponse']">
+        <jaxb:class name="ReadCallRecordingResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readOrderDIDsResponse']">
+        <jaxb:factoryMethod name="ReadOrderDIDsResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readOrderDIDsResponse']">
+        <jaxb:class name="ReadOrderDIDsResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readOrderNumberPortsResponse']">
+        <jaxb:factoryMethod name="ReadOrderNumberPortsResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readOrderNumberPortsResponse']">
+        <jaxb:class name="ReadOrderNumberPortsResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readOrderResponse']">
+        <jaxb:factoryMethod name="ReadOrderResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readOrderResponse']">
+        <jaxb:class name="ReadOrderResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readRolesResponse']">
+        <jaxb:factoryMethod name="ReadRolesResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readRolesResponse']">
+        <jaxb:class name="ReadRolesResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readSubscribedNumbersResponse']">
+        <jaxb:factoryMethod name="ReadSubscribedNumbersResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readSubscribedNumbersResponse']">
+        <jaxb:class name="ReadSubscribedNumbersResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readSubscriptionResponse']">
+        <jaxb:factoryMethod name="ReadSubscriptionResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readSubscriptionResponse']">
+        <jaxb:class name="ReadSubscriptionResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readSubscriptionsResponse']">
+        <jaxb:factoryMethod name="ReadSubscriptionsResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readSubscriptionsResponse']">
+        <jaxb:class name="ReadSubscriptionsResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readUserResponse']">
+        <jaxb:factoryMethod name="ReadUserResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readUserResponse']">
+        <jaxb:class name="ReadUserResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readUsersByBusinessPartnerResponse']">
+        <jaxb:factoryMethod name="ReadUsersByBusinessPartnerResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readUsersByBusinessPartnerResponse']">
+        <jaxb:class name="ReadUsersByBusinessPartnerResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readUsersByEmailResponse']">
+        <jaxb:factoryMethod name="ReadUsersByEmailResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readUsersByEmailResponse']">
+        <jaxb:class name="ReadUsersByEmailResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+</jaxws:bindings>

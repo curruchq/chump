@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+                xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                wsdlLocation="provision.wsdl"
+                version="2.1">
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='http://webservice.conversant.com/']">
+        <jaxb:globalBindings>
+            <jaxb:javaType name="java.util.Date" xmlType="xs:dateTime"
+                           parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime"
+                           printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDateTime"/>
+
+            <!--<jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"-->
+                           <!--parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"-->
+                           <!--printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>-->
+
+        </jaxb:globalBindings>
+    </jaxws:bindings>
+
+</jaxws:bindings>

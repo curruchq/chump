@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+
+    <cxf:cxfEndpoint
+            id="accountingEndpoint"
+            address="{{adempiere.webservice.accounting:http://localhost:8080/ws/accounting}}"
+            serviceClass="com.conversant.webservice.Accounting" />
+            <!--loggingFeatureEnabled="true" />-->
+
+    <cxf:cxfEndpoint
+            id="adminEndpoint"
+            address="{{adempiere.webservice.admin:http://localhost:8080/ws/admin}}"
+            serviceClass="com.conversant.webservice.Admin" />
+            <!--loggingFeatureEnabled="true" />-->
+
+    <cxf:cxfEndpoint
+            id="provisionEndpoint"
+            address="{{adempiere.webservice.provision:http://localhost:8080/ws/provision}}"
+            serviceClass="com.conversant.webservice.Provision" />
+            <!--loggingFeatureEnabled="true" />-->
+</beans>
