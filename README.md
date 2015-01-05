@@ -1,11 +1,11 @@
-# Chump
+# Usage
+1. Clone `git clone git@bitbucket.org:conversantltd/chump.git && cd chump`
+2. Build `mvn clean install`
+3. Configure `chump.properties`
+3. Run `java -jar target/chump-0.0.1-SNAPSHOT.jar`
 
-## Usage
-1. Download and update `chump.properties` then place in same directory as jar.
-2. Run `java -jar chump-0.0.1-SNAPSHOT.jar`
-
-## REST
-### Create a number
+# REST
+## Create a number
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/number -d \
     '{
         "number": "6494297021",
@@ -23,7 +23,7 @@
         "currencyId": 121
     }'
 
-### Provision a number
+## Provision a number
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/number/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -33,7 +33,7 @@
         "startDate": "2015-02-01"
     }'
     
-### Provision an order
+## Provision an order
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/order/80088/provision -d \
     '{
         "realm": "conversant.co.nz",
