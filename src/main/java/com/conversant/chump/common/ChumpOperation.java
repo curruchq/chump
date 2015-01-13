@@ -25,9 +25,15 @@ public class ChumpOperation {
         this.trx = trx != null ? trx : true;
         this.rest = rest;
         this.uri = uri != null ? uri : (rest != null ? rest.getUri() : null);
-        this.preProcessors = preProcessors != null ? preProcessors : new ArrayList<>();
         this.to = to != null ? to : new ArrayList<>();
-        this.postProcessors = postProcessors != null ? postProcessors : new ArrayList<>();
+
+        this.preProcessors = new ArrayList<>();
+        if (preProcessors != null)
+            this.preProcessors.addAll(preProcessors);
+
+        this.postProcessors = new ArrayList<>();
+        if (postProcessors != null)
+            this.postProcessors.addAll(postProcessors);
     }
 
     public static ProcessToPair single(String to) {
