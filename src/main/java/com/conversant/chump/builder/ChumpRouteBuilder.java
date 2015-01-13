@@ -186,7 +186,9 @@ public class ChumpRouteBuilder extends RouteBuilder {
         @Override
         public void process(Exchange exchange) throws Exception {
             Object body = exchange.getIn().getBody();
-            exchange.setProperty(body.getClass().getName(), body);
+            if (body != null) {
+                exchange.setProperty(body.getClass().getName(), body);
+            }
         }
     }
 
