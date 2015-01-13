@@ -20,6 +20,7 @@ public class ApiResponse {
 
     private final int code;
     private String message;
+    private Object data;
     private List<ApiResponse> responses;
 
     public static ApiResponse success() {
