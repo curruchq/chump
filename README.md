@@ -30,7 +30,8 @@
         "proxy": "c-vm-02.conversant.co.nz",
         "businessPartnerId": 1000076, 
         "businessPartnerLocationId": 1000014, 
-        "startDate": "2015-02-01"
+        "startDate": "2015-02-01",
+        "paidUntilDate": "2015-03-01"
     }'
     
 ## Provision an order

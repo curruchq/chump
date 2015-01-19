@@ -154,7 +154,7 @@ public class NumberRoute implements ChumpRoute {
             didSubscriptionRequest.setBusinessPartnerId(request.getBusinessPartnerId());
             didSubscriptionRequest.setBusinessPartnerLocationId(request.getBusinessPartnerLocationId());
             didSubscriptionRequest.setStartDate(request.getStartDate());
-//            didSubscriptionRequest.setPaidUntilDate(request.getPaidUntilDate()); // TODO: Need?
+            didSubscriptionRequest.setPaidUntilDate(request.getPaidUntilDate());
 
             exchange.getIn().setBody(didSubscriptionRequest);
         }

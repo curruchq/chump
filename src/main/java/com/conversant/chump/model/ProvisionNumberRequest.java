@@ -16,4 +16,5 @@ public class ProvisionNumberRequest {
     private int businessPartnerId;
     private int businessPartnerLocationId;
     private Date startDate;
+    private Date paidUntilDate;
 }
