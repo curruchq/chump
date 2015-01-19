@@ -18,7 +18,7 @@
     </appender>
 
     <logger name="com.conversant.chump" level="DEBUG"/>
-    <logger name="org.apache.camel" level="DEBUG" />
+    <!--<logger name="org.apache.camel" level="DEBUG" />-->
     <!--<logger name="org.apache.cxf" level="DEBUG" />-->
     <!--<logger name="org.eclipse.jetty" level="DEBUG" />-->
     <!--<logger name="org.springframework" level="DEBUG" />-->
