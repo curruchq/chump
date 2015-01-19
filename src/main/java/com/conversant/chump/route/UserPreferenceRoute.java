@@ -20,12 +20,12 @@ public class UserPreferenceRoute implements ChumpRoute {
     public static final ChumpOperation INSERT = ChumpOperation.builder()
             .uri("direct://insertUserPreference")
             .trx(false)
-            .to(Arrays.asList(ChumpOperation.pair(CreateRequestProcessor.INSTANCE, "sql:{{sql.ser.insertUserPreference}}")))
+            .to(Arrays.asList(ChumpOperation.pair(InsertRequestProcessor.INSTANCE, "sql:{{sql.ser.insertUserPreference}}")))
             .build();
 
-    private static final class CreateRequestProcessor implements Processor {
+    private static final class InsertRequestProcessor implements Processor {
 
-        public static final Processor INSTANCE = new CreateRequestProcessor();
+        public static final Processor INSTANCE = new InsertRequestProcessor();
 
         @Override
         public void process(Exchange exchange) throws Exception {
