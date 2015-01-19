@@ -300,7 +300,7 @@ public class NumberRoute implements ChumpRoute {
             InsertUserPreferenceRequest request = new InsertUserPreferenceRequest();
             request.setUuid(String.valueOf(provisionNumberRequest.getBusinessPartnerId()));
             request.setUsername(provisionNumberRequest.getNumber());
-            request.setDomain("conversant.co.nz");
+            request.setDomain(provisionNumberRequest.getRealm());
             request.setAttribute("20301");
             request.setValue("sip:+" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getRealm());
             request.setType("2"); // TODO: Constant, numeric type
