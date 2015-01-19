@@ -9,11 +9,11 @@
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/number -d \
     '{
         "number": "6494297021",
-        "domain":"conversant.co.nz",
-        "priceListVersionId":1000000,
-        "countryId":"147",
-        "countryCode":"64",
-        "areaCode":"9429",
+        "domain": "conversant.co.nz",
+        "priceListVersionId": 1000000,
+        "countryId": "147",
+        "countryCode": "64",
+        "areaCode": "9429",
         "areaCodeDescription": "Auckland - Red Beach Test",
         "freeMinutes": "10",
         "perMinuteCharge": "0",
