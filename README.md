@@ -39,3 +39,9 @@
         "realm": "conversant.co.nz",
         "proxy": "c-vm-02.conversant.co.nz"
     }'
+
+## Search call records
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/callrecord/search -d \
+    '{
+        "ids": ["22985c454b0977543912753e5d1d3ff0@202.180.76.164", "6cc1347370082741616f98dc286a30e6@conversant.co.nz"]
+    }'
