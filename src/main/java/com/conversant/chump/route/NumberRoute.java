@@ -24,7 +24,7 @@ import static com.conversant.chump.util.Constants.*;
 @Component
 public class NumberRoute implements ChumpRoute {
 
-    private static final String RESOURCE = "/v1/number";
+    private static final String RESOURCE = "/v1/numbers";
 
     public static final ChumpOperation CREATE = ChumpOperation.builder()
             .rest(RestOperation.builder()

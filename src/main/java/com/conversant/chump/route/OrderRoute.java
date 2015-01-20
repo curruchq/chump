@@ -28,7 +28,7 @@ import static com.conversant.chump.util.Constants.*;
 @Component
 public class OrderRoute implements ChumpRoute {
 
-    private static final String RESOURCE = "/v1/order";
+    private static final String RESOURCE = "/v1/orders";
     private static final String PROVISION_ORDER_CUSTOM = "direct://provisionOrderCustom";
     private static final String ORDER = "order";
 

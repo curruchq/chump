@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class CallRecordRoute implements ChumpRoute {
 
-    private static final String RESOURCE = "/v1/callrecord";
+    private static final String RESOURCE = "/v1/callrecords";
 
     public static final ChumpOperation SELECT = ChumpOperation.builder()
             .rest(RestOperation.builder()
