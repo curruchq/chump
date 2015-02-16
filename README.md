@@ -46,3 +46,9 @@
     '{
         "ids": ["22985c454b0977543912753e5d1d3ff0@202.180.76.164", "6cc1347370082741616f98dc286a30e6@conversant.co.nz"]
     }'
+
+## Get invoices by business partner search key
+    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/invoice/invoices/1000009
+
+## Get invoice lines by invoice id
+    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/invoice/invoicelines/1000060
