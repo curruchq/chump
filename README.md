@@ -52,3 +52,6 @@
 
 ## Get invoice lines by invoice id
     curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/invoice/invoicelines/1000060
+
+## Get subscriptions by business partner search key
+    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/1000009
