@@ -24,6 +24,7 @@ public class Constants {
 	public static final String TYPE_READ_INVOICES = "AC-readInvoicesByBusinessPartner-Drupal";
 	public static final String TYPE_READ_INVOICE_LINES = "AC-readInvoiceLines-Intalio";
 	public static final String TYPE_READ_SUBSCRIPTIONS = "AD-readSubscriptions-Drupal";
+	public static final String TYPE_READ_SUBSCRIPTION = "AD-readSubscription-Drupal";
 
 	public static final String ADEMPIERE_USER_DEFAULT = "IntalioUser";
 	public static final String ADEMPIERE_PASS_DEFAULT = "dJw%U#s5";

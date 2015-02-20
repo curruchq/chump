@@ -50,6 +50,7 @@ public class AdempiereRoute implements ChumpRoute {
 	public static final ChumpOperation READ_INVOICE = build(ENDPOINT_ACCOUNTING, "direct://readInvoicesByBusinessPartner");
 	public static final ChumpOperation READ_INVOICE_LINES = build(ENDPOINT_ACCOUNTING, "direct://readInvoiceLines");
 	public static final ChumpOperation READ_SUBSCRIPTIONS = build(ENDPOINT_ADMIN, "direct://readSubscriptions");
+	public static final ChumpOperation READ_SUBSCRIPTION = build(ENDPOINT_ADMIN, "direct://readSubscription");
     public static final ChumpOperation READ_ORDER = build(ENDPOINT_ADMIN, "direct://readOrder");
     public static final ChumpOperation READ_ORDER_DIDS = build(ENDPOINT_ADMIN, "direct://readOrderDIDs");
 

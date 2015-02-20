@@ -6,6 +6,6 @@ import lombok.Data;
  * Created by Saren Currie on 15-02-10.
  */
 @Data
-public class ReadSubscriptionRequest {
+public class ReadSubscriptionsByBusinessPartnerRequest {
 	private String businessPartnerSearchKey;
 }

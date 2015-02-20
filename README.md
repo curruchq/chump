@@ -54,4 +54,7 @@
     curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/invoice/invoicelines/1000060
 
 ## Get subscriptions by business partner search key
-    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/1000009
+    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/accounts/1000009
+
+## Get subscription by subscription id
+    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/search/1000619
