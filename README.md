@@ -95,3 +95,16 @@
 
 ## Get subscription by id
     curl http://localhost:9090/chump/v1/subscriptions/1000619
+
+## Migrate a customer
+    curl -X POST -H "Content-type: application/json" http://localhost:9090/chump/v1/migration -d \
+    '{
+        "businessPartnerSearchKey": "1000009",
+        "realm": "1000855",
+        "mainNumber": "6494297021",
+        "numbers": [
+            "6494297021", "6494295000"
+        ],
+        "priceListVersionId": 1000000,
+        "businessPartnerLocationId": 1000014
+    }'
