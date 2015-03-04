@@ -14,14 +14,14 @@ import static com.conversant.chump.util.Constants.PROPERTY_API_RESPONSE;
 
 public final class ApiResponseProcessor implements Processor {
 
-	public static final Processor INSTANCE = new ApiResponseProcessor();
+    public static final Processor INSTANCE = new ApiResponseProcessor();
 
-	@Override
-	public void process(Exchange exchange) throws Exception {
+    @Override
+    public void process(Exchange exchange) throws Exception {
 
-		ApiResponse response = ApiResponse.success();
-		response.setData(exchange.getIn().getBody());
+        ApiResponse response = ApiResponse.success();
+        response.setData(exchange.getIn().getBody());
 
-		exchange.setProperty(PROPERTY_API_RESPONSE, response);
-	}
+        exchange.setProperty(PROPERTY_API_RESPONSE, response);
+    }
 }

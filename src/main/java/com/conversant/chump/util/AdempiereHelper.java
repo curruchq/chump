@@ -16,33 +16,33 @@ import static com.conversant.chump.util.Constants.*;
 @Slf4j
 public class AdempiereHelper {
 
-	public static LoginRequest createLoginRequest(Exchange exchange, String type, String userName) {
-		LoginRequest request = new LoginRequest();
+    public static LoginRequest createLoginRequest(Exchange exchange, String type, String userName) {
+        LoginRequest request = new LoginRequest();
 //        request.setUsername(exchange.getProperty(PROPERTY_USERNAME, String.class));
 //        request.setPassword(exchange.getProperty(PROPERTY_PASSWORD, String.class));
-		switch (userName) {
-			case ADEMPIERE_USER_INTALIO:
-				request.setUsername(userName);
-				request.setPassword(ADEMPIERE_PASS_INTALIO);
-				break;
-			case ADEMPIERE_USER_DRUPAL:
-				request.setUsername(userName);
-				request.setPassword(ADEMPIERE_PASS_DRUPAL);
-				break;
-			default:
-				request.setUsername(ADEMPIERE_USER_DEFAULT);
-				request.setUsername(ADEMPIERE_PASS_DEFAULT);
-				break;
-		}
-		request.setTrxName(exchange.getProperty(Constants.PROPERTY_TRX_NAME, String.class));
-		request.setType(type);
+        switch (userName) {
+            case ADEMPIERE_USER_INTALIO:
+                request.setUsername(userName);
+                request.setPassword(ADEMPIERE_PASS_INTALIO);
+                break;
+            case ADEMPIERE_USER_DRUPAL:
+                request.setUsername(userName);
+                request.setPassword(ADEMPIERE_PASS_DRUPAL);
+                break;
+            default:
+                request.setUsername(ADEMPIERE_USER_DEFAULT);
+                request.setUsername(ADEMPIERE_PASS_DEFAULT);
+                break;
+        }
+        request.setTrxName(exchange.getProperty(Constants.PROPERTY_TRX_NAME, String.class));
+        request.setType(type);
 
-		return request;
-	}
+        return request;
+    }
 
-	public static LoginRequest createLoginRequest(Exchange exchange, String type) {
-		return createLoginRequest(exchange, type, ADEMPIERE_USER_DEFAULT);
-	}
+    public static LoginRequest createLoginRequest(Exchange exchange, String type) {
+        return createLoginRequest(exchange, type, ADEMPIERE_USER_DEFAULT);
+    }
 
     public static Object getRequestBodyProperty(Exchange exchange) {
         return getRequestBodyProperties(exchange).get(exchange.getProperty("CamelToEndpoint"));

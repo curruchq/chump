@@ -7,5 +7,5 @@ import lombok.Data;
  */
 @Data
 public class ReadIndividualSubscriptionRequest {
-	private int subscriptionId;
+    private int subscriptionId;
 }

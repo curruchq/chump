@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class ProvisionOrderRequest {
-    
+
     private String orderNo;
     private String realm;
     private String proxy;

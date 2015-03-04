@@ -3,9 +3,8 @@ package com.conversant.chump.route;
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.ChumpRoute;
 import com.conversant.chump.common.RestOperation;
-import com.conversant.chump.model.ApiResponse;
 import com.conversant.chump.model.SelectCallRecordRequest;
-import com.conversant.chump.util.Constants;
+import com.conversant.chump.processor.ApiResponseProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.sql.SqlConstants;
@@ -31,7 +30,7 @@ public class CallRecordRoute implements ChumpRoute {
                     .build())
             .trx(false)
             .to(Arrays.asList(ChumpOperation.pair(SelectRequestProcessor.INSTANCE, "sql:{{sql.radius.selectCallRecord}}")))
-            .postProcessors(Arrays.asList(SelectResponseProcessor.INSTANCE))
+            .postProcessors(Arrays.asList(ApiResponseProcessor.INSTANCE))
             .build();
 
     private static final class SelectRequestProcessor implements Processor {
@@ -45,20 +44,6 @@ public class CallRecordRoute implements ChumpRoute {
 
             String ids = request.getIds().stream().collect(Collectors.joining("','"));
             exchange.getIn().setHeader(SqlConstants.SQL_QUERY, "SELECT * FROM radius.radacct WHERE AcctSessionId IN ('" + ids + "')");
-        }
-    }
-
-    private static final class SelectResponseProcessor implements Processor {
-
-        public static final Processor INSTANCE = new SelectResponseProcessor();
-
-        @Override
-        public void process(Exchange exchange) throws Exception {
-
-            ApiResponse response = ApiResponse.success();
-            response.setData(exchange.getIn().getBody());
-
-            exchange.setProperty(Constants.PROPERTY_API_RESPONSE, response);
         }
     }
 }

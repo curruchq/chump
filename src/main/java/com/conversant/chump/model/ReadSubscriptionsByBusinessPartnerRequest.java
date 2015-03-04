@@ -7,5 +7,5 @@ import lombok.Data;
  */
 @Data
 public class ReadSubscriptionsByBusinessPartnerRequest {
-	private String businessPartnerSearchKey;
+    private String businessPartnerSearchKey;
 }

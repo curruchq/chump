@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 public class ReadInvoiceRequest {
 
-	private String businessPartner;
+    private String businessPartnerSearchKey;
 }

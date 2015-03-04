@@ -6,9 +6,12 @@ import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.ReadInvoiceLinesByIdRequest;
 import com.conversant.chump.model.ReadInvoiceRequest;
 import com.conversant.chump.processor.ApiResponseProcessor;
-import com.conversant.chump.processor.GetBusinessPartnerProcessor;
+import com.conversant.chump.processor.ReadBusinessPartnerRequestProcessor;
 import com.conversant.chump.processor.StandardResponseRemover;
-import com.conversant.webservice.*;
+import com.conversant.webservice.BusinessPartner;
+import com.conversant.webservice.ReadBusinessPartnerResponse;
+import com.conversant.webservice.ReadInvoiceLinesRequest;
+import com.conversant.webservice.ReadInvoicesByBusinessPartnerRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
@@ -24,108 +27,66 @@ import static com.conversant.chump.util.Constants.*;
  */
 @Component
 public class InvoiceRoute implements ChumpRoute {
-	private static final String RESOURCE = "/v1/invoice";
 
-	public static final ChumpOperation READ = ChumpOperation.builder()
-			.trx(false)
-			.rest(RestOperation.builder()
-					.path("/invoices/{businessPartnerSearchKey}") //Search key
-					.resource(RESOURCE)
-					.method(GET)
-					.requestType(ReadInvoiceRequest.class)
-					.build())
-			.preProcessors(
-					Arrays.asList(InvoiceRequestProcessor.INSTANCE))
-			.to(Arrays.asList(
-					ChumpOperation.pair(GetBusinessPartnerProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER.getUri()),
-					ChumpOperation.pair(GetInvoicesProcessor.INSTANCE, AdempiereRoute.READ_INVOICE.getUri())))
-			.postProcessors(
-					Arrays.asList(new StandardResponseRemover("invoice"), ApiResponseProcessor.INSTANCE))
-			.build();
+    private static final String RESOURCE = "/v1/invoices";
 
-	public static final ChumpOperation GET_LINES = ChumpOperation.builder()
-			.trx(false)
-			.rest(RestOperation.builder()
-						.path("/invoicelines/{invoiceId}")
-						.resource(RESOURCE)
-						.method(GET)
-						.requestType(ReadInvoiceLinesByIdRequest.class)
-						.build()
-			).preProcessors(
-					Arrays.asList(InvoiceLinesRequestProcessor.INSTANCE)
-			).to(Arrays.asList(
-					ChumpOperation.pair(GetInvoiceLinesProcessor.INSTANCE, AdempiereRoute.READ_INVOICE_LINES.getUri())))
-			.postProcessors(
-					Arrays.asList(new StandardResponseRemover("invoiceLine"), ApiResponseProcessor.INSTANCE))
-			.build();
+    public static final ChumpOperation READ = ChumpOperation.builder()
+            .trx(false)
+            .rest(RestOperation.builder()
+                    .resource(RESOURCE)
+                    .method(GET)
+                    .requestType(ReadInvoiceRequest.class)
+                    .build())
+            .to(Arrays.asList(
+                    ChumpOperation.pair(ReadBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER.getUri()),
+                    ChumpOperation.pair(ReadInvoicesByBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_INVOICE.getUri())))
+            .postProcessors(
+                    Arrays.asList(new StandardResponseRemover("invoice"), ApiResponseProcessor.INSTANCE))
+            .build();
 
-	/**
-	 * Processes
-	 */
-	private static final class InvoiceRequestProcessor implements Processor {
+    public static final ChumpOperation GET_LINES = ChumpOperation.builder()
+            .trx(false)
+            .rest(RestOperation.builder()
+                            .path("/{invoiceId}/lines")
+                            .resource(RESOURCE)
+                            .method(GET)
+                            .requestType(ReadInvoiceLinesByIdRequest.class)
+                            .build()
+            ).to(Arrays.asList(
+                    ChumpOperation.pair(ReadInvoiceLinesRequestProcessor.INSTANCE, AdempiereRoute.READ_INVOICE_LINES.getUri())))
+            .postProcessors(
+                    Arrays.asList(new StandardResponseRemover("invoiceLine"), ApiResponseProcessor.INSTANCE))
+            .build();
 
-		public static final Processor INSTANCE = new InvoiceRequestProcessor();
+    private static final class ReadInvoicesByBusinessPartnerRequestProcessor implements Processor {
 
-		@Override
-		public void process(Exchange exchange) throws Exception {
+        public static final Processor INSTANCE = new ReadInvoicesByBusinessPartnerRequestProcessor();
 
-			ReadInvoiceRequest request = exchange.getIn().getBody(ReadInvoiceRequest.class);
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            BusinessPartner bp = exchange.getIn().getBody(ReadBusinessPartnerResponse.class).getBusinessPartner();
 
-			// TODO: Deserialize query and path parameters automatically
-			if (request == null) {
-				request = new ReadInvoiceRequest();
-				request.setBusinessPartner((String) exchange.getIn().getHeader("businessPartnerSearchKey"));
-			}
-		}
-	}
+            ReadInvoicesByBusinessPartnerRequest request = new ReadInvoicesByBusinessPartnerRequest();
+            request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICES, ADEMPIERE_USER_DRUPAL));
+            request.setBusinessPartnerId(bp.getBusinessPartnerId());
 
-	private static final class InvoiceLinesRequestProcessor implements Processor {
+            exchange.getIn().setBody(request);
 
-		public static final Processor INSTANCE = new InvoiceLinesRequestProcessor();
+        }
+    }
 
-		@Override
-		public void process(Exchange exchange) throws Exception {
+    private static final class ReadInvoiceLinesRequestProcessor implements Processor {
 
-			ReadInvoiceLinesByIdRequest request = exchange.getIn().getBody(ReadInvoiceLinesByIdRequest.class);
+        public static final Processor INSTANCE = new ReadInvoiceLinesRequestProcessor();
 
-			// TODO: Deserialize query and path parameters automatically
-			if (request == null) {
-				request = new ReadInvoiceLinesByIdRequest();
-				request.setInvoiceId(Integer.parseInt((String) exchange.getIn().getHeader("invoiceId")));
-			}
-		}
-	}
+        @Override
+        public void process(Exchange exchange) throws Exception {
 
-	private static final class GetInvoicesProcessor implements Processor {
+            ReadInvoiceLinesRequest request = new ReadInvoiceLinesRequest();
+            request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICE_LINES, ADEMPIERE_USER_INTALIO));
+            request.setInvoiceId(Integer.parseInt((String) exchange.getIn().getHeader("invoiceId")));
 
-		public static final Processor INSTANCE = new GetInvoicesProcessor();
-
-		@Override
-		public void process(Exchange exchange) throws Exception {
-			BusinessPartner bp = exchange.getIn().getBody(ReadBusinessPartnerResponse.class).getBusinessPartner();
-
-			ReadInvoicesByBusinessPartnerRequest request = new ReadInvoicesByBusinessPartnerRequest();
-			request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICES, ADEMPIERE_USER_DRUPAL));
-			request.setBusinessPartnerId(bp.getBusinessPartnerId());
-
-			exchange.getIn().setBody(request);
-
-		}
-	}
-
-	private static final class GetInvoiceLinesProcessor implements Processor {
-		public static final Processor INSTANCE = new GetInvoiceLinesProcessor();
-
-		@Override
-		public void process(Exchange exchange) throws Exception {
-
-			//ReadInvoiceLinesByIdRequest apiRequest = exchange.getProperty(ReadInvoiceLinesByIdRequest.class.getName(), ReadInvoiceLinesByIdRequest.class);
-
-			ReadInvoiceLinesRequest request = new ReadInvoiceLinesRequest();
-			request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICE_LINES, ADEMPIERE_USER_INTALIO));
-			request.setInvoiceId(Integer.parseInt((String)exchange.getIn().getHeader("invoiceId")));
-
-			exchange.getIn().setBody(request);
-		}
-	}
+            exchange.getIn().setBody(request);
+        }
+    }
 }

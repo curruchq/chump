@@ -7,5 +7,5 @@ import lombok.Data;
  */
 @Data
 public class ReadInvoiceLinesByIdRequest {
-	private int invoiceId;
+    private int invoiceId;
 }
