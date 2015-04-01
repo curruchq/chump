@@ -18,6 +18,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static com.conversant.chump.common.RestOperation.HttpMethod.GET;
@@ -64,6 +65,10 @@ public final class SubscriptionRoute implements ChumpRoute {
                     Arrays.asList(new StandardResponseRemover("subscription"), ApiResponseProcessor.INSTANCE))
             .build();
 
+    /**
+     * Update a subscription on adempiere.
+     * Fields are the same as those returned by a GET to this endpoint.
+     */
     public static final ChumpOperation UPDATE = ChumpOperation.builder()
             .trx(false)
             .rest(RestOperation.builder()
@@ -73,7 +78,7 @@ public final class SubscriptionRoute implements ChumpRoute {
                     .requestType(UpdateSubscriptionRequest.class)
                     .build()
             ).to(Arrays.asList(
-                    //TODO
+                    ChumpOperation.pair(UpdateSubscriptionProcessor.INSTANCE, AdempiereRoute.UPDATE_SUBSCRIPTION.getUri())
             ))
             .build();
 
@@ -103,6 +108,33 @@ public final class SubscriptionRoute implements ChumpRoute {
             request.setSubscriptionId(Integer.parseInt((String) exchange.getIn().getHeader("subscriptionId")));
 
             exchange.getIn().setBody(request);
+        }
+    }
+
+    private static final class UpdateSubscriptionProcessor implements Processor {
+
+        public static final Processor INSTANCE = new UpdateSubscriptionProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            UpdateSubscriptionRequest request = exchange.getIn().getBody(UpdateSubscriptionRequest.class);
+
+            com.conversant.webservice.UpdateSubscriptionRequest adempiereRequest = new com.conversant.webservice.UpdateSubscriptionRequest();
+            adempiereRequest.setLoginRequest(createLoginRequest(exchange, TYPE_UPDATE_SUBSCRIPTION, ADEMPIERE_USER_DRUPAL));
+            adempiereRequest.setSubscriptionId(Integer.parseInt((String) exchange.getIn().getHeader("subscriptionId")));
+            adempiereRequest.setName(request.getName());
+            adempiereRequest.setBusinessPartnerId(request.getBusinessPartnerId());
+            adempiereRequest.setBusinessPartnerLocationId(request.getBusinessPartnerLocationId());
+            adempiereRequest.setProductId(request.getProductId());
+            adempiereRequest.setStartDate(request.getStartDate());
+            adempiereRequest.setRenewalDate(request.getRenewalDate());
+            adempiereRequest.setPaidUntilDate(request.getPaidUntilDate());
+            adempiereRequest.setBillInAdvance(request.isBillInAdvance());
+            adempiereRequest.setQty(BigDecimal.valueOf(request.getQty()));
+            adempiereRequest.setIsDue(request.isDue());
+            adempiereRequest.setUserId(request.getUserId());
+
+            exchange.getIn().setBody(adempiereRequest);
         }
     }
 }

@@ -108,3 +108,19 @@
         "priceListVersionId": 1000000,
         "businessPartnerLocationId": 1000014
     }'
+
+## Update subscription
+    curl -XPOST -H "Content-Type: application/json" http://127.0.0.1:9090/chump/v1/subscriptions/1000619 -d \
+    '{
+        "name" : "+12124016222",
+        "businessPartnerId" : 1000022,
+        "businessPartnerLocationId" : 1000023,
+        "productId" : 1000740,
+        "subscriptionTypeId" : 1000004,
+        "startDate" : "2015-04-01",
+        "paidUntilDate" : "2015-04-30",
+        "renewalDate" : "2015-04-30",
+        "billInAdvance" : true,
+        "qty" : 1,
+        "userId" : 0
+    }'
