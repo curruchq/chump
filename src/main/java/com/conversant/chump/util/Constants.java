@@ -30,6 +30,7 @@ public class Constants {
     public static final String TYPE_UPDATE_SUBSCRIPTION = "AD-updateSubscription-Drupal";
     public static final String TYPE_CREATE_SUBSCRIPTION = "AD-createSubscription-Drupal";
     public static final String TYPE_READ_PRODUCT = "AD-readProduct-Intalio";
+    public static final String TYPE_READ_PRODUCT_BP_PRICE = "AD-readProductBPPrice-Intalio";
 
     public static final String ADEMPIERE_USER_DEFAULT = "IntalioUser";
     public static final String ADEMPIERE_PASS_DEFAULT = "dJw%U#s5";
