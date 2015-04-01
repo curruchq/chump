@@ -59,6 +59,7 @@ public class AdempiereRoute implements ChumpRoute {
     public static final ChumpOperation CREATE_SUBSCRIPTION = build(ENDPOINT_ADMIN, "direct://createSubscription");
     public static final ChumpOperation READ_ORDER = build(ENDPOINT_ADMIN, "direct://readOrder");
     public static final ChumpOperation READ_ORDER_DIDS = build(ENDPOINT_ADMIN, "direct://readOrderDIDs");
+    public static final ChumpOperation READ_PRODUCT = build(ENDPOINT_ADMIN, "direct://readProduct");
 
     private static ChumpOperation build(String endPoint, String uri) {
         return build(endPoint, uri, null);
