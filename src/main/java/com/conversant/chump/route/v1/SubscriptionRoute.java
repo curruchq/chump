@@ -5,6 +5,7 @@ import com.conversant.chump.common.ChumpRoute;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.ReadIndividualSubscriptionRequest;
 import com.conversant.chump.model.ReadSubscriptionsByBusinessPartnerRequest;
+import com.conversant.chump.model.UpdateSubscriptionRequest;
 import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.processor.ReadBusinessPartnerRequestProcessor;
 import com.conversant.chump.processor.StandardResponseRemover;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 import static com.conversant.chump.common.RestOperation.HttpMethod.GET;
+import static com.conversant.chump.common.RestOperation.HttpMethod.POST;
 import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
 import static com.conversant.chump.util.Constants.*;
 
@@ -62,8 +64,20 @@ public final class SubscriptionRoute implements ChumpRoute {
                     Arrays.asList(new StandardResponseRemover("subscription"), ApiResponseProcessor.INSTANCE))
             .build();
 
-    private static final class ReadSubscriptionsRequestProcessor implements Processor {
+    public static final ChumpOperation UPDATE = ChumpOperation.builder()
+            .trx(false)
+            .rest(RestOperation.builder()
+                    .resource(RESOURCE)
+                    .path("/{subscriptionId}")
+                    .method(POST)
+                    .requestType(UpdateSubscriptionRequest.class)
+                    .build()
+            ).to(Arrays.asList(
+                    //TODO
+            ))
+            .build();
 
+    private static final class ReadSubscriptionsRequestProcessor implements Processor {
         public static final Processor INSTANCE = new ReadSubscriptionsRequestProcessor();
 
         @Override
