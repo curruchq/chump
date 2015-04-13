@@ -1,4 +1,4 @@
-package com.conversant.chump.route;
+package com.conversant.chump.route.v1;
 
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.ChumpRoute;

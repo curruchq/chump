@@ -1,4 +1,4 @@
-package com.conversant.chump.route;
+package com.conversant.chump.route.v1;
 
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.ChumpRoute;
@@ -8,6 +8,7 @@ import com.conversant.chump.model.ReadSubscriptionsByBusinessPartnerRequest;
 import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.processor.ReadBusinessPartnerRequestProcessor;
 import com.conversant.chump.processor.StandardResponseRemover;
+import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.webservice.BusinessPartner;
 import com.conversant.webservice.ReadBusinessPartnerResponse;
 import com.conversant.webservice.ReadSubscriptionRequest;

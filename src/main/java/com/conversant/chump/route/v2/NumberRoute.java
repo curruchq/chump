@@ -7,7 +7,7 @@ import com.conversant.chump.model.CreateNumberRequest;
 import com.conversant.chump.model.InsertUserPreferenceRequest;
 import com.conversant.chump.model.ProvisionNumberRequest;
 import com.conversant.chump.route.AdempiereRoute;
-import com.conversant.chump.route.UserPreferenceRoute;
+import com.conversant.chump.route.v1.UserPreferenceRoute;
 import com.conversant.webservice.*;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
