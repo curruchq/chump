@@ -34,6 +34,13 @@
         "paidUntilDate": "2015-03-01"
     }'
 
+## Provision an order
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/orders/80088/provision -d \
+    '{
+        "realm": "conversant.co.nz",
+        "proxy": "c-vm-02.conversant.co.nz"
+    }'
+
 # REST - v1
 ## Create a number
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
