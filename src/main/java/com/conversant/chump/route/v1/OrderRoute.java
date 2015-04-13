@@ -32,10 +32,14 @@ import static com.conversant.chump.util.Constants.*;
 @Component
 public class OrderRoute implements ChumpRoute {
 
+    /** Base resource */
     private static final String RESOURCE = "/v1/orders";
+
     private static final String PROVISION_ORDER_CUSTOM = "direct://provisionOrderCustom";
+    private static final String PROVISION_NUMBER_PORTS_CUSTOM = "direct://provisionNumberPortsCustom";
     private static final String ORDER = "order";
 
+    /** Provision all numbers and number ports on an order */
     public static final ChumpOperation PROVISION = ChumpOperation.builder()
             .rest(RestOperation.builder()
                     .method(POST)
@@ -49,7 +53,9 @@ public class OrderRoute implements ChumpRoute {
             .to(Arrays.asList(
                     ChumpOperation.pair(ReadOrderRequestProcessor.INSTANCE, AdempiereRoute.READ_ORDER.getUri()),
                     ChumpOperation.pair(ReadOrderDIDsRequestProcessor.INSTANCE, AdempiereRoute.READ_ORDER_DIDS.getUri()),
-                    ChumpOperation.pair(ProvisionNumberSplitRequestProcessor.INSTANCE, PROVISION_ORDER_CUSTOM)))
+                    ChumpOperation.pair(ProvisionNumberSplitRequestProcessor.INSTANCE, PROVISION_ORDER_CUSTOM),
+                    ChumpOperation.pair(ReadOrderNumberPortsRequestProcessor.INSTANCE, AdempiereRoute.READ_ORDER_NUMBER_PORTS.getUri()),
+                    ChumpOperation.pair(OrderNumberPortsSplitRequestProcessor.INSTANCE, PROVISION_NUMBER_PORTS_CUSTOM)))
             .build();
 
     public static final ChumpOperation LINES = ChumpOperation.builder()
@@ -82,7 +88,20 @@ public class OrderRoute implements ChumpRoute {
                     .to(NumberRoute.PROVISION.getUri()).end()
 
                     // Process final result of custom aggregation strategy into a single ApiResponse
-                    .process(ProvisionOrderCustomResponseProcessor.INSTANCE);
+                    .process(AggregatedApiResponseProcessor.INSTANCE);
+
+            // Custom route for fancy split/aggregate logic
+            from(PROVISION_NUMBER_PORTS_CUSTOM)
+
+                    // Split on the body, individual CreateNumberPortSubscriptionRequest, and use custom aggregation strategy
+                    // which groups individual ApiResponse's into a list
+                    .split(body(), ProvisionNumberPortsAggregationStrategy.INSTANCE)
+
+                            // Call provision number for each split request
+                    .to(AdempiereRoute.CREATE_NUMBER_PORT_SUBSCRIPTION.getUri()).end()
+
+                    // Process final result of custom aggregation strategy into a single ApiResponse
+                    .process(AggregatedApiResponseProcessor.INSTANCE);
         }
     }
 
@@ -167,18 +186,32 @@ public class OrderRoute implements ChumpRoute {
         }
     }
 
-    private static final class ProvisionOrderCustomResponseProcessor implements Processor {
+    private static final class AggregatedApiResponseProcessor implements Processor {
 
-        public static final Processor INSTANCE = new ProvisionOrderCustomResponseProcessor();
+        public static final Processor INSTANCE = new AggregatedApiResponseProcessor();
 
         @Override
         public void process(Exchange exchange) throws Exception {
 
+            // Check if existing ApiResponse set
+            ApiResponse existing = exchange.getProperty(PROPERTY_API_RESPONSE, ApiResponse.class);
+
             // Check if any ApiResponse's failed
             boolean failure = exchange.getIn().getBody(List.class).stream().anyMatch(o -> o instanceof ApiResponse && ((ApiResponse) o).getCode() != 200);
 
+            // If found existing and it contains a failure then fail this response
+            if (existing != null && existing.getCode() != ApiResponse.SUCCESS) {
+                failure = true;
+            }
+
+            // Create ApiResponse and all list of responses
             ApiResponse response = failure ? ApiResponse.badRequest() : ApiResponse.success();
             response.setResponses(exchange.getIn().getBody(List.class));
+
+            // If found existing then add responses
+            if (existing != null) {
+                response.getResponses().addAll(existing.getResponses());
+            }
 
             // Set as exchange property to be picked up by ApiResponseProcessor
             exchange.setProperty(PROPERTY_API_RESPONSE, response);
@@ -211,6 +244,87 @@ public class OrderRoute implements ChumpRoute {
             }
 
             oldExchange.getIn().getBody(List.class).add(response);
+
+            return oldExchange;
+        }
+    }
+
+    private static final class ReadOrderNumberPortsRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new ReadOrderNumberPortsRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            Order order = exchange.getProperty(ORDER, Order.class);
+
+            ReadOrderNumberPortsRequest readOrderNumberPortsRequest = new ReadOrderNumberPortsRequest();
+            readOrderNumberPortsRequest.setLoginRequest(createLoginRequest(exchange, TYPE_READ_ORDER_NUMBER_PORTS));
+            readOrderNumberPortsRequest.setOrderId(order.getOrderId());
+
+            exchange.getIn().setBody(readOrderNumberPortsRequest);
+        }
+    }
+
+    private static final class OrderNumberPortsSplitRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new OrderNumberPortsSplitRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            Order order = exchange.getProperty(ORDER, Order.class);
+
+            List<CreateNumberPortSubscriptionRequest> requests = exchange.getIn().getBody(ReadOrderNumberPortsResponse.class).getNumbers().stream()
+                    .map(did -> {
+
+                        CreateNumberPortSubscriptionRequest request = new CreateNumberPortSubscriptionRequest();
+                        request.setLoginRequest(createLoginRequest(exchange, TYPE_CREATE_NUMBER_PORT_SUBSCRIPTION));
+                        request.setNumber(did);
+                        request.setBusinessPartnerId(order.getBusinessPartnerId());
+                        request.setBusinessPartnerLocationId(order.getBusinessPartnerLocationId());
+
+                        return request;
+                    })
+                    .collect(Collectors.toList());
+
+            // Set body as list of requests for use with split by body
+            exchange.getIn().setBody(requests);
+        }
+    }
+
+    private static final class ProvisionNumberPortsAggregationStrategy implements AggregationStrategy {
+
+        public static final AggregationStrategy INSTANCE = new ProvisionNumberPortsAggregationStrategy();
+
+        @Override
+        public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
+
+            StandardResponse response = newExchange.getIn().getBody(StandardResponse.class);
+            CreateNumberPortSubscriptionRequest request = newExchange.getProperty(CreateNumberPortSubscriptionRequest.class.getName(), CreateNumberPortSubscriptionRequest.class);
+
+            ApiResponse apiResponse;
+            if (response.isSuccess()) {
+                apiResponse = ApiResponse.success();
+                apiResponse.setMessage("Created number port subscription for " + request.getNumber());
+            }
+            else {
+                apiResponse = ApiResponse.error();
+                apiResponse.setMessage("Failed to create number port subscription for " + request.getNumber());
+            }
+
+            // First invocation
+            if (oldExchange == null) {
+
+                List<ApiResponse> responses = new ArrayList<>();
+                responses.add(apiResponse);
+
+                newExchange.getIn().setBody(responses);
+
+                return newExchange;
+            }
+
+            oldExchange.getIn().getBody(List.class).add(apiResponse);
 
             return oldExchange;
         }

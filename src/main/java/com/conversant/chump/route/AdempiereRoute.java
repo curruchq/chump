@@ -63,6 +63,7 @@ public class AdempiereRoute implements ChumpRoute {
     public static final ChumpOperation READ_ORDER_LINES = build(ENDPOINT_ADMIN, "direct://readOrderLines");
     public static final ChumpOperation READ_PRODUCT = build(ENDPOINT_ADMIN, "direct://readProduct");
     public static final ChumpOperation READ_PRODUCT_BP_PRICE = build(ENDPOINT_ADMIN, "direct://readProductBPPrice");
+    public static final ChumpOperation READ_ORDER_NUMBER_PORTS = build(ENDPOINT_ADMIN, "direct://readOrderNumberPorts");
     public static final ChumpOperation READ_ORGANISATION = build(ENDPOINT_ADMIN, "direct://readOrganization");
 
     private static ChumpOperation build(String endPoint, String uri) {

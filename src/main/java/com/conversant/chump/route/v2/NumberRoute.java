@@ -111,7 +111,6 @@ public class NumberRoute implements ChumpRoute {
             .to(Arrays.asList(
                     ChumpOperation.pair(CreateCallSubscription2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION_2.getUri()),
                     ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()),
-                    ChumpOperation.pair(CreateNumberPortSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_NUMBER_PORT_SUBSCRIPTION.getUri()),
                     ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()),
                     ChumpOperation.pair(InboundDestinationUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
                     ChumpOperation.pair(CallerIdv2UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
@@ -171,25 +170,6 @@ public class NumberRoute implements ChumpRoute {
             didSubscriptionRequest.setPaidUntilDate(request.getPaidUntilDate());
 
             exchange.getIn().setBody(didSubscriptionRequest);
-        }
-    }
-
-    private static final class CreateNumberPortSubscriptionRequestProcessor implements Processor {
-
-        public static final Processor INSTANCE = new CreateNumberPortSubscriptionRequestProcessor();
-
-        @Override
-        public void process(Exchange exchange) throws Exception {
-
-            ProvisionNumberRequest request = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
-
-            CreateNumberPortSubscriptionRequest numberPortSubscriptionRequest = new CreateNumberPortSubscriptionRequest();
-            numberPortSubscriptionRequest.setLoginRequest(createLoginRequest(exchange, TYPE_CREATE_NUMBER_PORT_SUBSCRIPTION));
-            numberPortSubscriptionRequest.setNumber(request.getNumber());
-            numberPortSubscriptionRequest.setBusinessPartnerId(request.getBusinessPartnerId());
-            numberPortSubscriptionRequest.setBusinessPartnerLocationId(request.getBusinessPartnerLocationId());
-
-            exchange.getIn().setBody(numberPortSubscriptionRequest);
         }
     }
 

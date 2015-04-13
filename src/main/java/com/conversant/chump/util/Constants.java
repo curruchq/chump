@@ -21,6 +21,7 @@ public class Constants {
     public static final String TYPE_UPDATE_DID_PRODUCT = "P-updateDIDProduct-Intalio";
     public static final String TYPE_READ_ORDER = "AD-readOrder-Intalio";
     public static final String TYPE_READ_ORDER_DIDS = "AD-readOrderDIDs-Intalio";
+    public static final String TYPE_READ_ORDER_NUMBER_PORTS = "AD-readOrderNumberPorts-Intalio";
     public static final String TYPE_READ_ORDER_LINES = "AD-readOrderLines-Intalio";
 
     public static final String TYPE_READ_BUSINESS_PARTNER = "AD-readBusinessPartnerByValue-Drupal";
