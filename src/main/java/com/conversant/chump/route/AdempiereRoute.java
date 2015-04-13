@@ -42,6 +42,7 @@ public class AdempiereRoute implements ChumpRoute {
     public static final ChumpOperation ROLLBACK_TRX = build(ENDPOINT_ADMIN, "direct://rollbackTrx", RollbackTrxRequestProcesser.INSTANCE);
 
     public static final ChumpOperation CREATE_CALL_PRODUCT = build(ENDPOINT_PROVISION, "direct://createCallProduct");
+    public static final ChumpOperation CREATE_CALL_PRODUCT_2 = build(ENDPOINT_PROVISION, "direct://createCallProduct2");
     public static final ChumpOperation CREATE_DID_PRODUCT = build(ENDPOINT_PROVISION, "direct://createDIDProduct");
     public static final ChumpOperation UPDATE_DID_PRODUCT = build(ENDPOINT_PROVISION, "direct://updateDIDProduct");
     public static final ChumpOperation CREATE_CALL_SUBSCRIPTION = build(ENDPOINT_PROVISION, "direct://createCallSubscription");

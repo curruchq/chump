@@ -1,4 +1,4 @@
-package com.conversant.chump.route;
+package com.conversant.chump.route.v1;
 
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.ChumpRoute;
@@ -6,6 +6,8 @@ import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.CreateNumberRequest;
 import com.conversant.chump.model.InsertUserPreferenceRequest;
 import com.conversant.chump.model.ProvisionNumberRequest;
+import com.conversant.chump.route.AdempiereRoute;
+import com.conversant.chump.route.UserPreferenceRoute;
 import com.conversant.webservice.*;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -19,13 +21,17 @@ import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
 import static com.conversant.chump.util.Constants.*;
 
 /**
- * Created by jhill on 31/12/14.
+ * Number related endpoints and operations.
+ *
+ * @author jhill
  */
 @Component
 public class NumberRoute implements ChumpRoute {
 
+    /** Base resource */
     private static final String RESOURCE = "/v1/numbers";
 
+    /** Create calling and DID products */
     public static final ChumpOperation CREATE = ChumpOperation.builder()
             .rest(RestOperation.builder()
                     .method(POST)
@@ -35,27 +41,6 @@ public class NumberRoute implements ChumpRoute {
             .to(Arrays.asList(
                     ChumpOperation.pair(CreateCallProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_PRODUCT.getUri()),
                     ChumpOperation.pair(CreateDidProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_PRODUCT.getUri())))
-            .build();
-
-    public static final ChumpOperation PROVISION = ChumpOperation.builder()
-            .rest(RestOperation.builder()
-                    .method(POST)
-                    .resource(RESOURCE)
-                    .path("/{number}/provision")
-                    .requestType(ProvisionNumberRequest.class)
-                    .build())
-            .preProcessors(Arrays.asList(
-                    // TODO: Can remove once fix header vs path param
-                    ProvisionNumberRequestProcessor.INSTANCE))
-            .to(Arrays.asList(
-                    ChumpOperation.pair(CreateCallSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION.getUri()),
-                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()),
-                    ChumpOperation.pair(CreateNumberPortSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_NUMBER_PORT_SUBSCRIPTION.getUri()),
-                    ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()),
-                    ChumpOperation.pair(InboundDestinationUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
-                    ChumpOperation.pair(CallerIdv1UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
-                    ChumpOperation.pair(CallerIdv2UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
-                    ChumpOperation.pair(AuthorisedCallerIdUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
             .build();
 
     private static final class CreateCallProductRequestProcessor implements Processor {
@@ -104,6 +89,28 @@ public class NumberRoute implements ChumpRoute {
             exchange.getIn().setBody(didProductRequest);
         }
     }
+
+    /** Provision number by creating subscriptions and user preferences */
+    public static final ChumpOperation PROVISION = ChumpOperation.builder()
+            .rest(RestOperation.builder()
+                    .method(POST)
+                    .resource(RESOURCE)
+                    .path("/{number}/provision")
+                    .requestType(ProvisionNumberRequest.class)
+                    .build())
+            .preProcessors(Arrays.asList(
+                    // TODO: Can remove once fix header vs path param
+                    ProvisionNumberRequestProcessor.INSTANCE))
+            .to(Arrays.asList(
+                    ChumpOperation.pair(CreateCallSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION.getUri()),
+                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()),
+                    ChumpOperation.pair(CreateNumberPortSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_NUMBER_PORT_SUBSCRIPTION.getUri()),
+                    ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()),
+                    ChumpOperation.pair(InboundDestinationUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
+                    ChumpOperation.pair(CallerIdv1UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
+                    ChumpOperation.pair(CallerIdv2UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
+                    ChumpOperation.pair(AuthorisedCallerIdUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
+            .build();
 
     private static final class ProvisionNumberRequestProcessor implements Processor {
 

@@ -4,7 +4,26 @@
 3. Configure `chump.properties`
 3. Run `java -jar target/chump-0.0.1-SNAPSHOT.jar`
 
-# REST
+# REST - v2
+## Create a number
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
+    '{
+        "number": "6494297021",
+        "domain": "conversant.co.nz",
+        "priceListVersionId": 1000000,
+        "countryId": "147",
+        "countryCode": "64",
+        "areaCode": "9429",
+        "areaCodeDescription": "Auckland - Red Beach Test",
+        "freeMinutes": "10",
+        "perMinuteCharge": "0",
+        "businessPartnerId": 1000076,
+        "setupCost": "1",
+        "monthlyCharge": "2",
+        "currencyId": 121
+    }'
+
+# REST - v1
 ## Create a number
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
     '{

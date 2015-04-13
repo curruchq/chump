@@ -12,6 +12,7 @@ public class Constants {
     public static final String TYPE_COMMIT_TRX = "G-commitTrx-Intalio";
     public static final String TYPE_ROLLBACK_TRX = "G-rollbackTrx-Intalio";
     public static final String TYPE_CREATE_CALL_PRODUCT = "P-createCallProduct-Intalio";
+    public static final String TYPE_CREATE_CALL_PRODUCT_2 = "P-createCallProduct2-Intalio";
     public static final String TYPE_CREATE_DID_PRODUCT = "P-createDIDProduct-Intalio";
     public static final String TYPE_CREATE_CALL_SUBSCRIPTION = "P-createCallSubscription-Intalio";
     public static final String TYPE_CREATE_DID_SUBSCRIPTION = "P-createDIDSubscription-Intalio";
