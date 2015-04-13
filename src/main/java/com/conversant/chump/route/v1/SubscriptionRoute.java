@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static com.conversant.chump.common.RestOperation.HttpMethod.GET;
-import static com.conversant.chump.common.RestOperation.HttpMethod.POST;
+import static com.conversant.chump.common.RestOperation.HttpMethod.POST; //TODO This should be changed to PUT when merged with the changes that allow PUT.
 import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
 import static com.conversant.chump.util.Constants.*;
 
@@ -72,17 +72,35 @@ public final class SubscriptionRoute implements ChumpRoute {
     public static final ChumpOperation UPDATE = ChumpOperation.builder()
             .trx(false)
             .rest(RestOperation.builder()
-                    .resource(RESOURCE)
-                    .path("/{subscriptionId}")
-                    .method(POST)
-                    .requestType(UpdateSubscriptionRequest.class)
-                    .build()
+                            .resource(RESOURCE)
+                            .path("/{subscriptionId}")
+                            .method(POST) //TODO This should be changed to PUT once merged with the changes that allow PUT
+                            .requestType(UpdateSubscriptionRequest.class)
+                            .build()
             ).to(Arrays.asList(
                     ChumpOperation.pair(UpdateSubscriptionProcessor.INSTANCE, AdempiereRoute.UPDATE_SUBSCRIPTION.getUri())
             ))
             .build();
 
+    /**
+     * Create a subscription on adempiere.
+     * Fields are the same as those returned by a GET to this endpoint except the subscriptionId, which is generated.
+     */
+    public static final ChumpOperation CREATE = ChumpOperation.builder()
+            .trx(false)
+            .rest(RestOperation.builder()
+                            .resource(RESOURCE)
+                            .method(POST)
+                            .requestType(UpdateSubscriptionRequest.class)
+                            .build()
+            ).to(Arrays.asList(
+                    ChumpOperation.pair(CreateSubscriptionProcessor.INSTANCE, AdempiereRoute.CREATE_SUBSCRIPTION.getUri())
+            ))
+            .postProcessors(Arrays.asList(ApiResponseProcessor.INSTANCE))
+            .build();
+
     private static final class ReadSubscriptionsRequestProcessor implements Processor {
+
         public static final Processor INSTANCE = new ReadSubscriptionsRequestProcessor();
 
         @Override
@@ -126,6 +144,35 @@ public final class SubscriptionRoute implements ChumpRoute {
             adempiereRequest.setBusinessPartnerId(request.getBusinessPartnerId());
             adempiereRequest.setBusinessPartnerLocationId(request.getBusinessPartnerLocationId());
             adempiereRequest.setProductId(request.getProductId());
+            adempiereRequest.setSubscriptionTypeId(request.getSubscriptionTypeId());
+            adempiereRequest.setStartDate(request.getStartDate());
+            adempiereRequest.setRenewalDate(request.getRenewalDate());
+            adempiereRequest.setPaidUntilDate(request.getPaidUntilDate());
+            adempiereRequest.setBillInAdvance(request.isBillInAdvance());
+            adempiereRequest.setQty(BigDecimal.valueOf(request.getQty()));
+            adempiereRequest.setIsDue(request.isDue());
+            adempiereRequest.setUserId(request.getUserId());
+
+            exchange.getIn().setBody(adempiereRequest);
+        }
+    }
+
+    private static final class CreateSubscriptionProcessor implements Processor {
+
+        public static final Processor INSTANCE = new CreateSubscriptionProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            UpdateSubscriptionRequest request = exchange.getIn().getBody(UpdateSubscriptionRequest.class);
+
+            com.conversant.webservice.CreateSubscriptionRequest adempiereRequest = new com.conversant.webservice.CreateSubscriptionRequest();
+            adempiereRequest.setLoginRequest(createLoginRequest(exchange, TYPE_CREATE_SUBSCRIPTION, ADEMPIERE_USER_DRUPAL));
+            //adempiereRequest.setSubscriptionId(Integer.parseInt((String) exchange.getIn().getHeader("subscriptionId")));
+            adempiereRequest.setName(request.getName());
+            adempiereRequest.setBusinessPartnerId(request.getBusinessPartnerId());
+            adempiereRequest.setBusinessPartnerLocationId(request.getBusinessPartnerLocationId());
+            adempiereRequest.setProductId(request.getProductId());
+            adempiereRequest.setSubscriptionTypeId(request.getSubscriptionTypeId());
             adempiereRequest.setStartDate(request.getStartDate());
             adempiereRequest.setRenewalDate(request.getRenewalDate());
             adempiereRequest.setPaidUntilDate(request.getPaidUntilDate());

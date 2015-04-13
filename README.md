@@ -124,3 +124,19 @@
         "qty" : 1,
         "userId" : 0
     }'
+
+## Create a new subscription
+    curl -XPOST -H "Content-Type: application/json" http://127.0.0.1:9090/chump/v1/subscriptions/ -d \
+    '{
+        "name" : "+12121234567",
+        "businessPartnerId" : 1000022,
+        "businessPartnerLocationId" : 1000023,
+        "productId" : 1000740,
+        "subscriptionTypeId" : 1000004,
+        "startDate" : "2015-05-01",
+        "paidUntilDate" : "2015-05-30",
+        "renewalDate" : "2015-05-30",
+        "billInAdvance" : true,
+        "qty" : 1,
+        "userId" : 0
+    }'
