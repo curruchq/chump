@@ -48,13 +48,13 @@
     }'
 
 ## Get invoices by business partner search key
-    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/invoices?businessPartnerSearchKey=1000009
+    curl http://localhost:9090/chump/v1/invoices?businessPartnerSearchKey=1000009
 
-## Get invoice lines by invoice id
-    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/invoices/1000060/lines
+## Get invoice lines by id
+    curl http://localhost:9090/chump/v1/invoices/1000060/lines
 
 ## Get subscriptions by business partner search key
-    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions?businessPartnerSearchKey=1000009
+    curl http://localhost:9090/chump/v1/subscriptions?businessPartnerSearchKey=1000009
 
-## Get subscription by subscription id
-    curl -X GET -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/1000619
+## Get subscription by id
+    curl http://localhost:9090/chump/v1/subscriptions/1000619
