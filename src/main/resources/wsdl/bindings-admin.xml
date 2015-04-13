@@ -55,6 +55,13 @@
         <jaxb:class name="ReadOrderResponseWsdlMessagePart"/>
     </jaxws:bindings>
 
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readProductBPPriceResponse']">
+        <jaxb:factoryMethod name="ReadProductBPPriceResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readProductBPPriceResponse']">
+        <jaxb:class name="ReadProductBPPriceResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
     <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readRolesResponse']">
         <jaxb:factoryMethod name="ReadRolesResponseWsdlMessagePart"/>
     </jaxws:bindings>
@@ -102,6 +109,20 @@
     </jaxws:bindings>
     <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readUsersByEmailResponse']">
         <jaxb:class name="ReadUsersByEmailResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readOrganizationResponse']">
+        <jaxb:factoryMethod name="ReadOrganizationResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readOrganizationResponse']">
+        <jaxb:class name="ReadOrganizationResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readProductResponse']">
+        <jaxb:factoryMethod name="ReadProductResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readProductResponse']">
+        <jaxb:class name="ReadProductResponseWsdlMessagePart"/>
     </jaxws:bindings>
 
 </jaxws:bindings>
