@@ -107,9 +107,7 @@ public class NumberRoute implements ChumpRoute {
                     ChumpOperation.pair(CreateNumberPortSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_NUMBER_PORT_SUBSCRIPTION.getUri()),
                     ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()),
                     ChumpOperation.pair(InboundDestinationUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
-                    ChumpOperation.pair(CallerIdv1UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
-                    ChumpOperation.pair(CallerIdv2UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
-                    ChumpOperation.pair(AuthorisedCallerIdUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
+                    ChumpOperation.pair(CallerIdv1UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
             .build();
 
     private static final class ProvisionNumberRequestProcessor implements Processor {
@@ -252,64 +250,6 @@ public class NumberRoute implements ChumpRoute {
             request.setDomain("conversant.co.nz");
             request.setAttribute("37501");
             request.setValue("sip:" + provisionNumberRequest.getNumber() + "@conversant.co.nz");
-            request.setType("2"); // TODO: Constant, numeric type
-            request.setModified(provisionNumberRequest.getStartDate());
-            request.setDateStart(provisionNumberRequest.getStartDate());
-            request.setDateEnd(calendar.getTime());
-            request.setSubscriberId("999"); // TODO: Constant? Default?
-
-            exchange.getIn().setBody(request);
-        }
-    }
-
-    private static final class CallerIdv2UserPreference implements Processor {
-
-        public static final Processor INSTANCE = new CallerIdv2UserPreference();
-
-        @Override
-        public void process(Exchange exchange) throws Exception {
-
-            ProvisionNumberRequest provisionNumberRequest = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(provisionNumberRequest.getStartDate().getTime());
-            calendar.add(Calendar.YEAR, 20);
-
-            InsertUserPreferenceRequest request = new InsertUserPreferenceRequest();
-            request.setUuid(String.valueOf(provisionNumberRequest.getBusinessPartnerId()));
-            request.setUsername("0"); // TODO: Cameron asked for null but table doesn't allow
-            request.setDomain(provisionNumberRequest.getRealm());
-            request.setAttribute("37501");
-            request.setValue("sip:+" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getRealm());
-            request.setType("2"); // TODO: Constant, numeric type
-            request.setModified(provisionNumberRequest.getStartDate());
-            request.setDateStart(provisionNumberRequest.getStartDate());
-            request.setDateEnd(calendar.getTime());
-            request.setSubscriberId("999"); // TODO: Constant? Default?
-
-            exchange.getIn().setBody(request);
-        }
-    }
-
-    private static final class AuthorisedCallerIdUserPreference implements Processor {
-
-        public static final Processor INSTANCE = new AuthorisedCallerIdUserPreference();
-
-        @Override
-        public void process(Exchange exchange) throws Exception {
-
-            ProvisionNumberRequest provisionNumberRequest = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(provisionNumberRequest.getStartDate().getTime());
-            calendar.add(Calendar.YEAR, 20);
-
-            InsertUserPreferenceRequest request = new InsertUserPreferenceRequest();
-            request.setUuid(String.valueOf(provisionNumberRequest.getBusinessPartnerId()));
-            request.setUsername(provisionNumberRequest.getNumber());
-            request.setDomain(provisionNumberRequest.getRealm());
-            request.setAttribute("20301");
-            request.setValue("sip:+" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getRealm());
             request.setType("2"); // TODO: Constant, numeric type
             request.setModified(provisionNumberRequest.getStartDate());
             request.setDateStart(provisionNumberRequest.getStartDate());

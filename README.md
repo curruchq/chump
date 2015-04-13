@@ -23,6 +23,17 @@
         "currencyId": 121
     }'
 
+## Provision a number
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/provision -d \
+    '{
+        "realm": "conversant.co.nz",
+        "proxy": "c-vm-02.conversant.co.nz",
+        "businessPartnerId": 1000076,
+        "businessPartnerLocationId": 1000014,
+        "startDate": "2015-02-01",
+        "paidUntilDate": "2015-03-01"
+    }'
+
 # REST - v1
 ## Create a number
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \

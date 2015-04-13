@@ -46,6 +46,7 @@ public class AdempiereRoute implements ChumpRoute {
     public static final ChumpOperation CREATE_DID_PRODUCT = build(ENDPOINT_PROVISION, "direct://createDIDProduct");
     public static final ChumpOperation UPDATE_DID_PRODUCT = build(ENDPOINT_PROVISION, "direct://updateDIDProduct");
     public static final ChumpOperation CREATE_CALL_SUBSCRIPTION = build(ENDPOINT_PROVISION, "direct://createCallSubscription");
+    public static final ChumpOperation CREATE_CALL_SUBSCRIPTION_2 = build(ENDPOINT_PROVISION, "direct://createCallSubscription2");
     public static final ChumpOperation CREATE_DID_SUBSCRIPTION = build(ENDPOINT_PROVISION, "direct://createDIDSubscription");
     public static final ChumpOperation CREATE_NUMBER_PORT_SUBSCRIPTION = build(ENDPOINT_PROVISION, "direct://createNumberPortSubscription");
 
