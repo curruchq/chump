@@ -19,7 +19,7 @@ public class UpdateSubscriptionRequest {
     private Date renewalDate;
     private Date paidUntilDate;
     private boolean billInAdvance;
-    private int qty; //This is the name of the field returned by adempiere, I went for conisistency over non abreveation.
+    private int qty;
     private boolean isDue;
     private int userId;
 }

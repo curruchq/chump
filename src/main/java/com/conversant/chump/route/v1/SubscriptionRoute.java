@@ -33,6 +33,7 @@ import static com.conversant.chump.util.Constants.*;
  */
 @Component
 public final class SubscriptionRoute implements ChumpRoute {
+
     private static final String RESOURCE = "/v1/subscriptions";
 
     public static final ChumpOperation READ = ChumpOperation.builder()
@@ -66,25 +67,22 @@ public final class SubscriptionRoute implements ChumpRoute {
             .build();
 
     /**
-     * Update a subscription on adempiere.
-     * Fields are the same as those returned by a GET to this endpoint.
+     * Update a subscription
      */
     public static final ChumpOperation UPDATE = ChumpOperation.builder()
             .trx(false)
             .rest(RestOperation.builder()
                             .resource(RESOURCE)
                             .path("/{subscriptionId}")
-                            .method(POST) //TODO This should be changed to PUT once merged with the changes that allow PUT
+                            .method(POST)
                             .requestType(UpdateSubscriptionRequest.class)
-                            .build()
-            ).to(Arrays.asList(
-                    ChumpOperation.pair(UpdateSubscriptionProcessor.INSTANCE, AdempiereRoute.UPDATE_SUBSCRIPTION.getUri())
-            ))
+                            .build())
+            .to(Arrays.asList(
+                    ChumpOperation.pair(UpdateSubscriptionProcessor.INSTANCE, AdempiereRoute.UPDATE_SUBSCRIPTION.getUri())))
             .build();
 
     /**
-     * Create a subscription on adempiere.
-     * Fields are the same as those returned by a GET to this endpoint except the subscriptionId, which is generated.
+     * Create a subscription
      */
     public static final ChumpOperation CREATE = ChumpOperation.builder()
             .trx(false)
@@ -92,10 +90,9 @@ public final class SubscriptionRoute implements ChumpRoute {
                             .resource(RESOURCE)
                             .method(POST)
                             .requestType(UpdateSubscriptionRequest.class)
-                            .build()
-            ).to(Arrays.asList(
-                    ChumpOperation.pair(CreateSubscriptionProcessor.INSTANCE, AdempiereRoute.CREATE_SUBSCRIPTION.getUri())
-            ))
+                            .build())
+            .to(Arrays.asList(
+                    ChumpOperation.pair(CreateSubscriptionProcessor.INSTANCE, AdempiereRoute.CREATE_SUBSCRIPTION.getUri())))
             .postProcessors(Arrays.asList(ApiResponseProcessor.INSTANCE))
             .build();
 
@@ -167,7 +164,6 @@ public final class SubscriptionRoute implements ChumpRoute {
 
             com.conversant.webservice.CreateSubscriptionRequest adempiereRequest = new com.conversant.webservice.CreateSubscriptionRequest();
             adempiereRequest.setLoginRequest(createLoginRequest(exchange, TYPE_CREATE_SUBSCRIPTION, ADEMPIERE_USER_DRUPAL));
-            //adempiereRequest.setSubscriptionId(Integer.parseInt((String) exchange.getIn().getHeader("subscriptionId")));
             adempiereRequest.setName(request.getName());
             adempiereRequest.setBusinessPartnerId(request.getBusinessPartnerId());
             adempiereRequest.setBusinessPartnerLocationId(request.getBusinessPartnerLocationId());

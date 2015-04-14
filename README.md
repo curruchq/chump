@@ -110,7 +110,7 @@
     }'
 
 ## Update subscription
-    curl -XPOST -H "Content-Type: application/json" http://127.0.0.1:9090/chump/v1/subscriptions/1000619 -d \
+    curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/1000619 -d \
     '{
         "name" : "+12124016222",
         "businessPartnerId" : 1000022,
@@ -126,7 +126,7 @@
     }'
 
 ## Create a new subscription
-    curl -XPOST -H "Content-Type: application/json" http://127.0.0.1:9090/chump/v1/subscriptions/ -d \
+    curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions -d \
     '{
         "name" : "+12121234567",
         "businessPartnerId" : 1000022,
