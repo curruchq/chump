@@ -97,13 +97,13 @@
     curl http://localhost:9090/chump/v1/subscriptions/1000619
 
 ## Get products by category id
-    curl -X GET -H "Content-Type: application/json" http://127.0.0.1:9090/chump/v1/product?productCategoryId=1000022
+    curl http://localhost:9090/chump/v1/products?productCategoryId=1000022
 
 ## Get product by product id
-    curl -X GET -H "Content-Type: application/json" http://127.0.0.1:9090/chump/v1/product/1015750
+    curl http://localhost:9090/chump/v1/products/1015750
 
-## Get BPPrice
-    curl -X GET -H "Content-Type: application/json" http://127.0.0.1:9090/chump/v1/product/1015750/price?businessPartnerSearchKey=1000009
+## Get product price for business partner
+    curl http://localhost:9090/chump/v1/products/1015750/price?businessPartnerSearchKey=1000009
 
 ## Migrate a customer
     curl -X POST -H "Content-type: application/json" http://localhost:9090/chump/v1/migration -d \

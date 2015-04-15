@@ -129,7 +129,10 @@ public class ChumpRouteBuilder extends RouteBuilder {
                 throw new UnsupportedOperationException("Unsupported HTTP method[" + operation.getMethod() + "]");
         }
 
-        def.type(operation.getRequestType());
+        if (operation.getRequestType() != null) {
+            def.type(operation.getRequestType());
+        }
+
         def.to(operation.getUri());
     }
 
