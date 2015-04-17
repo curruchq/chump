@@ -6,8 +6,12 @@ import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.ApiResponse;
 import com.conversant.chump.model.ProvisionNumberRequest;
 import com.conversant.chump.model.ProvisionOrderRequest;
+import com.conversant.chump.processor.ApiResponseProcessor;
+import com.conversant.chump.processor.StandardResponseRemover;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.chump.route.v1.NumberRoute;
+import com.conversant.chump.util.AdempiereHelper;
+import com.conversant.chump.util.Constants;
 import com.conversant.webservice.*;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -20,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.conversant.chump.common.RestOperation.HttpMethod.GET;
 import static com.conversant.chump.common.RestOperation.HttpMethod.POST;
 import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
 import static com.conversant.chump.util.Constants.*;
@@ -42,12 +47,26 @@ public class OrderRoute implements ChumpRoute {
                     .requestType(ProvisionOrderRequest.class)
                     .build())
             .trx(false)
-                    // TODO: Can remove once fix header and path param
+            // TODO: Can remove once fix header and path param
             .preProcessors(Arrays.asList(ProvisionOrderRequestProcessor.INSTANCE))
             .to(Arrays.asList(
                     ChumpOperation.pair(ReadOrderRequestProcessor.INSTANCE, AdempiereRoute.READ_ORDER.getUri()),
                     ChumpOperation.pair(ReadOrderDIDsRequestProcessor.INSTANCE, AdempiereRoute.READ_ORDER_DIDS.getUri()),
                     ChumpOperation.pair(ProvisionNumberSplitRequestProcessor.INSTANCE, PROVISION_ORDER_CUSTOM)))
+            .build();
+
+    public static final ChumpOperation LINES = ChumpOperation.builder()
+            .rest(RestOperation.builder()
+                    .method(GET)
+                    .resource(RESOURCE)
+                    .path("/{orderNo}/lines")
+                    .requestType(null)
+                    .build())
+            .trx(false)
+            .to(Arrays.asList(
+                    ChumpOperation.pair(ReadOrderLinesRequestProcessor.INSTANCE, AdempiereRoute.READ_ORDER_LINES.getUri())))
+            .postProcessors(Arrays.asList(
+                    new StandardResponseRemover("orderLine"), ApiResponseProcessor.INSTANCE))
             .build();
 
     @Component
@@ -62,7 +81,7 @@ public class OrderRoute implements ChumpRoute {
                     // which groups individual ApiResponse's into a list
                     .split(body(), ProvisionNumberAggregationStrategy.INSTANCE)
 
-                            // Call provision number for each split request
+                    // Call provision number for each split request
                     .to(NumberRoute.PROVISION.getUri()).end()
 
                     // Process final result of custom aggregation strategy into a single ApiResponse
@@ -197,6 +216,33 @@ public class OrderRoute implements ChumpRoute {
             oldExchange.getIn().getBody(List.class).add(response);
 
             return oldExchange;
+        }
+    }
+
+    private static class ReadOrderLinesRequestProcessor implements Processor {
+        public static final Processor INSTANCE = new ReadOrderLinesRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            ReadOrderLinesRequest request = new ReadOrderLinesRequest();
+            Integer productId = null;
+            Integer productCategoryId = null;
+
+            //Handling optional parameters
+            if (exchange.getIn().getHeader("productId") != null)
+                productId =Integer.parseInt((String) exchange.getIn().getHeader("productId"));
+
+            if (exchange.getIn().getHeader("productCategoryId") != null)
+                productCategoryId = Integer.parseInt((String) exchange.getIn().getHeader("productCategoryId"));
+
+            request.setLoginRequest(AdempiereHelper.createLoginRequest(exchange, Constants.TYPE_READ_ORDER_LINES, Constants.ADEMPIERE_USER_INTALIO));
+            request.setOrderId(Integer.parseInt((String) exchange.getIn().getHeader("orderNo")));
+            if (productId !=null)
+                request.setProductId(productId);
+            if (productCategoryId != null)
+                request.setProductCategoryId(productCategoryId);
+
+            exchange.getIn().setBody(request);
         }
     }
 }
