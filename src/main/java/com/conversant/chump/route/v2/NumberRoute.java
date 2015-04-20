@@ -113,6 +113,7 @@ public class NumberRoute implements ChumpRoute {
                     ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()),
                     ChumpOperation.pair(CreateNumberPortSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_NUMBER_PORT_SUBSCRIPTION.getUri()),
                     ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()),
+                    ChumpOperation.pair(InboundDestinationUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
                     ChumpOperation.pair(CallerIdv2UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
                     ChumpOperation.pair(AuthorisedCallerIdUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
             .build();
@@ -207,6 +208,35 @@ public class NumberRoute implements ChumpRoute {
             didProductRequest.setSubscribed(true);
 
             exchange.getIn().setBody(didProductRequest);
+        }
+    }
+
+    private static final class InboundDestinationUserPreference implements Processor {
+
+        public static final Processor INSTANCE = new InboundDestinationUserPreference();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            ProvisionNumberRequest provisionNumberRequest = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(provisionNumberRequest.getStartDate().getTime());
+            calendar.add(Calendar.YEAR, 20);
+
+            InsertUserPreferenceRequest request = new InsertUserPreferenceRequest();
+            request.setUuid(String.valueOf(provisionNumberRequest.getBusinessPartnerId()));
+            request.setUsername(provisionNumberRequest.getNumber());
+            request.setDomain("conversant.co.nz");
+            request.setAttribute("20116");
+            request.setValue("sip:" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getProxy());
+            request.setType(USER_PREF_TYPE_NUMERIC);
+            request.setModified(provisionNumberRequest.getStartDate());
+            request.setDateStart(provisionNumberRequest.getStartDate());
+            request.setDateEnd(calendar.getTime());
+            request.setSubscriberId(USER_PREF_SUBSCRIBER_ID);
+
+            exchange.getIn().setBody(request);
         }
     }
 
