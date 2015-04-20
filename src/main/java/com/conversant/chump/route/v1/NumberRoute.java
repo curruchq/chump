@@ -27,6 +27,9 @@ import static com.conversant.chump.util.Constants.*;
 @Component
 public class NumberRoute implements ChumpRoute {
 
+    private static final String USER_PREF_SUBSCRIBER_ID = "0";
+    private static final String USER_PREF_TYPE_NUMERIC = "2";
+
     /** Base resource */
     private static final String RESOURCE = "/v1/numbers";
 
@@ -220,11 +223,11 @@ public class NumberRoute implements ChumpRoute {
             request.setDomain("conversant.co.nz");
             request.setAttribute("20116");
             request.setValue("sip:" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getProxy());
-            request.setType("2"); // TODO: Constant, numeric type
+            request.setType(USER_PREF_TYPE_NUMERIC);
             request.setModified(provisionNumberRequest.getStartDate());
             request.setDateStart(provisionNumberRequest.getStartDate());
             request.setDateEnd(calendar.getTime());
-            request.setSubscriberId("999"); // TODO: Constant? Default?
+            request.setSubscriberId(USER_PREF_SUBSCRIBER_ID);
 
             exchange.getIn().setBody(request);
         }
@@ -249,11 +252,11 @@ public class NumberRoute implements ChumpRoute {
             request.setDomain("conversant.co.nz");
             request.setAttribute("37501");
             request.setValue("sip:" + provisionNumberRequest.getNumber() + "@conversant.co.nz");
-            request.setType("2"); // TODO: Constant, numeric type
+            request.setType(USER_PREF_TYPE_NUMERIC);
             request.setModified(provisionNumberRequest.getStartDate());
             request.setDateStart(provisionNumberRequest.getStartDate());
             request.setDateEnd(calendar.getTime());
-            request.setSubscriberId("999"); // TODO: Constant? Default?
+            request.setSubscriberId(USER_PREF_SUBSCRIBER_ID);
 
             exchange.getIn().setBody(request);
         }
