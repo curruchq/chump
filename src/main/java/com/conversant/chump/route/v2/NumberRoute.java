@@ -222,7 +222,7 @@ public class NumberRoute implements ChumpRoute {
 
             InsertUserPreferenceRequest request = new InsertUserPreferenceRequest();
             request.setUuid(String.valueOf(provisionNumberRequest.getBusinessPartnerId()));
-            request.setUsername("0"); // TODO: Cameron asked for null but table doesn't allow
+            request.setUsername("");
             request.setDomain(provisionNumberRequest.getRealm());
             request.setAttribute("37501");
             request.setValue("sip:+" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getRealm());
