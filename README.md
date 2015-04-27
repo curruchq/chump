@@ -84,8 +84,8 @@
         "ids": ["22985c454b0977543912753e5d1d3ff0@202.180.76.164", "6cc1347370082741616f98dc286a30e6@conversant.co.nz"]
     }'
 
-## Get a list of locations by business partner search key
-    curl http://localhost:9090/chump/v1/businessPartners/1000009
+## Get a list of locations for a business partner
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/locations
 
 ## Get invoices by business partner search key
     curl http://localhost:9090/chump/v1/invoices?businessPartnerSearchKey=1000009

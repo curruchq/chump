@@ -28,12 +28,12 @@ import static com.conversant.chump.util.Constants.TYPE_READ_BUSINESS_PARTNER_LOC
 @Component
 public class BusinessPartnerRoute implements ChumpRoute {
 
-    private static final String RESOURCE = "/v1/businessPartners";
+    private static final String RESOURCE = "/v1/businesspartners";
 
     public static final ChumpOperation READ = ChumpOperation.builder()
             .rest(RestOperation.builder()
                     .resource(RESOURCE)
-                    .path("/{businessPartnerSearchKey}")
+                    .path("/{businessPartnerSearchKey}/locations")
                     .method(RestOperation.HttpMethod.GET)
                     .build())
             .trx(false)
