@@ -177,7 +177,7 @@
 
 ## Read user
     curl http://localhost:9090/chump/v1/users/1003400
-    
+
 ## Update user
     curl -XPUT -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/1003400 -d \
     '{
@@ -187,6 +187,18 @@
 	    "email" : "test@gmail.com",
 	    "phone" : "9010006723"
     }'
-     
+
 ## Delete user
     curl -XDELETE http://localhost:9090/chump/v1/users/1003400
+    
+## Read User Role
+    curl http://localhost:9090/chump/v1/users/1001257/roles/1000017  
+
+## Create User Role
+    curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/{1001257}/roles -d \ 
+    '{ 
+		   "roleId" :1000000
+	 }'
+		
+## Delete User Role
+    curl -XDELETE http://localhost:9090/chump/v1/users/1001257/roles/1000017
