@@ -25,6 +25,6 @@ public class RestOperation {
     }
 
     public enum HttpMethod {
-        GET, POST
+        GET, POST,DELETE,PUT
     }
 }

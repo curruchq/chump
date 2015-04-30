@@ -125,6 +125,12 @@ public class ChumpRouteBuilder extends RouteBuilder {
             case POST:
                 def = def.post(operation.getPath());
                 break;
+            case DELETE:
+                def = def.delete(operation.getPath());
+                break;
+            case PUT:
+                def = def.put(operation.getPath());
+                break;
             default:
                 throw new UnsupportedOperationException("Unsupported HTTP method[" + operation.getMethod() + "]");
         }
