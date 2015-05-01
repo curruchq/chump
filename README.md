@@ -155,6 +155,9 @@
         "qty" : 1,
         "userId" : 0
     }'
+    
+## Get subscribed numbers
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/numbers
 
 ## Get organisation by id
     curl http://localhost:9090/chump/v1/organisations/1000008
