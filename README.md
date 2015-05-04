@@ -156,5 +156,5 @@
         "userId" : 0
     }'
 
-## Get organisation by organisation id
+## Get organisation by id
     curl http://localhost:9090/chump/v1/organisations/1000008
