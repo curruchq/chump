@@ -125,4 +125,11 @@
         <jaxb:class name="ReadProductResponseWsdlMessagePart"/>
     </jaxws:bindings>
 
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readOrderLinesResponse']">
+        <jaxb:factoryMethod name="ReadOrderLinesResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readOrderLinesResponse']">
+        <jaxb:class name="ReadOrderLinesResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
 </jaxws:bindings>
