@@ -79,7 +79,7 @@
     }'
 
 ## Read order lines (optional query parameters - productId and productCategoryId)
-    curl http://localhost:9090/chump/v1/orders/1002217/lines
+    curl http://localhost:9090/chump/v1/orders/52732/lines
 
 ## Search call records
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/callrecords/search -d \
