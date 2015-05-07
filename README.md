@@ -90,6 +90,9 @@
 ## Get a list of locations for a business partner
     curl http://localhost:9090/chump/v1/businesspartners/1000009/locations
 
+## Get subscribed numbers
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/numbers
+
 ## Get invoices by business partner search key
     curl http://localhost:9090/chump/v1/invoices?businessPartnerSearchKey=1000009
 
@@ -155,9 +158,6 @@
         "qty" : 1,
         "userId" : 0
     }'
-    
-## Get subscribed numbers
-    curl http://localhost:9090/chump/v1/businesspartners/1000009/numbers
 
 ## Get organisation by id
     curl http://localhost:9090/chump/v1/organisations/1000008

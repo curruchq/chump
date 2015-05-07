@@ -52,6 +52,7 @@ public class AdempiereRoute implements ChumpRoute {
 
     public static final ChumpOperation READ_BUSINESS_PARTNER = build(ENDPOINT_ADMIN, "direct://readBusinessPartnerBySearchKey");
     public static final ChumpOperation READ_BUSINESS_PARTNER_LOCATION = build(ENDPOINT_ADMIN, "direct://readBPLocations");
+    public static final ChumpOperation READ_SUBSCRIBED_NUMBERS = build(ENDPOINT_ADMIN, "direct://readSubscribedNumbers");
     public static final ChumpOperation READ_INVOICE = build(ENDPOINT_ACCOUNTING, "direct://readInvoicesByBusinessPartner");
     public static final ChumpOperation READ_INVOICE_LINES = build(ENDPOINT_ACCOUNTING, "direct://readInvoiceLines");
     public static final ChumpOperation READ_SUBSCRIPTIONS = build(ENDPOINT_ADMIN, "direct://readSubscriptions");
@@ -65,8 +66,6 @@ public class AdempiereRoute implements ChumpRoute {
     public static final ChumpOperation READ_PRODUCT_BP_PRICE = build(ENDPOINT_ADMIN, "direct://readProductBPPrice");
     public static final ChumpOperation READ_ORDER_NUMBER_PORTS = build(ENDPOINT_ADMIN, "direct://readOrderNumberPorts");
     public static final ChumpOperation READ_ORGANISATION = build(ENDPOINT_ADMIN, "direct://readOrganization");
-    
-    public static final ChumpOperation READ_SUBSCRIBED_NUMBERS=build(ENDPOINT_ADMIN, "direct://readSubscribedNumbers");
 
     private static ChumpOperation build(String endPoint, String uri) {
         return build(endPoint, uri, null);

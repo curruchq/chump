@@ -44,6 +44,7 @@ public class BusinessPartnerRoute implements ChumpRoute {
             .postProcessors(Arrays.asList(
                     new StandardResponseRemover("bpLocation"), ApiResponseProcessor.INSTANCE))
             .build();
+
     public static final ChumpOperation READ_SUBSCRIBED_NUMBERS = ChumpOperation.builder()
             .rest(RestOperation.builder()
                     .resource(RESOURCE)
