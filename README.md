@@ -190,15 +190,15 @@
 
 ## Delete user
     curl -XDELETE http://localhost:9090/chump/v1/users/1003400
-    
-## Read User Role
-    curl http://localhost:9090/chump/v1/users/1001257/roles/1000017  
 
-## Create User Role
-    curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/{1001257}/roles -d \ 
-    '{ 
-		   "roleId" :1000000
+## Create user role
+    curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/1001257/roles -d \
+    '{
+		   "roleId": 1000000
 	 }'
-		
-## Delete User Role
+
+## Read user role
+    curl http://localhost:9090/chump/v1/users/1001257/roles/1000017
+
+## Delete user role
     curl -XDELETE http://localhost:9090/chump/v1/users/1001257/roles/1000017

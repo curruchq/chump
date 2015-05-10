@@ -41,7 +41,7 @@ public class Constants {
     public static final String TYPE_READ_USER="AD-readUser-Drupal";
     public static final String TYPE_UPDATE_USER="AD-updateUser-Drupal";
     public static final String TYPE_DELETE_USER="AD-deleteUser-Drupal";
-    
+
     public static final String TYPE_READ_USER_ROLE = "AD-readUserRole-Drupal";
     public static final String TYPE_CREATE_USER_ROLE = "AD-createUserRole-Drupal";
     public static final String TYPE_DELETE_USER_ROLE = "AD-deleteUserRole-Drupal";
