@@ -161,22 +161,9 @@
 
 ## Get organisation by id
     curl http://localhost:9090/chump/v1/organisations/1000008
-    
-## Read User by userId
-    curl http://localhost:9090/chump/v1/users/1003400
-    
-## Update User
-    curl -XPUT -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/1003400 -d \
-    '{
-	    "searchKey" : "testconversant",
-	    "name" : "testconversant",
-	    "password" : "test",
-	    "email" : "test@gmail.com",
-	    "phone" : "9010006723"
-    }'
-    
-## Create User
-    curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/users -d \  
+
+## Create user
+    curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/users -d \
     '{
         "searchKey" : "test",
         "name" : "test",
@@ -187,6 +174,19 @@
         "businessPartnerId" : "1000175",
         "businessPartnerLocationId" : "1000198"
      }'
+
+## Read user
+    curl http://localhost:9090/chump/v1/users/1003400
+    
+## Update user
+    curl -XPUT -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/1003400 -d \
+    '{
+	    "searchKey" : "testconversant",
+	    "name" : "testconversant",
+	    "password" : "test",
+	    "email" : "test@gmail.com",
+	    "phone" : "9010006723"
+    }'
      
-## Delete User
+## Delete user
     curl -XDELETE http://localhost:9090/chump/v1/users/1003400

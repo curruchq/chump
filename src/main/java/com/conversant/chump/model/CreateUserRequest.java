@@ -13,5 +13,4 @@ public class CreateUserRequest {
 	private String mobile;
 	private int businessPartnerId;
 	private int businessPartnerLocationId;
-
 }

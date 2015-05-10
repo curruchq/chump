@@ -11,5 +11,4 @@ public class UpdateUserRequest {
 	private String email;
 	private String phone;
 	private String mobile;
-
 }

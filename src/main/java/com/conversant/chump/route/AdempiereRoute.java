@@ -67,10 +67,10 @@ public class AdempiereRoute implements ChumpRoute {
     public static final ChumpOperation READ_ORDER_NUMBER_PORTS = build(ENDPOINT_ADMIN, "direct://readOrderNumberPorts");
     public static final ChumpOperation READ_ORGANISATION = build(ENDPOINT_ADMIN, "direct://readOrganization");
     
-    public static final ChumpOperation CREATE_USER=build(ENDPOINT_ADMIN, "direct://createUser");
-    public static final ChumpOperation UPDATE_USER=build(ENDPOINT_ADMIN, "direct://updateUser");
-    public static final ChumpOperation READ_USER=build(ENDPOINT_ADMIN, "direct://readUser");
-    public static final ChumpOperation DELETE_USER=build(ENDPOINT_ADMIN, "direct://deleteUser");
+    public static final ChumpOperation CREATE_USER = build(ENDPOINT_ADMIN, "direct://createUser");
+    public static final ChumpOperation READ_USER = build(ENDPOINT_ADMIN, "direct://readUser");
+    public static final ChumpOperation UPDATE_USER = build(ENDPOINT_ADMIN, "direct://updateUser");
+    public static final ChumpOperation DELETE_USER = build(ENDPOINT_ADMIN, "direct://deleteUser");
 
     private static ChumpOperation build(String endPoint, String uri) {
         return build(endPoint, uri, null);

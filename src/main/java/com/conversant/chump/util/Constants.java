@@ -38,8 +38,8 @@ public class Constants {
     public static final String TYPE_READ_ORGANISATION = "AD-readOrganization-Intalio";
     
     public static final String TYPE_CREATE_USER="AD-createUser-Drupal";
-    public static final String TYPE_UPDATE_USER="AD-updateUser-Drupal";
     public static final String TYPE_READ_USER="AD-readUser-Drupal";
+    public static final String TYPE_UPDATE_USER="AD-updateUser-Drupal";
     public static final String TYPE_DELETE_USER="AD-deleteUser-Drupal";
 
     public static final String ADEMPIERE_USER_DEFAULT = "IntalioUser";
