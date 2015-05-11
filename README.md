@@ -42,6 +42,9 @@
     }'
 
 # REST - v1
+## Get status
+    curl http://localhost:9090/chump/v1/status
+
 ## Create a number
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
     '{
