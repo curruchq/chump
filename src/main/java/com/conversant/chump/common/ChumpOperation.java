@@ -48,5 +48,44 @@ public class ChumpOperation {
     public static class ProcessToPair {
         private final Processor processor;
         private final String to;
+        private Filter filter;
+
+        public ProcessToPair excludable(String name) {
+            setFilter(Filter.exclude(name));
+            return this;
+        }
+
+        public ProcessToPair includable(String name) {
+            setFilter(Filter.include(name));
+            return this;
+        }
+    }
+
+    @Data
+    public static class Filter {
+
+        public enum Type {INCLUDE, EXCLUDE}
+        public static final String PREFIX = "filter.";
+
+        private final Type type;
+        private final String name;
+
+        /**
+         * Explicit include filter. If supplied pair will be include, else it will be skipped.
+         * @param name Name of filter
+         * @return Filter
+         */
+        public static Filter include(String name) {
+            return new Filter(Type.INCLUDE, PREFIX + "include." + name);
+        }
+
+        /**
+         * Explicit exclude filter. If supplied pair will be excluded, else if will be processed.
+         * @param name Name of filter
+         * @return Filter
+         */
+        public static Filter exclude(String name) {
+            return new Filter(Type.EXCLUDE, PREFIX + "exclude." + name);
+        }
     }
 }

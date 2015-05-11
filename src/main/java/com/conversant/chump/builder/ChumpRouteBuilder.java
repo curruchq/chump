@@ -8,8 +8,11 @@ import com.conversant.chump.model.ApiResponse;
 import com.conversant.chump.route.AdempiereRoute;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
+import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.ChoiceDefinition;
+import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.TryDefinition;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -150,6 +153,7 @@ public class ChumpRouteBuilder extends RouteBuilder {
 //            route.onException(Exception.class).handled(true).process(ExceptionProcessor.INSTANCE).process(e -> log.error("Caught on route: {}", e.getExchangeId()));
 
             route.process(RequestProcessor.INSTANCE);
+            route.process(FilterProcessor.INSTANCE);
             operation.getPreProcessors().forEach(route::process);
 
             if (operation.getTrx()) {
@@ -158,11 +162,7 @@ public class ChumpRouteBuilder extends RouteBuilder {
 
                 // Try
                 TryDefinition doTry = route.doTry();
-                operation.getTo().forEach(pair -> {
-                    if (pair.getProcessor() != null)
-                        doTry.process(pair.getProcessor());
-                    doTry.to(pair.getTo());
-                });
+                operation.getTo().forEach(pair -> processToPair(doTry, pair));
                 doTry.to(AdempiereRoute.COMMIT_TRX.getUri());
 
                 // Catch
@@ -178,14 +178,41 @@ public class ChumpRouteBuilder extends RouteBuilder {
             } else {
 //                route.errorHandler(noErrorHandler());
 //                route.onException(Exception.class).handled(true).process(ExceptionProcessor.INSTANCE).process(e -> log.error("Caught on route: {}", e.getExchangeId()));
-                operation.getTo().forEach(pair -> {
-                    if (pair.getProcessor() != null)
-                        route.process(pair.getProcessor());
-                    route.to(pair.getTo());
-                });
+                operation.getTo().forEach(pair -> processToPair(route, pair));
                 operation.getPostProcessors().forEach(route::process);
             }
         });
+    }
+
+    private void processToPair(ProcessorDefinition def, ChumpOperation.ProcessToPair pair) {
+
+        if (pair.getFilter() != null) {
+
+            Predicate predicate;
+            switch (pair.getFilter().getType()) {
+                case EXCLUDE:
+                    predicate = property(pair.getFilter().getName()).isNull();
+                    break;
+                case INCLUDE:
+                    predicate = property(pair.getFilter().getName()).isNotNull();
+                    break;
+                default:
+                    throw new RuntimeException("Filter type not supported: " + pair.getFilter().getType());
+            }
+
+            ChoiceDefinition choice = def.choice().when(predicate);
+            if (pair.getProcessor() != null) {
+                choice.process(pair.getProcessor());
+            }
+            choice.to(pair.getTo());
+            choice.endChoice();
+        }
+        else {
+            if (pair.getProcessor() != null) {
+                def.process(pair.getProcessor());
+            }
+            def.to(pair.getTo());
+        }
     }
 
     private static final class RequestProcessor implements Processor {
@@ -198,6 +225,18 @@ public class ChumpRouteBuilder extends RouteBuilder {
             if (body != null) {
                 exchange.setProperty(body.getClass().getName(), body);
             }
+        }
+    }
+
+    private static final class FilterProcessor implements Processor {
+
+        public static final Processor INSTANCE = new FilterProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            exchange.getIn().getHeaders().keySet().stream()
+                    .filter(header -> header.startsWith(ChumpOperation.Filter.PREFIX))
+                    .forEach(filter -> exchange.setProperty(filter, exchange.getIn().getHeader(filter)));
         }
     }
 
