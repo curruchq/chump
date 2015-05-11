@@ -5,9 +5,9 @@ import lombok.Data;
 /**
  * Created by Saren Currie on 2015-04-09.
  */
-
 @Data
-public class InsertBillingCustomerInboundRequest {
+public class BillingCustomerRequest {
+    private String domain;
     private String subscriber;
     private String profileName;
     private String profileNameAlt;

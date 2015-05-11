@@ -202,9 +202,9 @@
 
 ## Delete user role
     curl -XDELETE http://localhost:9090/chump/v1/users/1001257/roles/1000017
-    
-## Create an inbound billing customer entry
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/billingCustomers/inbound -d \
+
+## Create usage rating - Inbound billing customer
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/usageratings/billingcustomers -d \
     '{
         "subscriber": "1000009@conversant.co.nz",
         "profileName": "BS_X_1",
@@ -212,17 +212,8 @@
         "timezone": "Pacific/Auckland"
     }'
 
-## Update an inbound billing customer entry
-    curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/billingCustomers/inbound/1000010@conversant.co.nz -d \
-    '{
-        "subscriber": "1000010@conversant.co.nz",
-        "profileName": "BS_X_111",
-        "profileNameAlt": "Int_X_111",
-        "timezone": "Pacific/Honolulu"
-    }'
-
-## Create an outbound billing customer entry
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/billingCustomers/outbound -d \
+## Create usage rating - Outbound billing customer
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/usageratings/billingcustomers -d \
     '{
         "domain": "conversant.co.nz",
         "profileName": "BS_X_1",
@@ -230,11 +221,20 @@
         "timezone": "Pacific/Auckland"
     }'
 
-## Update an outbound billing customer entry
-    curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/billingCustomers/outbound/conversant.co.nz -d \
+## Update usage rating - Inbound billing customer
+    curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/usageratings/billingcustomers -d \
     '{
-        "domain": "conversant.com.au",
-        "profileName": "BS_Y_1",
-        "profileNameAlt": "Int_Y_1",
-        "timezone": "Pacific/Sydney"
+        "subscriber": "1000009@conversant.co.nz",
+        "profileName": "BS_X_111",
+        "profileNameAlt": "Int_X_111",
+        "timezone": "Pacific/Honolulu"
+    }'
+
+## Update usage rating - Outbound billing customer
+    curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/usageratings/billingcustomers -d \
+    '{
+        "domain": "conversant.co.nz",
+        "profileName": "BS_X_111",
+        "profileNameAlt": "Int_X_111",
+        "timezone": "Pacific/Honolulu"
     }'
