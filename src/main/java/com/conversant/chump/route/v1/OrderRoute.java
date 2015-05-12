@@ -341,6 +341,14 @@ public class OrderRoute implements ChumpRoute {
             readOrderRequest.setLoginRequest(createLoginRequest(exchange, TYPE_READ_ORDER, ADEMPIERE_USER_INTALIO));
             readOrderRequest.setDocumentNo((String) exchange.getIn().getHeader("orderNo"));
 
+            if (exchange.getIn().getHeader("productId") != null) {
+                exchange.setProperty("productId", Integer.parseInt((String) exchange.getIn().getHeader("productId")));
+            }
+
+            if (exchange.getIn().getHeader("productCategoryId") != null) {
+                exchange.setProperty("productCategoryId", Integer.parseInt((String) exchange.getIn().getHeader("productCategoryId")));
+            }
+
             exchange.getIn().setBody(readOrderRequest);
         }
     }
@@ -358,12 +366,14 @@ public class OrderRoute implements ChumpRoute {
             request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_ORDER_LINES, ADEMPIERE_USER_INTALIO));
             request.setOrderId(response.getOrder().getOrderId());
 
-            if (exchange.getIn().getHeader("productId") != null) {
-                request.setProductId(Integer.parseInt((String) exchange.getIn().getHeader("productId")));
+            Integer productId = exchange.getProperty("productId", Integer.class);
+            if (productId != null) {
+                request.setProductId(productId);
             }
 
-            if (exchange.getIn().getHeader("productCategoryId") != null) {
-                request.setProductCategoryId(Integer.parseInt((String) exchange.getIn().getHeader("productCategoryId")));
+            Integer productCategoryId = exchange.getProperty("productCategoryId", Integer.class);
+            if (productCategoryId != null) {
+                request.setProductCategoryId(productCategoryId);
             }
 
             exchange.getIn().setBody(request);
