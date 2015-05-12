@@ -4,7 +4,7 @@ import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.ChumpRoute;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.ApiResponse;
-import com.conversant.chump.model.ProvisionNumberRequest;
+import com.conversant.chump.model.NumberRequest;
 import com.conversant.chump.model.ProvisionOrderRequest;
 import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.processor.StandardResponseRemover;
@@ -165,10 +165,10 @@ public class OrderRoute implements ChumpRoute {
             ProvisionOrderRequest provisionOrderRequest = exchange.getProperty(ProvisionOrderRequest.class.getName(), ProvisionOrderRequest.class);
             Order order = exchange.getProperty(ORDER, Order.class);
 
-            List<ProvisionNumberRequest> requests = exchange.getIn().getBody(ReadOrderDIDsResponse.class).getDids().stream()
+            List<NumberRequest> requests = exchange.getIn().getBody(ReadOrderDIDsResponse.class).getDids().stream()
                     .map(did -> {
 
-                        ProvisionNumberRequest request = new ProvisionNumberRequest();
+                        NumberRequest request = new NumberRequest();
                         request.setNumber(did);
                         request.setRealm(provisionOrderRequest.getRealm());
                         request.setProxy(provisionOrderRequest.getProxy());
@@ -228,7 +228,7 @@ public class OrderRoute implements ChumpRoute {
             ApiResponse response = newExchange.getIn().getBody(ApiResponse.class);
 
             if (response.getCode() == ApiResponse.SUCCESS) {
-                ProvisionNumberRequest request = newExchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
+                NumberRequest request = newExchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
                 response.setMessage("Provisioned " + request.getNumber());
             }
 

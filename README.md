@@ -5,7 +5,7 @@
 3. Run `java -jar target/chump-0.0.1-SNAPSHOT.jar`
 
 # REST - v2
-## Create a number
+## Create a number (optional - filter.exclude.didProduct)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
     '{
         "number": "6494297021",
@@ -23,7 +23,7 @@
         "currencyId": 121
     }'
 
-## Provision a number
+## Provision a number (optional - filter.exclude.didSubscription)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -34,7 +34,18 @@
         "paidUntilDate": "2015-03-01"
     }'
 
-## Provision an order
+## Subscribe a number (optional - filter.exclude.didSubscription)
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/subscribe -d \
+    '{
+        "realm": "conversant.co.nz",
+        "proxy": "c-vm-02.conversant.co.nz",
+        "businessPartnerId": 1000076,
+        "businessPartnerLocationId": 1000014,
+        "startDate": "2015-02-01",
+        "paidUntilDate": "2015-03-01"
+    }'
+
+## Provision an order (optional - filter.exclude.didSubscription)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/orders/80088/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -45,7 +56,7 @@
 ## Get status
     curl http://localhost:9090/chump/v1/status
 
-## Create a number
+## Create a number (optional - filter.exclude.didProduct)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
     '{
         "number": "6494297021",
@@ -63,7 +74,7 @@
         "currencyId": 121
     }'
 
-## Provision a number
+## Provision a number (optional - filter.exclude.didSubscription)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -73,8 +84,19 @@
         "startDate": "2015-02-01",
         "paidUntilDate": "2015-03-01"
     }'
-    
-## Provision an order
+
+## Subscribe a number (optional - filter.exclude.didSubscription)
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/subscribe -d \
+    '{
+        "realm": "conversant.co.nz",
+        "proxy": "c-vm-02.conversant.co.nz",
+        "businessPartnerId": 1000076,
+        "businessPartnerLocationId": 1000014,
+        "startDate": "2015-02-01",
+        "paidUntilDate": "2015-03-01"
+    }'
+
+## Provision an order (optional - filter.exclude.didSubscription)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/80088/provision -d \
     '{
         "realm": "conversant.co.nz",

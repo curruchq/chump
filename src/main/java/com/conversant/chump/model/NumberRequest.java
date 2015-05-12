@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by jhill on 31/12/14.
  */
 @Data
-public class ProvisionNumberRequest {
+public class NumberRequest {
 
     private String number;
     private String realm;

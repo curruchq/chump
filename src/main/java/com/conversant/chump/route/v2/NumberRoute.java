@@ -5,7 +5,7 @@ import com.conversant.chump.common.ChumpRoute;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.CreateNumberRequest;
 import com.conversant.chump.model.InsertUserPreferenceRequest;
-import com.conversant.chump.model.ProvisionNumberRequest;
+import com.conversant.chump.model.NumberRequest;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.chump.route.v1.UserPreferenceRoute;
 import com.conversant.webservice.*;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 
 import static com.conversant.chump.common.RestOperation.HttpMethod.POST;
 import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
@@ -45,7 +46,7 @@ public class NumberRoute implements ChumpRoute {
                     .build())
             .to(Arrays.asList(
                     ChumpOperation.pair(CreateCallProduct2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_PRODUCT_2.getUri()),
-                    ChumpOperation.pair(CreateDidProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_PRODUCT.getUri())))
+                    ChumpOperation.pair(CreateDidProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_PRODUCT.getUri()).excludable("didProduct")))
             .build();
 
     private static final class CreateCallProduct2RequestProcessor implements Processor {
@@ -95,6 +96,22 @@ public class NumberRoute implements ChumpRoute {
         }
     }
 
+    /** Subscribe a number */
+    public static final ChumpOperation SUBSCRIBE = ChumpOperation.builder()
+
+            // POST /v2/numbers/{number}/subscribe
+            .rest(RestOperation.builder()
+                    .method(POST)
+                    .resource(RESOURCE)
+                    .path("/{number}/subscribe")
+                    .requestType(NumberRequest.class)
+                    .build())
+            .preProcessors(Collections.singletonList(NumberRequestProcessor.INSTANCE))
+            .to(Arrays.asList(
+                    ChumpOperation.pair(CreateCallSubscription2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION_2.getUri()),
+                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()).excludable("didSubscription")))
+            .build();
+
     /** Provision number by creating subscriptions and user preferences */
     public static final ChumpOperation PROVISION = ChumpOperation.builder()
 
@@ -103,30 +120,29 @@ public class NumberRoute implements ChumpRoute {
                     .method(POST)
                     .resource(RESOURCE)
                     .path("/{number}/provision")
-                    .requestType(ProvisionNumberRequest.class)
+                    .requestType(NumberRequest.class)
                     .build())
-            .preProcessors(Arrays.asList(
-                    // TODO: Can remove once fix header vs path param
-                    ProvisionNumberRequestProcessor.INSTANCE))
+            .preProcessors(Collections.singletonList(NumberRequestProcessor.INSTANCE))
             .to(Arrays.asList(
+                    // TODO: Use SUBSCRIBE.getUri() once implemented joining of trx across top level ChumpOperations
                     ChumpOperation.pair(CreateCallSubscription2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION_2.getUri()),
-                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()),
+                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()).excludable("didSubscription"),
                     ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()),
                     ChumpOperation.pair(InboundDestinationUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
                     ChumpOperation.pair(CallerIdv2UserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
                     ChumpOperation.pair(AuthorisedCallerIdUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
             .build();
 
-    private static final class ProvisionNumberRequestProcessor implements Processor {
+    private static final class NumberRequestProcessor implements Processor {
 
-        public static final Processor INSTANCE = new ProvisionNumberRequestProcessor();
+        public static final Processor INSTANCE = new NumberRequestProcessor();
 
         @Override
         public void process(Exchange exchange) throws Exception {
 
             // TODO: How get into request POJO automatically? Generic processor?
-            ProvisionNumberRequest request = exchange.getIn().getBody(ProvisionNumberRequest.class);
-            if (request.getNumber() == null)
+            NumberRequest request = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
+            if (request != null && request.getNumber() == null)
                 request.setNumber((String) exchange.getIn().getHeader("number"));
         }
     }
@@ -138,7 +154,7 @@ public class NumberRoute implements ChumpRoute {
         @Override
         public void process(Exchange exchange) throws Exception {
 
-            ProvisionNumberRequest request = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
+            NumberRequest request = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
 
             CreateCallSubscription2Request callSubscriptionRequest = new CreateCallSubscription2Request();
             callSubscriptionRequest.setLoginRequest(createLoginRequest(exchange, TYPE_CREATE_CALL_SUBSCRIPTION_2));
@@ -159,7 +175,7 @@ public class NumberRoute implements ChumpRoute {
         @Override
         public void process(Exchange exchange) throws Exception {
 
-            ProvisionNumberRequest request = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
+            NumberRequest request = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
 
             CreateDIDSubscriptionRequest didSubscriptionRequest = new CreateDIDSubscriptionRequest();
             didSubscriptionRequest.setLoginRequest(createLoginRequest(exchange, TYPE_CREATE_DID_SUBSCRIPTION));
@@ -180,7 +196,7 @@ public class NumberRoute implements ChumpRoute {
         @Override
         public void process(Exchange exchange) throws Exception {
 
-            ProvisionNumberRequest request = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
+            NumberRequest request = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
 
             UpdateDIDProductRequest didProductRequest = new UpdateDIDProductRequest();
             didProductRequest.setLoginRequest(createLoginRequest(exchange, TYPE_UPDATE_DID_PRODUCT));
@@ -198,21 +214,21 @@ public class NumberRoute implements ChumpRoute {
         @Override
         public void process(Exchange exchange) throws Exception {
 
-            ProvisionNumberRequest provisionNumberRequest = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
+            NumberRequest numberRequest = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
 
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(provisionNumberRequest.getStartDate().getTime());
+            calendar.setTimeInMillis(numberRequest.getStartDate().getTime());
             calendar.add(Calendar.YEAR, 20);
 
             InsertUserPreferenceRequest request = new InsertUserPreferenceRequest();
-            request.setUuid(String.valueOf(provisionNumberRequest.getBusinessPartnerId()));
-            request.setUsername(provisionNumberRequest.getNumber());
+            request.setUuid(String.valueOf(numberRequest.getBusinessPartnerId()));
+            request.setUsername(numberRequest.getNumber());
             request.setDomain("conversant.co.nz");
             request.setAttribute("20116");
-            request.setValue("sip:" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getProxy());
+            request.setValue("sip:" + numberRequest.getNumber() + "@" + numberRequest.getProxy());
             request.setType(USER_PREF_TYPE_NUMERIC);
-            request.setModified(provisionNumberRequest.getStartDate());
-            request.setDateStart(provisionNumberRequest.getStartDate());
+            request.setModified(numberRequest.getStartDate());
+            request.setDateStart(numberRequest.getStartDate());
             request.setDateEnd(calendar.getTime());
             request.setSubscriberId(USER_PREF_SUBSCRIBER_ID);
 
@@ -227,21 +243,21 @@ public class NumberRoute implements ChumpRoute {
         @Override
         public void process(Exchange exchange) throws Exception {
 
-            ProvisionNumberRequest provisionNumberRequest = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
+            NumberRequest numberRequest = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
 
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(provisionNumberRequest.getStartDate().getTime());
+            calendar.setTimeInMillis(numberRequest.getStartDate().getTime());
             calendar.add(Calendar.YEAR, 20);
 
             InsertUserPreferenceRequest request = new InsertUserPreferenceRequest();
-            request.setUuid(String.valueOf(provisionNumberRequest.getBusinessPartnerId()));
+            request.setUuid(String.valueOf(numberRequest.getBusinessPartnerId()));
             request.setUsername("");
-            request.setDomain(provisionNumberRequest.getRealm());
+            request.setDomain(numberRequest.getRealm());
             request.setAttribute("37501");
-            request.setValue("sip:+" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getRealm());
+            request.setValue("sip:+" + numberRequest.getNumber() + "@" + numberRequest.getRealm());
             request.setType(USER_PREF_TYPE_NUMERIC);
-            request.setModified(provisionNumberRequest.getStartDate());
-            request.setDateStart(provisionNumberRequest.getStartDate());
+            request.setModified(numberRequest.getStartDate());
+            request.setDateStart(numberRequest.getStartDate());
             request.setDateEnd(calendar.getTime());
             request.setSubscriberId(USER_PREF_SUBSCRIBER_ID);
 
@@ -256,21 +272,21 @@ public class NumberRoute implements ChumpRoute {
         @Override
         public void process(Exchange exchange) throws Exception {
 
-            ProvisionNumberRequest provisionNumberRequest = exchange.getProperty(ProvisionNumberRequest.class.getName(), ProvisionNumberRequest.class);
+            NumberRequest numberRequest = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
 
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(provisionNumberRequest.getStartDate().getTime());
+            calendar.setTimeInMillis(numberRequest.getStartDate().getTime());
             calendar.add(Calendar.YEAR, 20);
 
             InsertUserPreferenceRequest request = new InsertUserPreferenceRequest();
-            request.setUuid(String.valueOf(provisionNumberRequest.getBusinessPartnerId()));
-            request.setUsername(provisionNumberRequest.getNumber());
-            request.setDomain(provisionNumberRequest.getRealm());
+            request.setUuid(String.valueOf(numberRequest.getBusinessPartnerId()));
+            request.setUsername(numberRequest.getNumber());
+            request.setDomain(numberRequest.getRealm());
             request.setAttribute("20301");
-            request.setValue("sip:+" + provisionNumberRequest.getNumber() + "@" + provisionNumberRequest.getRealm());
+            request.setValue("sip:+" + numberRequest.getNumber() + "@" + numberRequest.getRealm());
             request.setType(USER_PREF_TYPE_NUMERIC);
-            request.setModified(provisionNumberRequest.getStartDate());
-            request.setDateStart(provisionNumberRequest.getStartDate());
+            request.setModified(numberRequest.getStartDate());
+            request.setDateStart(numberRequest.getStartDate());
             request.setDateEnd(calendar.getTime());
             request.setSubscriberId(USER_PREF_SUBSCRIBER_ID);
 
