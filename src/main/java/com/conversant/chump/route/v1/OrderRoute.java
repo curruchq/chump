@@ -9,6 +9,7 @@ import com.conversant.chump.model.ProvisionOrderRequest;
 import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.processor.StandardResponseRemover;
 import com.conversant.chump.route.AdempiereRoute;
+import com.conversant.chump.route.v1.numbers.ProvisionNumbersRoute;
 import com.conversant.webservice.*;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -85,7 +86,7 @@ public class OrderRoute implements ChumpRoute {
                     .split(body(), ProvisionNumberAggregationStrategy.INSTANCE)
 
                     // Call provision number for each split request
-                    .to(NumberRoute.PROVISION.getUri()).end()
+                    .to(ProvisionNumbersRoute.PROVISION.getUri()).end()
 
                     // Process final result of custom aggregation strategy into a single ApiResponse
                     .process(AggregatedApiResponseProcessor.INSTANCE);
