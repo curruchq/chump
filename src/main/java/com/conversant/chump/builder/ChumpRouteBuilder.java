@@ -191,10 +191,10 @@ public class ChumpRouteBuilder extends RouteBuilder {
             Predicate predicate;
             switch (pair.getFilter().getType()) {
                 case EXCLUDE:
-                    predicate = property(pair.getFilter().getName()).isNull();
+                    predicate = property(pair.getFilter().getName().toLowerCase()).isNull();
                     break;
                 case INCLUDE:
-                    predicate = property(pair.getFilter().getName()).isNotNull();
+                    predicate = property(pair.getFilter().getName().toLowerCase()).isNotNull();
                     break;
                 default:
                     throw new RuntimeException("Filter type not supported: " + pair.getFilter().getType());
