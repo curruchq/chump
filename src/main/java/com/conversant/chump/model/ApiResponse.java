@@ -34,4 +34,8 @@ public class ApiResponse {
     public static ApiResponse error() {
         return ApiResponse.builder().code(ApiResponse.ERROR).message("Error").build();
     }
+
+    public boolean isSuccess() {
+        return code == SUCCESS;
+    }
 }

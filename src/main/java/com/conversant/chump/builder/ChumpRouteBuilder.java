@@ -5,6 +5,9 @@ import com.conversant.chump.common.ChumpRoute;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.exception.FailedStandardResponseException;
 import com.conversant.chump.model.ApiResponse;
+import com.conversant.chump.model.BatchRequest;
+import com.conversant.chump.processor.batch.AggregatedApiResponseProcessor;
+import com.conversant.chump.processor.batch.BatchRequestProcessor;
 import com.conversant.chump.route.AdempiereRoute;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
@@ -204,14 +207,32 @@ public class ChumpRouteBuilder extends RouteBuilder {
             if (pair.getProcessor() != null) {
                 choice.process(pair.getProcessor());
             }
-            choice.to(pair.getTo());
+            if (pair.getSplitter() != null) {
+                def.process(BatchRequestProcessor.INSTANCE)
+                        .split(body(), pair.getSplitter())
+                        .to(pair.getTo())
+                        .end()
+                        .process(AggregatedApiResponseProcessor.INSTANCE);
+            }
+            else {
+                choice.to(pair.getTo());
+            }
             choice.endChoice();
         }
         else {
             if (pair.getProcessor() != null) {
                 def.process(pair.getProcessor());
             }
-            def.to(pair.getTo());
+            if (pair.getSplitter() != null) {
+                def.process(BatchRequestProcessor.INSTANCE)
+                        .split(body(), pair.getSplitter())
+                        .to(pair.getTo())
+                        .end()
+                        .process(AggregatedApiResponseProcessor.INSTANCE);
+            }
+            else {
+                def.to(pair.getTo());
+            }
         }
     }
 
@@ -221,9 +242,16 @@ public class ChumpRouteBuilder extends RouteBuilder {
 
         @Override
         public void process(Exchange exchange) throws Exception {
-            Object body = exchange.getIn().getBody();
-            if (body != null) {
-                exchange.setProperty(body.getClass().getName(), body);
+
+            BatchRequest batchRequest = exchange.getIn().getBody(BatchRequest.class);
+            if (batchRequest != null && batchRequest.getRequests() != null && batchRequest.getRequests().size() > 0) {
+                exchange.setProperty(BatchRequest.class.getName(), batchRequest);
+            }
+            else {
+                Object body = exchange.getIn().getBody();
+                if (body != null) {
+                    exchange.setProperty(body.getClass().getName(), body);
+                }
             }
         }
     }

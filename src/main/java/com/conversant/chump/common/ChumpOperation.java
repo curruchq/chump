@@ -3,6 +3,7 @@ package com.conversant.chump.common;
 import lombok.Data;
 import lombok.experimental.Builder;
 import org.apache.camel.Processor;
+import org.apache.camel.processor.aggregate.AggregationStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,13 @@ public class ChumpOperation {
     public static class ProcessToPair {
         private final Processor processor;
         private final String to;
+        private AggregationStrategy splitter;
         private Filter filter;
+
+        public ProcessToPair split(AggregationStrategy splitter) {
+            setSplitter(splitter);
+            return this;
+        }
 
         public ProcessToPair excludable(String name) {
             setFilter(Filter.exclude(name));
