@@ -23,6 +23,59 @@
         "currencyId": 121
     }'
 
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
+    '{
+        "numbers": ["6494297022", "6494297023"],
+        "domain": "conversant.co.nz",
+        "priceListVersionId": 1000000,
+        "countryId": "147",
+        "countryCode": "64",
+        "areaCode": "9429",
+        "areaCodeDescription": "Auckland - Red Beach Test",
+        "freeMinutes": "10",
+        "perMinuteCharge": "0",
+        "businessPartnerId": 1000076,
+        "setupCost": "1",
+        "monthlyCharge": "2",
+        "currencyId": 121
+    }'
+
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
+    '{
+        "requests": [
+            {
+                "number": "6494297024",
+                "domain": "conversant.co.nz",
+                "priceListVersionId": 1000000,
+                "countryId": "147",
+                "countryCode": "64",
+                "areaCode": "9429",
+                "areaCodeDescription": "Auckland - Red Beach Test",
+                "freeMinutes": "10",
+                "perMinuteCharge": "0",
+                "businessPartnerId": 1000076,
+                "setupCost": "1",
+                "monthlyCharge": "2",
+                "currencyId": 121
+            },
+            {
+                "number": "6494297025",
+                "domain": "conversant.co.nz",
+                "priceListVersionId": 1000000,
+                "countryId": "147",
+                "countryCode": "64",
+                "areaCode": "9429",
+                "areaCodeDescription": "Auckland - Red Beach Test",
+                "freeMinutes": "10",
+                "perMinuteCharge": "0",
+                "businessPartnerId": 1000076,
+                "setupCost": "1",
+                "monthlyCharge": "2",
+                "currencyId": 121
+            }
+        ]
+    }'
+
 ## Provision a number (optional - filter.exclude.didSubscription)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/provision -d \
     '{
@@ -34,6 +87,41 @@
         "paidUntilDate": "2015-03-01"
     }'
 
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/provision -d \
+    '{
+        "numbers": ["6494297022", "6494297023"],
+        "realm": "conversant.co.nz",
+        "proxy": "c-vm-02.conversant.co.nz",
+        "businessPartnerId": 1000076,
+        "businessPartnerLocationId": 1000014,
+        "startDate": "2015-02-01",
+        "paidUntilDate": "2015-03-01"
+    }'
+
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297024/provision -d \
+    '{
+        "requests": [
+            {
+                "number": "6494297024",
+                "realm": "conversant.co.nz",
+                "proxy": "c-vm-02.conversant.co.nz",
+                "businessPartnerId": 1000076,
+                "businessPartnerLocationId": 1000014,
+                "startDate": "2015-02-01",
+                "paidUntilDate": "2015-03-01"
+            },
+            {
+                "number": "6494297025",
+                "realm": "conversant.co.nz",
+                "proxy": "c-vm-02.conversant.co.nz",
+                "businessPartnerId": 1000076,
+                "businessPartnerLocationId": 1000014,
+                "startDate": "2015-02-01",
+                "paidUntilDate": "2015-03-01"
+            }
+        ]
+    }'
+
 ## Subscribe a number (optional - filter.exclude.didSubscription)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/subscribe -d \
     '{
@@ -43,6 +131,39 @@
         "businessPartnerLocationId": 1000014,
         "startDate": "2015-02-01",
         "paidUntilDate": "2015-03-01"
+    }'
+
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/subscribe -d \
+    '{
+        "realm": "conversant.co.nz",
+        "proxy": "c-vm-02.conversant.co.nz",
+        "businessPartnerId": 1000076,
+        "businessPartnerLocationId": 1000014,
+        "startDate": "2015-02-01",
+        "paidUntilDate": "2015-03-01"
+    }'
+
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297022/subscribe -d \
+    '{
+        "requests": [
+            {
+                "realm": "conversant.co.nz",
+                "proxy": "c-vm-02.conversant.co.nz",
+                "businessPartnerId": 1000076,
+                "businessPartnerLocationId": 1000014,
+                "startDate": "2015-02-01",
+                "paidUntilDate": "2015-03-01"
+            },
+            {
+                "number": "6494297023",
+                "realm": "conversant.co.nz",
+                "proxy": "c-vm-02.conversant.co.nz",
+                "businessPartnerId": 1000076,
+                "businessPartnerLocationId": 1000014,
+                "startDate": "2015-02-01",
+                "paidUntilDate": "2015-03-01"
+            }
+        ]
     }'
 
 ## Provision an order (optional - filter.exclude.didSubscription)
@@ -74,6 +195,59 @@
         "currencyId": 121
     }'
 
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
+    '{
+        "numbers": ["6494297022", "6494297023"],
+        "domain": "conversant.co.nz",
+        "priceListVersionId": 1000000,
+        "countryId": "147",
+        "countryCode": "64",
+        "areaCode": "9429",
+        "areaCodeDescription": "Auckland - Red Beach Test",
+        "freeMinutes": "10",
+        "perMinuteCharge": "0",
+        "businessPartnerId": 1000076,
+        "setupCost": "1",
+        "monthlyCharge": "2",
+        "currencyId": 121
+    }'
+
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
+    '{
+        "requests": [
+            {
+                "number": "6494297024",
+                "domain": "conversant.co.nz",
+                "priceListVersionId": 1000000,
+                "countryId": "147",
+                "countryCode": "64",
+                "areaCode": "9429",
+                "areaCodeDescription": "Auckland - Red Beach Test",
+                "freeMinutes": "10",
+                "perMinuteCharge": "0",
+                "businessPartnerId": 1000076,
+                "setupCost": "1",
+                "monthlyCharge": "2",
+                "currencyId": 121
+            },
+            {
+                "number": "6494297025",
+                "domain": "conversant.co.nz",
+                "priceListVersionId": 1000000,
+                "countryId": "147",
+                "countryCode": "64",
+                "areaCode": "9429",
+                "areaCodeDescription": "Auckland - Red Beach Test",
+                "freeMinutes": "10",
+                "perMinuteCharge": "0",
+                "businessPartnerId": 1000076,
+                "setupCost": "1",
+                "monthlyCharge": "2",
+                "currencyId": 121
+            }
+        ]
+    }'
+
 ## Provision a number (optional - filter.exclude.didSubscription)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/provision -d \
     '{
@@ -85,6 +259,41 @@
         "paidUntilDate": "2015-03-01"
     }'
 
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/provision -d \
+    '{
+        "numbers": ["6494297022", "6494297023"],
+        "realm": "conversant.co.nz",
+        "proxy": "c-vm-02.conversant.co.nz",
+        "businessPartnerId": 1000076,
+        "businessPartnerLocationId": 1000014,
+        "startDate": "2015-02-01",
+        "paidUntilDate": "2015-03-01"
+    }'
+
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297024/provision -d \
+    '{
+        "requests": [
+            {
+                "number": "6494297024",
+                "realm": "conversant.co.nz",
+                "proxy": "c-vm-02.conversant.co.nz",
+                "businessPartnerId": 1000076,
+                "businessPartnerLocationId": 1000014,
+                "startDate": "2015-02-01",
+                "paidUntilDate": "2015-03-01"
+            },
+            {
+                "number": "6494297025",
+                "realm": "conversant.co.nz",
+                "proxy": "c-vm-02.conversant.co.nz",
+                "businessPartnerId": 1000076,
+                "businessPartnerLocationId": 1000014,
+                "startDate": "2015-02-01",
+                "paidUntilDate": "2015-03-01"
+            }
+        ]
+    }'
+
 ## Subscribe a number (optional - filter.exclude.didSubscription)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/subscribe -d \
     '{
@@ -94,6 +303,39 @@
         "businessPartnerLocationId": 1000014,
         "startDate": "2015-02-01",
         "paidUntilDate": "2015-03-01"
+    }'
+
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/subscribe -d \
+    '{
+        "realm": "conversant.co.nz",
+        "proxy": "c-vm-02.conversant.co.nz",
+        "businessPartnerId": 1000076,
+        "businessPartnerLocationId": 1000014,
+        "startDate": "2015-02-01",
+        "paidUntilDate": "2015-03-01"
+    }'
+
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297022/subscribe -d \
+    '{
+        "requests": [
+            {
+                "realm": "conversant.co.nz",
+                "proxy": "c-vm-02.conversant.co.nz",
+                "businessPartnerId": 1000076,
+                "businessPartnerLocationId": 1000014,
+                "startDate": "2015-02-01",
+                "paidUntilDate": "2015-03-01"
+            },
+            {
+                "number": "6494297023",
+                "realm": "conversant.co.nz",
+                "proxy": "c-vm-02.conversant.co.nz",
+                "businessPartnerId": 1000076,
+                "businessPartnerLocationId": 1000014,
+                "startDate": "2015-02-01",
+                "paidUntilDate": "2015-03-01"
+            }
+        ]
     }'
 
 ## Provision an order (optional - filter.exclude.didSubscription)

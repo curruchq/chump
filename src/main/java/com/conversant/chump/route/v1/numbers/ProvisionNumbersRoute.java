@@ -4,6 +4,7 @@ import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.InsertUserPreferenceRequest;
 import com.conversant.chump.model.NumberRequest;
+import com.conversant.chump.processor.batch.BatchAggregationStrategy;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.chump.route.v1.UserPreferenceRoute;
 import com.conversant.webservice.UpdateDIDProductRequest;
@@ -33,14 +34,8 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
     /**
      * Provision number by creating subscriptions and user preferences
      */
-    public static final ChumpOperation PROVISION = ChumpOperation.builder()
-            .rest(RestOperation.builder()
-                    .method(POST)
-                    .resource(RESOURCE)
-                    .path("/{number}/provision")
-                    .requestType(NumberRequest.class)
-                    .build())
-            .preProcessors(Collections.singletonList(NumberRequestProcessor.INSTANCE))
+    public static final ChumpOperation PROVISION_SINGLE = ChumpOperation.builder()
+            .uri("direct://provisionNumber-v1")
             .to(Arrays.asList(
                     // TODO: Use SUBSCRIBE.getUri() once implemented joining of trx across top level ChumpOperations
                     ChumpOperation.pair(CreateCallSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION.getUri()),
@@ -48,6 +43,42 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
                     ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()),
                     ChumpOperation.pair(InboundDestinationUserPreferenceRequestProcessor.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
                     ChumpOperation.pair(CallerIdv1UserPreferenceRequestProcessor.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
+            .build();
+
+    /**
+     * Provision batch of numbers by creating subscriptions and user preferences
+     */
+    public static final ChumpOperation PROVISION_BATCH = ChumpOperation.builder()
+            .rest(RestOperation.builder()
+                    .method(POST)
+                    .resource(RESOURCE)
+                    .path("/provision")
+                    .requestType(NumberRequest.class)
+                    .build())
+            .trx(false)
+            .preProcessors(Collections.singletonList(NumberRequestProcessor.INSTANCE))
+            .to(Collections.singletonList(
+                    ChumpOperation.single(PROVISION_SINGLE.getUri())
+                            .split(new BatchAggregationStrategy(e ->
+                                    "Provision " + e.getProperty(NumberRequest.class.getName(), NumberRequest.class).getNumber()))))
+            .build();
+
+    /**
+     * Provision batch of numbers by creating subscriptions and user preferences
+     */
+    public static final ChumpOperation PROVISION = ChumpOperation.builder()
+            .rest(RestOperation.builder()
+                    .method(POST)
+                    .resource(RESOURCE)
+                    .path("/{number}/provision")
+                    .requestType(NumberRequest.class)
+                    .build())
+            .trx(false)
+            .preProcessors(Collections.singletonList(NumberRequestProcessor.INSTANCE))
+            .to(Collections.singletonList(
+                    ChumpOperation.single(PROVISION_SINGLE.getUri())
+                            .split(new BatchAggregationStrategy(e ->
+                                    "Provision " + e.getProperty(NumberRequest.class.getName(), NumberRequest.class).getNumber()))))
             .build();
 
     /**

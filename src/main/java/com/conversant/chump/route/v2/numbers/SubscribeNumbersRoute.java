@@ -3,6 +3,7 @@ package com.conversant.chump.route.v2.numbers;
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.NumberRequest;
+import com.conversant.chump.processor.batch.BatchAggregationStrategy;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.webservice.CreateCallSubscription2Request;
 import com.conversant.webservice.CreateDIDSubscriptionRequest;
@@ -27,6 +28,36 @@ public class SubscribeNumbersRoute extends AbstractNumbersRoute {
     /**
      * Subscribe a number
      */
+    public static final ChumpOperation SUBSCRIBE_SINGLE = ChumpOperation.builder()
+            .uri("direct://subscribeNumber-v2")
+            .to(Arrays.asList(
+                    ChumpOperation.pair(CreateCallSubscription2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION_2.getUri()),
+                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()).excludable("didSubscription")))
+            .build();
+
+    /**
+     * Subscribe batch of numbers
+     */
+    public static final ChumpOperation BATCH_SUBSCRIBE = ChumpOperation.builder()
+
+            // POST /v2/numbers/{number}/subscribe
+            .rest(RestOperation.builder()
+                    .method(POST)
+                    .resource(RESOURCE)
+                    .path("/subscribe")
+                    .requestType(NumberRequest.class)
+                    .build())
+            .trx(false)
+            .preProcessors(Collections.singletonList(NumberRequestProcessor.INSTANCE))
+            .to(Collections.singletonList(
+                    ChumpOperation.single(SUBSCRIBE_SINGLE.getUri())
+                            .split(new BatchAggregationStrategy(e ->
+                                    "Subscribe " + e.getProperty(NumberRequest.class.getName(), NumberRequest.class).getNumber()))))
+            .build();
+
+    /**
+     * Subscribe batch of numbers
+     */
     public static final ChumpOperation SUBSCRIBE = ChumpOperation.builder()
 
             // POST /v2/numbers/{number}/subscribe
@@ -36,10 +67,12 @@ public class SubscribeNumbersRoute extends AbstractNumbersRoute {
                     .path("/{number}/subscribe")
                     .requestType(NumberRequest.class)
                     .build())
+            .trx(false)
             .preProcessors(Collections.singletonList(NumberRequestProcessor.INSTANCE))
-            .to(Arrays.asList(
-                    ChumpOperation.pair(CreateCallSubscription2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION_2.getUri()),
-                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()).excludable("didSubscription")))
+            .to(Collections.singletonList(
+                    ChumpOperation.single(SUBSCRIBE_SINGLE.getUri())
+                            .split(new BatchAggregationStrategy(e ->
+                                    "Subscribe " + e.getProperty(NumberRequest.class.getName(), NumberRequest.class).getNumber()))))
             .build();
 
     /**

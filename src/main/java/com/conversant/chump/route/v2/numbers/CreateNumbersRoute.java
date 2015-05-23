@@ -3,6 +3,7 @@ package com.conversant.chump.route.v2.numbers;
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.CreateNumberRequest;
+import com.conversant.chump.processor.batch.BatchAggregationStrategy;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.webservice.CreateCallProductRequest;
 import com.conversant.webservice.CreateDIDProductRequest;
@@ -11,6 +12,7 @@ import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static com.conversant.chump.common.RestOperation.HttpMethod.POST;
 import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
@@ -26,15 +28,27 @@ public class CreateNumbersRoute extends AbstractNumbersRoute {
     /**
      * Create calling and did products
      */
-    public static final ChumpOperation CREATE = ChumpOperation.builder()
+    public static final ChumpOperation CREATE_SINGLE = ChumpOperation.builder()
+            .uri("direct://createProduct-v2")
+            .to(Arrays.asList(
+                    ChumpOperation.pair(CreateCallProduct2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_PRODUCT_2.getUri()),
+                    ChumpOperation.pair(CreateDidProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_PRODUCT.getUri()).excludable("didProduct")))
+            .build();
+
+    /**
+     * Create a batch of calling and did products
+     */
+    public static final ChumpOperation CREATE_REST = ChumpOperation.builder()
             .rest(RestOperation.builder()
                     .method(POST)
                     .resource(RESOURCE)
                     .requestType(CreateNumberRequest.class)
                     .build())
-            .to(Arrays.asList(
-                    ChumpOperation.pair(CreateCallProduct2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_PRODUCT_2.getUri()),
-                    ChumpOperation.pair(CreateDidProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_PRODUCT.getUri()).excludable("didProduct")))
+            .trx(false)
+            .to(Collections.singletonList(
+                    ChumpOperation.single(CREATE_SINGLE.getUri())
+                            .split(new BatchAggregationStrategy(e ->
+                                    "Create " + e.getProperty(CreateNumberRequest.class.getName(), CreateNumberRequest.class).getNumber()))))
             .build();
 
     /**

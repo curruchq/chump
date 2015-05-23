@@ -1,9 +1,13 @@
 package com.conversant.chump.route.v1.numbers;
 
 import com.conversant.chump.common.ChumpRoute;
+import com.conversant.chump.model.BatchRequest;
 import com.conversant.chump.model.NumberRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.commons.beanutils.BeanUtils;
+
+import java.util.ArrayList;
 
 /**
  * Created by jhill on 23/05/15.
@@ -25,10 +29,43 @@ public abstract class AbstractNumbersRoute implements ChumpRoute {
         @Override
         public void process(Exchange exchange) throws Exception {
 
-            // TODO: How get into request POJO automatically? Generic processor?
-            NumberRequest request = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
-            if (request != null && request.getNumber() == null)
-                request.setNumber((String) exchange.getIn().getHeader("number"));
+            NumberRequest batch = exchange.getProperty(BatchRequest.class.getName(), NumberRequest.class);
+            if (batch != null && batch.getRequests() != null) {
+
+                // Batch request - look for first request which doesn't have number set
+                for (NumberRequest numberRequest : batch.getRequests()) {
+                    if (numberRequest.getNumber() == null) {
+                        numberRequest.setNumber((String) exchange.getIn().getHeader("number"));
+                        break;
+                    }
+                }
+            }
+            else {
+                NumberRequest request = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
+
+                // Single request with multiple numbers - create batch request
+                if (request != null && request.getNumbers() != null && request.getNumbers().size() > 0) {
+
+                    batch = new NumberRequest();
+                    batch.setRequests(new ArrayList<>());
+
+                    // Create children
+                    for (String number : request.getNumbers()) {
+                        NumberRequest child = (NumberRequest) BeanUtils.cloneBean(request);
+                        child.setNumber(number);
+                        child.setNumbers(null);
+                        batch.getRequests().add(child);
+                    }
+
+                    // Clear single request and set batch in exchange for BatchRequestProcessor
+                    exchange.setProperty(NumberRequest.class.getName(), null);
+                    exchange.setProperty(BatchRequest.class.getName(), batch);
+                }
+                // Single request - set if isn't set (i.e. came on path)
+                else if (request != null && request.getNumber() == null) {
+                    request.setNumber((String) exchange.getIn().getHeader("number"));
+                }
+            }
         }
     }
 }

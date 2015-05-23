@@ -2,14 +2,17 @@ package com.conversant.chump.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * Created by jhill on 31/12/14.
  */
 @Data
-public class CreateNumberRequest {
+public class CreateNumberRequest extends BatchRequest<CreateNumberRequest> {
 
     private String domain;
     private String number;
+    private List<String> numbers;
     private int priceListVersionId;
     private String countryId;
     private String countryCode;
