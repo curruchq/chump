@@ -39,7 +39,7 @@ public class InvoiceRoute implements ChumpRoute {
                     .requestType(ReadInvoiceRequest.class)
                     .build())
             .to(Arrays.asList(
-                    ChumpOperation.pair(ReadBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER.getUri()),
+                    ChumpOperation.pair(ReadBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER_BY_SEARCH_KEY.getUri()),
                     ChumpOperation.pair(ReadInvoicesByBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_INVOICE.getUri())))
             .postProcessors(
                     Arrays.asList(new StandardResponseRemover("invoice"), ApiResponseProcessor.INSTANCE))

@@ -509,3 +509,27 @@
         "profileNameAlt": "Int_X_111",
         "timezone": "Pacific/Honolulu"
     }'
+    
+## Create business partner
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners -d \
+    '{
+        "orgId": 1000001,
+        "name" : "testname",
+        "taxExempt" : "true",
+        "businessPartnerGroupId" : 1000013
+    }'
+    
+## Read business partner
+    curl http://localhost:9090/chump/v1/businesspartners/1000009
+    
+## Read business partner by group id
+    curl http://localhost:9090/chump/v1/businesspartners?businessPartnerGroupId=1000004
+    
+## Update business partner
+    curl -XPUT http://localhost:9090/chump/v1/businesspartners/1000009 -d \
+   '{
+       "orgId": 1000001,
+       "name" : "testname",
+       "taxExempt" : "true",
+       "businessPartnerGroupId" : 1000013
+   }'

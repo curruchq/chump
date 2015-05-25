@@ -44,7 +44,7 @@ public final class SubscriptionRoute implements ChumpRoute {
                     .requestType(ReadSubscriptionsByBusinessPartnerRequest.class)
                     .build())
             .to(Arrays.asList(
-                    ChumpOperation.pair(ReadBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER.getUri()),
+                    ChumpOperation.pair(ReadBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER_BY_SEARCH_KEY.getUri()),
                     ChumpOperation.pair(ReadSubscriptionsRequestProcessor.INSTANCE, AdempiereRoute.READ_SUBSCRIPTIONS.getUri())
             ))
             .postProcessors(

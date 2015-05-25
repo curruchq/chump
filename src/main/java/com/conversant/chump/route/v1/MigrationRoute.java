@@ -57,7 +57,7 @@ public class MigrationRoute implements ChumpRoute {
             .trx(false)
             .to(Arrays.asList(
                     ChumpOperation.pair(CallerIdUserPreference.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
-                    ChumpOperation.pair(ReadBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER.getUri()),
+                    ChumpOperation.pair(ReadBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER_BY_SEARCH_KEY.getUri()),
                     ChumpOperation.pair(MigrationSplitRequestProcessor.INSTANCE, MIGRATION_SPLIT_ROUTE)
             ))
             .build();
