@@ -39,8 +39,8 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
             .to(Arrays.asList(
                     // TODO: Use SUBSCRIBE.getUri() once implemented joining of trx across top level ChumpOperations
                     ChumpOperation.pair(CreateCallSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION.getUri()),
-                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()).excludable("didSubscription"),
-                    ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()),
+                    ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()).excludable("did"),
+                    ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()).excludable("did"),
                     ChumpOperation.pair(InboundDestinationUserPreferenceRequestProcessor.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
                     ChumpOperation.pair(CallerIdv1UserPreferenceRequestProcessor.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
             .build();
