@@ -133,8 +133,9 @@
         "paidUntilDate": "2015-03-01"
     }'
 
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/subscribe -d \
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/subscribe -d \
     '{
+        "numbers": ["6494297022", "6494297023"],
         "realm": "conversant.co.nz",
         "proxy": "c-vm-02.conversant.co.nz",
         "businessPartnerId": 1000076,
@@ -143,10 +144,11 @@
         "paidUntilDate": "2015-03-01"
     }'
 
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297022/subscribe -d \
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297024/subscribe -d \
     '{
         "requests": [
             {
+                "number": "6494297024",
                 "realm": "conversant.co.nz",
                 "proxy": "c-vm-02.conversant.co.nz",
                 "businessPartnerId": 1000076,
@@ -155,7 +157,7 @@
                 "paidUntilDate": "2015-03-01"
             },
             {
-                "number": "6494297023",
+                "number": "6494297025",
                 "realm": "conversant.co.nz",
                 "proxy": "c-vm-02.conversant.co.nz",
                 "businessPartnerId": 1000076,
@@ -305,8 +307,9 @@
         "paidUntilDate": "2015-03-01"
     }'
 
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/subscribe -d \
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/subscribe -d \
     '{
+        "numbers: ["6494297022", "6494297023"],
         "realm": "conversant.co.nz",
         "proxy": "c-vm-02.conversant.co.nz",
         "businessPartnerId": 1000076,
@@ -319,6 +322,7 @@
     '{
         "requests": [
             {
+                "number": "6494297024",
                 "realm": "conversant.co.nz",
                 "proxy": "c-vm-02.conversant.co.nz",
                 "businessPartnerId": 1000076,
@@ -327,7 +331,7 @@
                 "paidUntilDate": "2015-03-01"
             },
             {
-                "number": "6494297023",
+                "number": "6494297025",
                 "realm": "conversant.co.nz",
                 "proxy": "c-vm-02.conversant.co.nz",
                 "businessPartnerId": 1000076,
