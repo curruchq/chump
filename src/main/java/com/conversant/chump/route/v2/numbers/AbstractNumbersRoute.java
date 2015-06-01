@@ -2,6 +2,7 @@ package com.conversant.chump.route.v2.numbers;
 
 import com.conversant.chump.common.ChumpRoute;
 import com.conversant.chump.model.BatchRequest;
+import com.conversant.chump.model.CreateNumberRequest;
 import com.conversant.chump.model.NumberRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -52,6 +53,55 @@ public abstract class AbstractNumbersRoute implements ChumpRoute {
                     // Create children
                     for (String number : request.getNumbers()) {
                         NumberRequest child = (NumberRequest) BeanUtils.cloneBean(request);
+                        child.setNumber(number);
+                        child.setNumbers(null);
+                        batch.getRequests().add(child);
+                    }
+
+                    // Clear single request and set batch in exchange for BatchRequestProcessor
+                    exchange.setProperty(NumberRequest.class.getName(), null);
+                    exchange.setProperty(BatchRequest.class.getName(), batch);
+                }
+                // Single request - set if isn't set (i.e. came on path)
+                else if (request != null && request.getNumber() == null) {
+                    request.setNumber((String) exchange.getIn().getHeader("number"));
+                }
+            }
+        }
+    }
+
+    /**
+     * Create number request processor
+     */
+    protected static final class CreateNumberRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new CreateNumberRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            CreateNumberRequest batch = exchange.getProperty(BatchRequest.class.getName(), CreateNumberRequest.class);
+            if (batch != null && batch.getRequests() != null) {
+
+                // Batch request - look for first request which doesn't have number set
+                for (CreateNumberRequest createNumberRequest : batch.getRequests()) {
+                    if (createNumberRequest.getNumber() == null) {
+                        createNumberRequest.setNumber((String) exchange.getIn().getHeader("number"));
+                        break;
+                    }
+                }
+            } else {
+                CreateNumberRequest request = exchange.getProperty(CreateNumberRequest.class.getName(), CreateNumberRequest.class);
+
+                // Single request with multiple numbers - create batch request
+                if (request != null && request.getNumbers() != null && request.getNumbers().size() > 0) {
+
+                    batch = new CreateNumberRequest();
+                    batch.setRequests(new ArrayList<>());
+
+                    // Create children
+                    for (String number : request.getNumbers()) {
+                        CreateNumberRequest child = (CreateNumberRequest) BeanUtils.cloneBean(request);
                         child.setNumber(number);
                         child.setNumbers(null);
                         batch.getRequests().add(child);

@@ -45,6 +45,7 @@ public class CreateNumbersRoute extends AbstractNumbersRoute {
                     .requestType(CreateNumberRequest.class)
                     .build())
             .trx(false)
+            .preProcessors(Collections.singletonList(CreateNumberRequestProcessor.INSTANCE))
             .to(Collections.singletonList(
                     ChumpOperation.single(CREATE_SINGLE.getUri())
                             .split(new BatchAggregationStrategy(e ->
