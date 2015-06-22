@@ -370,6 +370,9 @@
 ## Get invoice lines by id
     curl http://localhost:9090/chump/v1/invoices/1000060/lines
 
+## Get invoice radius accounts
+    curl http://localhost:9090/chump/v1/invoices/1000060/radiusAccounts   
+
 ## Get subscriptions by business partner search key
     curl http://localhost:9090/chump/v1/subscriptions?businessPartnerSearchKey=1000009
 
@@ -532,4 +535,4 @@
        "name" : "testname",
        "taxExempt" : "true",
        "businessPartnerGroupId" : 1000013
-   }'
+   }' 

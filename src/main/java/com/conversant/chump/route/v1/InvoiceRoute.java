@@ -9,10 +9,7 @@ import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.processor.ReadBusinessPartnerRequestProcessor;
 import com.conversant.chump.processor.StandardResponseRemover;
 import com.conversant.chump.route.AdempiereRoute;
-import com.conversant.webservice.BusinessPartner;
-import com.conversant.webservice.ReadBusinessPartnerResponse;
-import com.conversant.webservice.ReadInvoiceLinesRequest;
-import com.conversant.webservice.ReadInvoicesByBusinessPartnerRequest;
+import com.conversant.webservice.*;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
@@ -59,6 +56,19 @@ public class InvoiceRoute implements ChumpRoute {
                     Arrays.asList(new StandardResponseRemover("invoiceLine"), ApiResponseProcessor.INSTANCE))
             .build();
 
+    public static final ChumpOperation GET_RADIUS_ACCOUNTS = ChumpOperation.builder()
+            .trx(false)
+            .rest(RestOperation.builder()
+                    .path("/{invoiceId}/radiusAccounts")
+                    .resource(RESOURCE)
+                    .method(GET)
+                    .build())
+            .to(Arrays.asList(
+                    ChumpOperation.pair(ReadRadiusAccountsByInvoiceRequestProcessor.INSTANCE, AdempiereRoute.READ_RADIUS_ACCOUNTS.getUri())))
+            .postProcessors(
+                    Arrays.asList(new StandardResponseRemover("radiusAccount"), ApiResponseProcessor.INSTANCE))
+            .build();
+
     private static final class ReadInvoicesByBusinessPartnerRequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new ReadInvoicesByBusinessPartnerRequestProcessor();
@@ -85,6 +95,21 @@ public class InvoiceRoute implements ChumpRoute {
 
             ReadInvoiceLinesRequest request = new ReadInvoiceLinesRequest();
             request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICE_LINES, ADEMPIERE_USER_INTALIO));
+            request.setInvoiceId(Integer.parseInt((String) exchange.getIn().getHeader("invoiceId")));
+
+            exchange.getIn().setBody(request);
+        }
+    }
+    
+    private static final class ReadRadiusAccountsByInvoiceRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new ReadRadiusAccountsByInvoiceRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+        	ReadRadiusAccountsByInvoiceRequest request = new ReadRadiusAccountsByInvoiceRequest();
+            request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_RADIUS_ACCOUNTS, ADEMPIERE_USER_INTALIO));
             request.setInvoiceId(Integer.parseInt((String) exchange.getIn().getHeader("invoiceId")));
 
             exchange.getIn().setBody(request);
