@@ -32,6 +32,7 @@ public class CreateBusinessPartnersRoute extends AbstractBusinessPartnersRoute {
                     .method(POST)
                     .requestType(BusinessPartnerRequest.class)
                     .build())
+            .trx(false)
             .to(Collections.singletonList(ChumpOperation.pair(CreateBusinessPartnerRequestProcessor.INSTANCE, AdempiereRoute.CREATE_BUSINESS_PARTNER.getUri())))
             .postProcessors(Collections.singletonList(ApiResponseProcessor.INSTANCE))
             .build();
