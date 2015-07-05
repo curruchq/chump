@@ -1,5 +1,6 @@
 package com.conversant.chump.model;
 
+import com.conversant.chump.util.DateUtil;
 import lombok.Data;
 
 import java.util.Date;
@@ -19,4 +20,12 @@ public class NumberRequest extends BatchRequest<NumberRequest> {
     private int businessPartnerLocationId;
     private Date startDate;
     private Date paidUntilDate;
+
+    public void setStartDate(Date startDate) {
+        this.startDate = DateUtil.zeroTime(startDate);
+    }
+
+    public void setPaidUntilDate(Date paidUntilDate) {
+        this.paidUntilDate = DateUtil.zeroTime(paidUntilDate);
+    }
 }
