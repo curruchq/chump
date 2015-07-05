@@ -76,7 +76,7 @@
         ]
     }'
 
-## Provision a number (optional - filter.exclude.did)
+## Provision a number (optional - filter.exclude.did and filter.exclude.call)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -168,7 +168,7 @@
         ]
     }'
 
-## Provision an order (optional - filter.exclude.did)
+## Provision an order (optional - filter.exclude.did and filter.exclude.call)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/orders/80088/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -250,7 +250,7 @@
         ]
     }'
 
-## Provision a number (optional - filter.exclude.did)
+## Provision a number (optional - filter.exclude.did and filter.exclude.call)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -342,7 +342,7 @@
         ]
     }'
 
-## Provision an order (optional - filter.exclude.did)
+## Provision an order (optional - filter.exclude.did and filter.exclude.call)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/80088/provision -d \
     '{
         "realm": "conversant.co.nz",
