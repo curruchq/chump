@@ -30,6 +30,7 @@ public class Constants {
     public static final String TYPE_READ_BUSINESS_PARTNER_LOCATION = "AD-readBusinessPartnerLocation-Drupal";
     public static final String TYPE_READ_BUSINESS_PARTNER_USERS = "AD-readUsersByBusinessPartner-Drupal";
     public static final String TYPE_READ_BUSINESS_PARTNER_ORDERS = "AD-readOrderByBPartnerSearchKey-Intalio";
+    public static final String TYPE_READ_BUSINESS_PARTNER_INVOICES = "AC-readInvoicesByBusinessPartner-Intalio";
     public static final String TYPE_CREATE_BUSINESS_PARTNER = "AD-createBusinessPartner-Drupal";
     public static final String TYPE_CREATE_LOCATION = "AD-createLocation-Intalio";
     public static final String TYPE_CREATE_BUSINESS_PARTNER_LOCATION = "AD-createBusinessPartnerLocation-Intalio";
@@ -39,8 +40,9 @@ public class Constants {
     public static final String TYPE_READ_BUSINESS_PARTNERS_BY_GROUP = "AD-readBusinessPartnersByGroup-Intalio";
 
     public static final String TYPE_READ_SUBSCRIBED_NUMBERS = "AD-readSubscribedNumbers-Drupal";
-    public static final String TYPE_READ_INVOICES = "AC-readInvoicesByBusinessPartner-Drupal";
+    public static final String TYPE_READ_INVOICE = "AC-readInvoice-Intalio";
     public static final String TYPE_READ_INVOICE_LINES = "AC-readInvoiceLines-Intalio";
+    public static final String TYPE_READ_INVOICES_BY_BUSINESS_PARTNER = "AC-readInvoicesByBusinessPartner-Drupal";
     public static final String TYPE_READ_RADIUS_ACCOUNTS = "P-readRadiusAccountsByInvoice-Intalio";
     public static final String TYPE_READ_SUBSCRIPTIONS = "AD-readSubscriptions-Drupal";
     public static final String TYPE_READ_SUBSCRIPTION = "AD-readSubscription-Drupal";

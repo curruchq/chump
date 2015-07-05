@@ -458,8 +458,11 @@
 ## Get subscribed numbers
     curl http://localhost:9090/chump/v1/businesspartners/1000009/numbers
 
-## Get invoices by business partner search key
-    curl http://localhost:9090/chump/v1/invoices?businessPartnerSearchKey=1000009
+## Get a list of invoices for a business partner
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/invoices
+
+## Get invoice by id
+    curl http://localhost:9090/chump/v1/invoices/1000060
 
 ## Get invoice lines by id
     curl http://localhost:9090/chump/v1/invoices/1000060/lines
