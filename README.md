@@ -87,7 +87,7 @@
         "paidUntilDate": "2015-03-01"
     }'
 
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/provision -d \
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/provision -d \
     '{
         "numbers": ["6494297022", "6494297023"],
         "realm": "conversant.co.nz",
@@ -98,7 +98,7 @@
         "paidUntilDate": "2015-03-01"
     }'
 
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297024/provision -d \
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297024/provision -d \
     '{
         "requests": [
             {
@@ -133,7 +133,7 @@
         "paidUntilDate": "2015-03-01"
     }'
 
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/subscribe -d \
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/subscribe -d \
     '{
         "numbers": ["6494297022", "6494297023"],
         "realm": "conversant.co.nz",
@@ -144,7 +144,7 @@
         "paidUntilDate": "2015-03-01"
     }'
 
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297024/subscribe -d \
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297024/subscribe -d \
     '{
         "requests": [
             {
