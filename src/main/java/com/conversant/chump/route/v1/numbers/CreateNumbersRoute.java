@@ -32,7 +32,7 @@ public class CreateNumbersRoute extends AbstractNumbersRoute {
             .uri("direct://createProduct-v1")
             .to(Arrays.asList(
                     ChumpOperation.pair(CreateCallProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_PRODUCT.getUri()),
-                    ChumpOperation.pair(CreateDidProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_PRODUCT.getUri()).excludable("didProduct")))
+                    ChumpOperation.pair(CreateDidProductRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_PRODUCT.getUri()).excludable("did")))
             .build();
 
     /**

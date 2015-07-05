@@ -5,7 +5,7 @@
 3. Run `java -jar target/chump-0.0.1-SNAPSHOT.jar`
 
 # REST - v2
-## Create a number (optional - filter.exclude.didProduct)
+## Create a number (optional - filter.exclude.did)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
     '{
         "number": "6494297021",
@@ -76,7 +76,7 @@
         ]
     }'
 
-## Provision a number (optional - filter.exclude.didSubscription)
+## Provision a number (optional - filter.exclude.did)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -122,7 +122,7 @@
         ]
     }'
 
-## Subscribe a number (optional - filter.exclude.didSubscription)
+## Subscribe a number (optional - filter.exclude.did)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/subscribe -d \
     '{
         "realm": "conversant.co.nz",
@@ -168,7 +168,7 @@
         ]
     }'
 
-## Provision an order (optional - filter.exclude.didSubscription)
+## Provision an order (optional - filter.exclude.did)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/orders/80088/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -179,7 +179,7 @@
 ## Get status
     curl http://localhost:9090/chump/v1/status
 
-## Create a number (optional - filter.exclude.didProduct)
+## Create a number (optional - filter.exclude.did)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
     '{
         "number": "6494297021",
@@ -250,7 +250,7 @@
         ]
     }'
 
-## Provision a number (optional - filter.exclude.didSubscription)
+## Provision a number (optional - filter.exclude.did)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -296,7 +296,7 @@
         ]
     }'
 
-## Subscribe a number (optional - filter.exclude.didSubscription)
+## Subscribe a number (optional - filter.exclude.did)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/subscribe -d \
     '{
         "realm": "conversant.co.nz",
@@ -342,7 +342,7 @@
         ]
     }'
 
-## Provision an order (optional - filter.exclude.didSubscription)
+## Provision an order (optional - filter.exclude.did)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/80088/provision -d \
     '{
         "realm": "conversant.co.nz",
