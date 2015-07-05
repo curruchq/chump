@@ -376,6 +376,28 @@
 ## Get a list of locations for a business partner
     curl http://localhost:9090/chump/v1/businesspartners/1000009/locations
 
+## Create a business partner location
+    curl -X POST -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners/1000009/locations -d \
+    '{
+        "name": "Warehouse",
+        "address1": "1 Storage Lane",
+        "address2": "Cargo Estate",
+        "address3": "",
+        "address4": "",
+        "city": "Hanger",
+        "zip": "1109",
+        "countryId": 262
+    }'
+
+## Update a business partner location
+    curl -X PUT -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners/1000009/locations/1000350 -d \
+    '{
+        "name" : "John's Office",
+        "address1" : "1 Foo Road",
+        "city": "Bar City",
+        "countryId": 117
+    }'
+
 ## Get subscribed numbers
     curl http://localhost:9090/chump/v1/businesspartners/1000009/numbers
 

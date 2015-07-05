@@ -27,8 +27,11 @@ public class Constants {
     public static final String TYPE_READ_BUSINESS_PARTNER = "AD-readBusinessPartnerByValue-Drupal";
     public static final String TYPE_READ_BUSINESS_PARTNER_LOCATION = "AD-readBusinessPartnerLocation-Drupal";
     public static final String TYPE_CREATE_BUSINESS_PARTNER = "AD-createBusinessPartner-Drupal";
+    public static final String TYPE_CREATE_LOCATION = "AD-createLocation-Intalio";
+    public static final String TYPE_CREATE_BUSINESS_PARTNER_LOCATION = "AD-createBusinessPartnerLocation-Intalio";
     public static final String TYPE_READ_BUSINESS_PARTNERS = "AD-readBusinessPartner-Drupal";
     public static final String TYPE_UPDATE_BUSINESS_PARTNER = "AD-updateBusinessPartner-Intalio";
+    public static final String TYPE_UPDATE_BUSINESS_PARTNER_LOCATION = "AD-updateBusinessPartnerLocation-Intalio";
     public static final String TYPE_READ_BUSINESS_PARTNERS_BY_GROUP = "AD-readBusinessPartnersByGroup-Intalio";
 
     public static final String TYPE_READ_SUBSCRIBED_NUMBERS = "AD-readSubscribedNumbers-Drupal";

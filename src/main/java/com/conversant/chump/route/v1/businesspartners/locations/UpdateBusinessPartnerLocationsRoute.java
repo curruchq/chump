@@ -1,0 +1,76 @@
+package com.conversant.chump.route.v1.businesspartners.locations;
+
+import com.conversant.chump.common.ChumpOperation;
+import com.conversant.chump.common.RestOperation;
+import com.conversant.chump.model.BusinessPartnerLocationRequest;
+import com.conversant.chump.processor.ApiResponseProcessor;
+import com.conversant.chump.processor.StandardResponseRemover;
+import com.conversant.chump.route.AdempiereRoute;
+import com.conversant.chump.route.v1.businesspartners.AbstractBusinessPartnersRoute;
+import com.conversant.webservice.BusinessPartner;
+import com.conversant.webservice.ReadBusinessPartnerResponse;
+import com.conversant.webservice.UpdateBusinessPartnerLocationRequest;
+import com.conversant.webservice.UpdateBusinessPartnerRequest;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import static com.conversant.chump.common.RestOperation.HttpMethod.PUT;
+import static com.conversant.chump.util.Constants.*;
+import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
+
+/**
+ * Created by jhill on 20/06/15.
+ */
+@Component
+public class UpdateBusinessPartnerLocationsRoute extends AbstractBusinessPartnersRoute {
+
+    /**
+     * Update business partner locations
+     */
+    public static final ChumpOperation UPDATE = ChumpOperation.builder()
+            .rest(RestOperation.builder()
+                    .resource(RESOURCE)
+                    .path("/{businessPartnerSearchKey}/locations/{businessPartnerLocationId}")
+                    .requestType(BusinessPartnerLocationRequest.class)
+                    .method(PUT)
+                    .build())
+            .trx(false)
+            .to(Collections.singletonList(ChumpOperation.pair(UpdateBusinessPartnerLocationRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_BUSINESS_PARTNER_LOCATION.getUri())))
+            .build();
+
+    /**
+     * Update business partner location request processor
+     */
+    private static final class UpdateBusinessPartnerLocationRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new UpdateBusinessPartnerLocationRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            BusinessPartnerLocationRequest businessPartnerLocationRequest = exchange.getProperty(BusinessPartnerLocationRequest.class.getName(), BusinessPartnerLocationRequest.class);
+            businessPartnerLocationRequest.setBusinessPartnerLocationId(Integer.parseInt((String) exchange.getIn().getHeader("businessPartnerLocationId")));
+
+            UpdateBusinessPartnerLocationRequest updateBusinessPartnerLocationRequest = new UpdateBusinessPartnerLocationRequest();
+            updateBusinessPartnerLocationRequest.setLoginRequest(createLoginRequest(exchange, TYPE_UPDATE_BUSINESS_PARTNER_LOCATION, ADEMPIERE_USER_INTALIO));
+            updateBusinessPartnerLocationRequest.setBusinessPartnerLocationId(businessPartnerLocationRequest.getBusinessPartnerLocationId());
+            updateBusinessPartnerLocationRequest.setName(businessPartnerLocationRequest.getName());
+            updateBusinessPartnerLocationRequest.setAddress1(businessPartnerLocationRequest.getAddress1());
+            updateBusinessPartnerLocationRequest.setAddress2(businessPartnerLocationRequest.getAddress2());
+            updateBusinessPartnerLocationRequest.setAddress3(businessPartnerLocationRequest.getAddress3());
+            updateBusinessPartnerLocationRequest.setAddress4(businessPartnerLocationRequest.getAddress4());
+            updateBusinessPartnerLocationRequest.setCity(businessPartnerLocationRequest.getCity());
+            updateBusinessPartnerLocationRequest.setCityId(businessPartnerLocationRequest.getCityId());
+            updateBusinessPartnerLocationRequest.setZip(businessPartnerLocationRequest.getZip());
+            updateBusinessPartnerLocationRequest.setRegion(businessPartnerLocationRequest.getRegion());
+            updateBusinessPartnerLocationRequest.setRegionId(businessPartnerLocationRequest.getRegionId());
+            updateBusinessPartnerLocationRequest.setCountryId(businessPartnerLocationRequest.getCountryId());
+
+            exchange.getIn().setBody(updateBusinessPartnerLocationRequest);
+        }
+    }
+}

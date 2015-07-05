@@ -1,10 +1,11 @@
-package com.conversant.chump.route.v1.businesspartners;
+package com.conversant.chump.route.v1.businesspartners.locations;
 
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.processor.StandardResponseRemover;
 import com.conversant.chump.route.AdempiereRoute;
+import com.conversant.chump.route.v1.businesspartners.AbstractBusinessPartnersRoute;
 import com.conversant.webservice.BusinessPartner;
 import com.conversant.webservice.ReadBPLocationRequest;
 import com.conversant.webservice.ReadBusinessPartnerResponse;
@@ -23,7 +24,7 @@ import static com.conversant.chump.util.Constants.TYPE_READ_BUSINESS_PARTNER_LOC
  * Created by jhill on 20/06/15.
  */
 @Component
-public class BusinessPartnerLocationsRoute extends AbstractBusinessPartnersRoute {
+public class ReadBusinessPartnerLocationsRoute extends AbstractBusinessPartnersRoute {
 
     /**
      * Read business partner locations
