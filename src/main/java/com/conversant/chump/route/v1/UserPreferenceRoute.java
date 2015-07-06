@@ -7,7 +7,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +20,13 @@ public class UserPreferenceRoute implements ChumpRoute {
     public static final ChumpOperation INSERT = ChumpOperation.builder()
             .uri("direct://insertUserPreference")
             .trx(false)
-            .to(Arrays.asList(ChumpOperation.pair(InsertRequestProcessor.INSTANCE, "sql:{{sql.ser.insertUserPreference}}")))
+            .to(Collections.singletonList(ChumpOperation.pair(InsertRequestProcessor.INSTANCE, "sql:{{sql.ser.insertUserPreference}}")))
+            .build();
+
+    public static final ChumpOperation INSERT_IF_NOT_EXISTS = ChumpOperation.builder()
+            .uri("direct://insertUserPreferenceIfNotExists")
+            .trx(false)
+            .to(Collections.singletonList(ChumpOperation.pair(InsertRequestProcessor.INSTANCE, "sql:{{sql.ser.insertUserPreferenceIfNotExists}}")))
             .build();
 
     private static final class InsertRequestProcessor implements Processor {
