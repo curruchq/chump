@@ -42,6 +42,7 @@ public class ChumpRouteBuilder extends RouteBuilder {
     public static final String HOST = "{{server.host:localhost}}";
     public static final String PORT = "{{server.port:9090}}";
     public static final String PATH = "{{server.path:/chump}}";
+    public static final String TIMEOUT = "{{server.timeout:90000}}";
 
     @Override
     public void configure() throws Exception {
@@ -60,7 +61,8 @@ public class ChumpRouteBuilder extends RouteBuilder {
                 .dataFormatProperty("prettyPrint", "true")
                 .scheme(SCHEME)
                 .host(HOST)
-                .port(PORT);
+                .port(PORT)
+                .endpointProperty("continuationTimeout", TIMEOUT);
 
         // Add all ChumpRoutes
         getContext().getRegistry().findByType(ChumpRoute.class).stream().forEach(this::add);
