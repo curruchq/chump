@@ -168,6 +168,14 @@
         ]
     }'
 
+## Set number as primary caller id
+    curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297026/callerId -d \
+    '{
+        "businessPartnerId": 1000076,
+        "realm": "conversant.co.nz",
+        "startDate": "2015-07-06"
+    }'
+
 ## Provision an order (optional - filter.exclude.did and filter.exclude.call)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/orders/80088/provision -d \
     '{
@@ -340,6 +348,13 @@
                 "paidUntilDate": "2015-03-01"
             }
         ]
+    }'
+
+## Set number as primary caller id
+    curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297026/callerId -d \
+    '{
+        "businessPartnerId": 1000076,
+        "startDate": "2015-07-06"
     }'
 
 ## Provision an order (optional - filter.exclude.did and filter.exclude.call)

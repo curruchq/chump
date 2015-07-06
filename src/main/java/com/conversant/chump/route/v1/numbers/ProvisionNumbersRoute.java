@@ -137,7 +137,7 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
     /**
      * CallerId v1 user preference request processor
      */
-    private static final class CallerIdv1UserPreferenceRequestProcessor implements Processor {
+    protected static final class CallerIdv1UserPreferenceRequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new CallerIdv1UserPreferenceRequestProcessor();
 

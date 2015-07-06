@@ -2,6 +2,7 @@ package com.conversant.chump.route.v1;
 
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.ChumpRoute;
+import com.conversant.chump.model.EndDateUserPreferenceRequest;
 import com.conversant.chump.model.InsertUserPreferenceRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -49,6 +50,31 @@ public class UserPreferenceRoute implements ChumpRoute {
             body.put("date_start", request.getDateStart());
             body.put("date_end", request.getDateEnd());
             body.put("subscriber_id", request.getSubscriberId());
+
+            exchange.getIn().setBody(body);
+        }
+    }
+
+    public static final ChumpOperation END_DATE = ChumpOperation.builder()
+            .uri("direct://endDateUserPreference")
+            .trx(false)
+            .to(Collections.singletonList(ChumpOperation.pair(EndDateRequestProcessor.INSTANCE, "sql:{{sql.ser.endDateUserPreference}}")))
+            .build();
+
+    private static final class EndDateRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new EndDateRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            EndDateUserPreferenceRequest request = exchange.getIn().getBody(EndDateUserPreferenceRequest.class);
+
+            Map<String, Object> body = new HashMap<>();
+            body.put("uuid", request.getUuid());
+            body.put("attribute", request.getAttribute());
+            body.put("modified", request.getDateEnd());
+            body.put("date_end", request.getDateEnd());
 
             exchange.getIn().setBody(body);
         }
