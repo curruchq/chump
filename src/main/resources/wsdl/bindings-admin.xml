@@ -20,6 +20,13 @@
         </jaxb:globalBindings>
     </jaxws:bindings>
 
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='createBusinessPartnerResponse']">
+        <jaxb:factoryMethod name="CreateBusinessPartnerResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='createBusinessPartnerResponse']">
+        <jaxb:class name="CreateBusinessPartnerResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
     <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readBusinessPartnerResponse']">
         <jaxb:factoryMethod name="ReadBusinessPartnerResponseWsdlMessagePart"/>
     </jaxws:bindings>
