@@ -193,7 +193,7 @@ public class OrderRoute implements ChumpRoute {
             response.setResponses(exchange.getIn().getBody(List.class));
 
             // If found existing then add responses
-            if (existing != null) {
+            if (existing != null && existing.getResponses() != null) {
                 response.getResponses().addAll(existing.getResponses());
             }
 
