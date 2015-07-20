@@ -19,6 +19,7 @@ public class Constants {
     public static final String TYPE_CREATE_DID_SUBSCRIPTION = "P-createDIDSubscription-Intalio";
     public static final String TYPE_CREATE_NUMBER_PORT_SUBSCRIPTION = "P-createNumberPortSubscription-Intalio";
     public static final String TYPE_UPDATE_DID_PRODUCT = "P-updateDIDProduct-Intalio";
+    public static final String TYPE_CREATE_ORDER = "AD-createOrder-Intalio";
     public static final String TYPE_READ_ORDER = "AD-readOrder-Intalio";
     public static final String TYPE_READ_ORDER_DIDS = "AD-readOrderDIDs-Intalio";
     public static final String TYPE_READ_ORDER_NUMBER_PORTS = "AD-readOrderNumberPorts-Intalio";

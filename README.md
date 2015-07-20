@@ -381,6 +381,18 @@
         "startDate": "2015-07-06"
     }'
 
+## Create an order
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders -d \
+    '{
+        "businessPartnerId": 1002255,
+        "businessPartnerLocationId": 1002380,
+        "pricelistId": 1000000,
+        "warehouseId": 1000000,
+        "datePromised": "2015-07-01",
+        "dateOrdered": "2015-06-01",
+        "orgId": 1000001
+    }'
+
 ## Provision an order (optional - filter.exclude.did and filter.exclude.call)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/80088/provision -d \
     '{
