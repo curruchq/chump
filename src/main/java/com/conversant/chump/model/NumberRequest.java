@@ -20,6 +20,7 @@ public class NumberRequest extends BatchRequest<NumberRequest> {
     private int businessPartnerLocationId;
     private Date startDate;
     private Date paidUntilDate;
+    private int orgId;
 
     public void setStartDate(Date startDate) {
         this.startDate = DateUtil.zeroTime(startDate);

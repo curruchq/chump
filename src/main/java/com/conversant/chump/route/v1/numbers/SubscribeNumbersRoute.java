@@ -93,6 +93,7 @@ public class SubscribeNumbersRoute extends AbstractNumbersRoute {
             callSubscriptionRequest.setBusinessPartnerId(request.getBusinessPartnerId());
             callSubscriptionRequest.setBusinessPartnerLocationId(request.getBusinessPartnerLocationId());
             callSubscriptionRequest.setStartDate(request.getStartDate());
+            callSubscriptionRequest.setOrgId(request.getOrgId());
 
             exchange.getIn().setBody(callSubscriptionRequest);
         }
@@ -117,6 +118,7 @@ public class SubscribeNumbersRoute extends AbstractNumbersRoute {
             didSubscriptionRequest.setBusinessPartnerLocationId(request.getBusinessPartnerLocationId());
             didSubscriptionRequest.setStartDate(request.getStartDate());
             didSubscriptionRequest.setPaidUntilDate(request.getPaidUntilDate());
+            didSubscriptionRequest.setOrgId(request.getOrgId());
 
             exchange.getIn().setBody(didSubscriptionRequest);
         }

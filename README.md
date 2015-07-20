@@ -134,7 +134,8 @@
         "businessPartnerId": 1000076,
         "businessPartnerLocationId": 1000014,
         "startDate": "2015-02-01",
-        "paidUntilDate": "2015-03-01"
+        "paidUntilDate": "2015-03-01",
+        "orgId": 1000001
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/subscribe -d \
@@ -145,7 +146,8 @@
         "businessPartnerId": 1000076,
         "businessPartnerLocationId": 1000014,
         "startDate": "2015-02-01",
-        "paidUntilDate": "2015-03-01"
+        "paidUntilDate": "2015-03-01",
+        "orgId": 1000001
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297024/subscribe -d \
@@ -158,7 +160,8 @@
                 "businessPartnerId": 1000076,
                 "businessPartnerLocationId": 1000014,
                 "startDate": "2015-02-01",
-                "paidUntilDate": "2015-03-01"
+                "paidUntilDate": "2015-03-01",
+                "orgId": 1000001
             },
             {
                 "number": "6494297025",
@@ -167,7 +170,8 @@
                 "businessPartnerId": 1000076,
                 "businessPartnerLocationId": 1000014,
                 "startDate": "2015-02-01",
-                "paidUntilDate": "2015-03-01"
+                "paidUntilDate": "2015-03-01",
+                "orgId": 1000001
             }
         ]
     }'
@@ -320,7 +324,8 @@
         "businessPartnerId": 1000076,
         "businessPartnerLocationId": 1000014,
         "startDate": "2015-02-01",
-        "paidUntilDate": "2015-03-01"
+        "paidUntilDate": "2015-03-01",
+        "orgId": 1000001
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/subscribe -d \
@@ -331,7 +336,8 @@
         "businessPartnerId": 1000076,
         "businessPartnerLocationId": 1000014,
         "startDate": "2015-02-01",
-        "paidUntilDate": "2015-03-01"
+        "paidUntilDate": "2015-03-01",
+        "orgId": 1000001
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297022/subscribe -d \
@@ -344,7 +350,8 @@
                 "businessPartnerId": 1000076,
                 "businessPartnerLocationId": 1000014,
                 "startDate": "2015-02-01",
-                "paidUntilDate": "2015-03-01"
+                "paidUntilDate": "2015-03-01",
+                "orgId": 1000001
             },
             {
                 "number": "6494297025",
@@ -353,7 +360,8 @@
                 "businessPartnerId": 1000076,
                 "businessPartnerLocationId": 1000014,
                 "startDate": "2015-02-01",
-                "paidUntilDate": "2015-03-01"
+                "paidUntilDate": "2015-03-01",
+                "orgId": 1000001
             }
         ]
     }'
