@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by Saren Currie on 2015-04-02.
  */
 @Data
-public class UpdateSubscriptionRequest {
+public class SubscriptionRequest {
 
     private String name;
     private int subscriptionTypeId;
@@ -22,4 +22,5 @@ public class UpdateSubscriptionRequest {
     private int qty;
     private boolean isDue;
     private int userId;
+    private int orgId;
 }

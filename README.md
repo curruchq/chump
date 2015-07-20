@@ -442,7 +442,7 @@
     }'
 
 ## Update subscription
-    curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/1000619 -d \
+    curl -XPUT -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/1000619 -d \
     '{
         "name" : "+12124016222",
         "businessPartnerId" : 1000022,
@@ -470,7 +470,8 @@
         "renewalDate" : "2015-05-30",
         "billInAdvance" : true,
         "qty" : 1,
-        "userId" : 0
+        "userId" : 0,
+        "orgId": 1000001
     }'
 
 ## Get organisation by id
