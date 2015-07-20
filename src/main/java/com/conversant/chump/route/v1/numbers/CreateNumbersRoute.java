@@ -69,6 +69,7 @@ public class CreateNumbersRoute extends AbstractNumbersRoute {
             callProductRequest.setDomain(request.getDomain());
             callProductRequest.setNumber(request.getNumber());
             callProductRequest.setPricelistVersionId(request.getPriceListVersionId());
+            callProductRequest.setOrgId(request.getOrgId());
 
             exchange.getIn().setBody(callProductRequest);
         }
@@ -100,6 +101,7 @@ public class CreateNumbersRoute extends AbstractNumbersRoute {
             didProductRequest.setMonthlyCharge(request.getMonthlyCharge());
             didProductRequest.setCurrencyId(request.getCurrencyId());
             didProductRequest.setPricelistVersionId(request.getPriceListVersionId());
+            didProductRequest.setOrgId(request.getOrgId());
 
             exchange.getIn().setBody(didProductRequest);
         }

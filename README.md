@@ -20,7 +20,8 @@
         "businessPartnerId": 1000076,
         "setupCost": "1",
         "monthlyCharge": "2",
-        "currencyId": 121
+        "currencyId": 121,
+        "orgId": 1000001
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
@@ -37,7 +38,8 @@
         "businessPartnerId": 1000076,
         "setupCost": "1",
         "monthlyCharge": "2",
-        "currencyId": 121
+        "currencyId": 121,
+        "orgId": 1000001
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
@@ -56,7 +58,8 @@
                 "businessPartnerId": 1000076,
                 "setupCost": "1",
                 "monthlyCharge": "2",
-                "currencyId": 121
+                "currencyId": 121,
+                "orgId": 1000001
             },
             {
                 "number": "6494297025",
@@ -71,7 +74,8 @@
                 "businessPartnerId": 1000076,
                 "setupCost": "1",
                 "monthlyCharge": "2",
-                "currencyId": 121
+                "currencyId": 121,
+                "orgId": 1000001
             }
         ]
     }'
@@ -202,7 +206,8 @@
         "businessPartnerId": 1000076,
         "setupCost": "1",
         "monthlyCharge": "2",
-        "currencyId": 121
+        "currencyId": 121,
+        "orgId": 1000001
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
@@ -219,7 +224,8 @@
         "businessPartnerId": 1000076,
         "setupCost": "1",
         "monthlyCharge": "2",
-        "currencyId": 121
+        "currencyId": 121,
+        "orgId": 1000001
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
@@ -238,7 +244,8 @@
                 "businessPartnerId": 1000076,
                 "setupCost": "1",
                 "monthlyCharge": "2",
-                "currencyId": 121
+                "currencyId": 121,
+                "orgId": 1000001
             },
             {
                 "number": "6494297025",
@@ -253,7 +260,8 @@
                 "businessPartnerId": 1000076,
                 "setupCost": "1",
                 "monthlyCharge": "2",
-                "currencyId": 121
+                "currencyId": 121,
+                "orgId": 1000001
             }
         ]
     }'
