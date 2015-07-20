@@ -1,4 +1,4 @@
-package com.conversant.chump.route.v1;
+package com.conversant.chump.route.v1.orders;
 
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.ChumpRoute;
@@ -30,14 +30,11 @@ import static com.conversant.chump.util.Constants.*;
 /**
  * Created by jhill on 31/12/14.
  */
-@Component
-public class OrderRoute implements ChumpRoute {
+@Component(value = "provisionOrdersRoute-v1")
+public class ProvisionOrdersRoute extends AbstractOrdersRoute {
 
-    /** Base resource */
-    private static final String RESOURCE = "/v1/orders";
-
-    private static final String PROVISION_ORDER_CUSTOM = "direct://provisionOrderCustom";
-    private static final String PROVISION_NUMBER_PORTS_CUSTOM = "direct://provisionNumberPortsCustom";
+    private static final String PROVISION_ORDER_CUSTOM = "direct://provisionOrderCustom-v1";
+    private static final String PROVISION_NUMBER_PORTS_CUSTOM = "direct://provisionNumberPortsCustom-v1";
     private static final String ORDER = "order";
 
     /** Provision all numbers and number ports on an order */
@@ -57,20 +54,6 @@ public class OrderRoute implements ChumpRoute {
                     ChumpOperation.pair(ProvisionNumberSplitRequestProcessor.INSTANCE, PROVISION_ORDER_CUSTOM),
                     ChumpOperation.pair(ReadOrderNumberPortsRequestProcessor.INSTANCE, AdempiereRoute.READ_ORDER_NUMBER_PORTS.getUri()),
                     ChumpOperation.pair(OrderNumberPortsSplitRequestProcessor.INSTANCE, PROVISION_NUMBER_PORTS_CUSTOM)))
-            .build();
-
-    public static final ChumpOperation LINES = ChumpOperation.builder()
-            .rest(RestOperation.builder()
-                    .method(GET)
-                    .resource(RESOURCE)
-                    .path("/{orderNo}/lines")
-                    .build())
-            .trx(false)
-            .to(Arrays.asList(
-                    ChumpOperation.pair(ReadOrderRequestHeaderProcessor.INSTANCE, AdempiereRoute.READ_ORDER.getUri()),
-                    ChumpOperation.pair(ReadOrderLinesRequestProcessor.INSTANCE, AdempiereRoute.READ_ORDER_LINES.getUri())))
-            .postProcessors(Arrays.asList(
-                    new StandardResponseRemover("orderLine"), ApiResponseProcessor.INSTANCE))
             .build();
 
     @Component
@@ -330,56 +313,6 @@ public class OrderRoute implements ChumpRoute {
             oldExchange.getIn().getBody(List.class).add(apiResponse);
 
             return oldExchange;
-        }
-    }
-
-    private static final class ReadOrderRequestHeaderProcessor implements Processor {
-
-        public static final Processor INSTANCE = new ReadOrderRequestHeaderProcessor();
-
-        @Override
-        public void process(Exchange exchange) throws Exception {
-
-            ReadOrderRequest readOrderRequest = new ReadOrderRequest();
-            readOrderRequest.setLoginRequest(createLoginRequest(exchange, TYPE_READ_ORDER, ADEMPIERE_USER_INTALIO));
-            readOrderRequest.setDocumentNo((String) exchange.getIn().getHeader("orderNo"));
-
-            if (exchange.getIn().getHeader("productId") != null) {
-                exchange.setProperty("productId", Integer.parseInt((String) exchange.getIn().getHeader("productId")));
-            }
-
-            if (exchange.getIn().getHeader("productCategoryId") != null) {
-                exchange.setProperty("productCategoryId", Integer.parseInt((String) exchange.getIn().getHeader("productCategoryId")));
-            }
-
-            exchange.getIn().setBody(readOrderRequest);
-        }
-    }
-
-    private static class ReadOrderLinesRequestProcessor implements Processor {
-
-        public static final Processor INSTANCE = new ReadOrderLinesRequestProcessor();
-
-        @Override
-        public void process(Exchange exchange) throws Exception {
-
-            ReadOrderResponse response = exchange.getIn().getBody(ReadOrderResponse.class);
-
-            ReadOrderLinesRequest request = new ReadOrderLinesRequest();
-            request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_ORDER_LINES, ADEMPIERE_USER_INTALIO));
-            request.setOrderId(response.getOrder().getOrderId());
-
-            Integer productId = exchange.getProperty("productId", Integer.class);
-            if (productId != null) {
-                request.setProductId(productId);
-            }
-
-            Integer productCategoryId = exchange.getProperty("productCategoryId", Integer.class);
-            if (productCategoryId != null) {
-                request.setProductCategoryId(productCategoryId);
-            }
-
-            exchange.getIn().setBody(request);
         }
     }
 }

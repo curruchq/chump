@@ -1,4 +1,4 @@
-package com.conversant.chump.route.v2;
+package com.conversant.chump.route.v2.orders;
 
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.ChumpRoute;
@@ -27,14 +27,11 @@ import static com.conversant.chump.util.Constants.*;
 /**
  * Created by jhill on 31/12/14.
  */
-@Component(value = "orderRoute-v2")
-public class OrderRoute implements ChumpRoute {
+@Component(value = "provisionOrdersRoute-v2")
+public class ProvisionOrdersRoute extends AbstractOrdersRoute {
 
-    /** Base resource */
-    private static final String RESOURCE = "/v2/orders";
-
-    private static final String PROVISION_ORDER_CUSTOM = "direct://provisionOrder2Custom";
-    private static final String PROVISION_NUMBER_PORTS_CUSTOM = "direct://provisionNumberPorts2Custom";
+    private static final String PROVISION_ORDER_CUSTOM = "direct://provisionOrderCustom-v2";
+    private static final String PROVISION_NUMBER_PORTS_CUSTOM = "direct://provisionNumberPorts2Custom-v2";
     private static final String ORDER = "order";
 
     /** Provision all numbers and number ports on an order */

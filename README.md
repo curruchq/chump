@@ -388,6 +388,9 @@
         "proxy": "c-vm-02.conversant.co.nz"
     }'
 
+## Read an order
+    curl http://localhost:9090/chump/v1/orders/52732
+
 ## Read order lines (optional query parameters - productId and productCategoryId)
     curl http://localhost:9090/chump/v1/orders/52732/lines
 
