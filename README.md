@@ -393,6 +393,18 @@
         "orgId": 1000001
     }'
 
+## Update an order
+    curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/52732 -d \
+    '{
+        "businessPartnerId": 1002255,
+        "businessPartnerLocationId": 1002380,
+        "pricelistId": 1000000,
+        "warehouseId": 1000000,
+        "datePromised": "2020-09-01",
+        "dateOrdered": "2020-06-01",
+        "orgId": 1000001
+    }'
+
 ## Provision an order (optional - filter.exclude.did and filter.exclude.call)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/80088/provision -d \
     '{

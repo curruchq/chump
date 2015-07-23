@@ -24,6 +24,7 @@ public class Constants {
     public static final String TYPE_READ_ORDER_DIDS = "AD-readOrderDIDs-Intalio";
     public static final String TYPE_READ_ORDER_NUMBER_PORTS = "AD-readOrderNumberPorts-Intalio";
     public static final String TYPE_READ_ORDER_LINES = "AD-readOrderLines-Intalio";
+    public static final String TYPE_UPDATE_ORDER = "AD-updateOrder-Intalio";
 
     public static final String TYPE_READ_BUSINESS_PARTNER = "AD-readBusinessPartnerByValue-Drupal";
     public static final String TYPE_READ_BUSINESS_PARTNER_LOCATION = "AD-readBusinessPartnerLocation-Drupal";
