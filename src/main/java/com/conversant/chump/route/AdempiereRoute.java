@@ -220,6 +220,7 @@ public class AdempiereRoute implements ChumpRoute {
             request.setLoginRequest(createLoginRequest(exchange, TYPE_COMMIT_TRX));
 
             AdempiereHelper.setRequestBodyProperty(exchange, COMMIT_TRX, request);
+            exchange.setProperty(PROPERTY_TRX_NAME, null);
         }
     }
 
@@ -234,6 +235,7 @@ public class AdempiereRoute implements ChumpRoute {
             request.setLoginRequest(createLoginRequest(exchange, TYPE_ROLLBACK_TRX));
 
             AdempiereHelper.setRequestBodyProperty(exchange, ROLLBACK_TRX, request);
+            exchange.setProperty(PROPERTY_TRX_NAME, null);
         }
     }
 }
