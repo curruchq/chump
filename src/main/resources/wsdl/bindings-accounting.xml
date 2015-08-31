@@ -20,6 +20,13 @@
         </jaxb:globalBindings>
     </jaxws:bindings>
 
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readInvoiceResponse']">
+        <jaxb:factoryMethod name="ReadInvoiceResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readInvoiceResponse']">
+        <jaxb:class name="ReadInvoiceResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
     <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readInvoiceLinesResponse']">
         <jaxb:factoryMethod name="ReadInvoiceLinesResponseWsdlMessagePart"/>
     </jaxws:bindings>
