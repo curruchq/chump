@@ -376,6 +376,9 @@
 ## Get a list of locations for a business partner
     curl http://localhost:9090/chump/v1/businesspartners/1000009/locations
 
+## Get a list of users for a business partner
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/users
+
 ## Create a business partner location
     curl -X POST -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners/1000009/locations -d \
     '{
