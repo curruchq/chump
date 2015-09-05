@@ -160,6 +160,7 @@ public class OrderRoute implements ChumpRoute {
                         request.setBusinessPartnerLocationId(order.getBusinessPartnerLocationId());
                         request.setStartDate(order.getDatePromised());
                         request.setPaidUntilDate(order.getDatePromised());
+                        request.setOrgId(order.getOrgId());
 
                         return request;
                     })
@@ -267,6 +268,7 @@ public class OrderRoute implements ChumpRoute {
                         request.setNumber(did);
                         request.setBusinessPartnerId(order.getBusinessPartnerId());
                         request.setBusinessPartnerLocationId(order.getBusinessPartnerLocationId());
+                        request.setOrgId(order.getOrgId());
 
                         return request;
                     })
