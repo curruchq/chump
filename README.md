@@ -80,7 +80,7 @@
         ]
     }'
 
-## Provision a number (optional - filter.exclude.did and filter.exclude.call)
+## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -274,7 +274,7 @@
         ]
     }'
 
-## Provision a number (optional - filter.exclude.did and filter.exclude.call)
+## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",

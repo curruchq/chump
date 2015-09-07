@@ -41,7 +41,7 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
                     ChumpOperation.pair(CreateCallSubscription2RequestProcessor.INSTANCE, AdempiereRoute.CREATE_CALL_SUBSCRIPTION_2.getUri()).excludable("call"),
                     ChumpOperation.pair(CreateDidSubscriptionRequestProcessor.INSTANCE, AdempiereRoute.CREATE_DID_SUBSCRIPTION.getUri()).excludable("did"),
                     ChumpOperation.pair(UpdateDIDProductRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_DID_PRODUCT.getUri()).excludable("did"),
-                    ChumpOperation.pair(InboundDestinationUserPreferenceRequestProcessor.INSTANCE, UserPreferenceRoute.INSERT.getUri()),
+                    ChumpOperation.pair(InboundDestinationUserPreferenceRequestProcessor.INSTANCE, UserPreferenceRoute.INSERT.getUri()).excludable("inbound"),
                     ChumpOperation.pair(CallerIdv2UserPreferenceRequestProcessor.INSTANCE, UserPreferenceRoute.INSERT_IF_NOT_EXISTS.getUri()),
                     ChumpOperation.pair(AuthorisedCallerIdUserPreferenceRequestProcessor.INSTANCE, UserPreferenceRoute.INSERT.getUri())))
             .build();
