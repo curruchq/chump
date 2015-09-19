@@ -62,7 +62,8 @@ public class ChumpRouteBuilder extends RouteBuilder {
                 .scheme(SCHEME)
                 .host(HOST)
                 .port(PORT)
-                .endpointProperty("continuationTimeout", TIMEOUT);
+                .endpointProperty("continuationTimeout", TIMEOUT)
+                .endpointProperty("handlers", "staticResourceHandler");
 
         // Add all ChumpRoutes
         getContext().getRegistry().findByType(ChumpRoute.class).stream().forEach(this::add);

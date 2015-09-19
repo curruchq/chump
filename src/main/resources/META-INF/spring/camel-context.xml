@@ -15,6 +15,15 @@
         </property>
     </bean>
 
+    <!--<bean id="staticResourceHandler" class="org.eclipse.jetty.server.handler.ResourceHandler">-->
+        <!--<property name="resourceBase" value="static" />-->
+    <!--</bean>-->
+
+    <!--<bean id="staticContextHandler" class="org.eclipse.jetty.server.handler.ContextHandler">-->
+        <!--<property name="contextPath" value="/chump" />-->
+        <!--<property name="handler" ref="staticResourceHandler" />-->
+    <!--</bean>-->
+
     <import resource="cxf-context.xml"/>
     <import resource="db-context.xml"/>
 

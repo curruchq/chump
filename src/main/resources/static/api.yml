@@ -1,0 +1,169 @@
+swagger: '2.0'
+info:
+  version: '0.0.1-SNAPSHOT'
+  title: Chump
+  description: Conversant REST API
+basePath: /chump
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /v1/status:
+    get:
+      tags:
+        - status
+      operationId: getStatus
+      summary: Returns status information.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/status'
+
+  /v1/invoices/{invoiceId}:
+    get:
+      tags:
+        - invoices
+      summary: Returns an invoice.
+      parameters:
+        - in: path
+          name: invoiceId
+          description: Invoice id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/invoice'
+
+  /v1/businesspartners:
+    get:
+      tags:
+        - businesspartners
+      summary: Returns a list of business partners.
+      parameters:
+        - in: query
+          name: businessPartnerGroupId
+          description: Business partner group id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/businesspartner'
+
+  /v1/businesspartners/{businessPartnerSearchKey}:
+    get:
+      tags:
+        - businesspartners
+      summary: Returns a business partner.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/businesspartner'
+    put:
+      tags:
+        - businesspartners
+      summary: Updates a business partner.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Current business partner search key
+          required: true
+          type: string
+        - in: body
+          name: searchKey
+          description: New business partner search key
+          required: false
+          type: string
+        - in: body
+          name: orgId
+          description: Organization id
+          required: false
+          type: integer
+        - in: body
+          name: name
+          description: Name
+          required: false
+          type: string
+        - in: body
+          name: taxExempt
+          description: Tax exemption
+          required: false
+          type: string
+        - in: body
+          name: businessPartnerGroupId
+          description: Business partner group id
+          required: false
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/businesspartner'
+
+definitions:
+  status:
+    properties:
+      git.commit.id:
+        type: string
+      git.branch:
+        type: string
+      git.commit.time:
+        type: string
+      git.build.time:
+        type: string
+  businesspartner:
+    properties:
+      businessPartnerId:
+        type: integer
+      searchKey:
+        type: string
+      name:
+        type: string
+      organizationId:
+        type: integer
+      businessPartnerGroupId:
+        type: integer
+      taxExempt:
+        type: boolean
+  invoice:
+    properties:
+      invoiceId:
+        type: integer
+      documentNo:
+        type: string
+      docTypeTargetId:
+        type: integer
+      businessPartnerId:
+        type: integer
+      businessPartnerLocationId:
+        type: integer
+      dateInvoiced:
+        type: string
+      totalLines:
+        type: integer
+      currency:
+        type: string
+      grandTotal:
+        type: integer
+      amountOwing:
+        type: integer
+      organizationId:
+        type: integer
+      guid:
+        type: string
