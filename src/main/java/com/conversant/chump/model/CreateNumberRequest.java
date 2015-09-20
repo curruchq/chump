@@ -25,4 +25,5 @@ public class CreateNumberRequest extends BatchRequest<CreateNumberRequest> {
     private String monthlyCharge;
     private int currencyId;
     private int orgId;
+    private String name;
 }

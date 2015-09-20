@@ -21,7 +21,8 @@
         "setupCost": "1",
         "monthlyCharge": "2",
         "currencyId": 121,
-        "orgId": 1000001
+        "orgId": 1000001,
+        "name": "DID/DDI"
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
@@ -39,7 +40,8 @@
         "setupCost": "1",
         "monthlyCharge": "2",
         "currencyId": 121,
-        "orgId": 1000001
+        "orgId": 1000001,
+        "name": "DID/DDI"
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
@@ -59,7 +61,8 @@
                 "setupCost": "1",
                 "monthlyCharge": "2",
                 "currencyId": 121,
-                "orgId": 1000001
+                "orgId": 1000001,
+                "name": "DID/DDI"
             },
             {
                 "number": "6494297025",
@@ -75,7 +78,8 @@
                 "setupCost": "1",
                 "monthlyCharge": "2",
                 "currencyId": 121,
-                "orgId": 1000001
+                "orgId": 1000001,
+                "name": "DID/DDI"
             }
         ]
     }'
@@ -215,7 +219,8 @@
         "setupCost": "1",
         "monthlyCharge": "2",
         "currencyId": 121,
-        "orgId": 1000001
+        "orgId": 1000001,
+        "name": "DID/DDI"
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
@@ -233,7 +238,8 @@
         "setupCost": "1",
         "monthlyCharge": "2",
         "currencyId": 121,
-        "orgId": 1000001
+        "orgId": 1000001,
+        "name": "DID/DDI"
     }'
 
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
@@ -253,7 +259,8 @@
                 "setupCost": "1",
                 "monthlyCharge": "2",
                 "currencyId": 121,
-                "orgId": 1000001
+                "orgId": 1000001,
+                "name": "DID/DDI"
             },
             {
                 "number": "6494297025",
@@ -269,7 +276,8 @@
                 "setupCost": "1",
                 "monthlyCharge": "2",
                 "currencyId": 121,
-                "orgId": 1000001
+                "orgId": 1000001,
+                "name": "DID/DDI"
             }
         ]
     }'

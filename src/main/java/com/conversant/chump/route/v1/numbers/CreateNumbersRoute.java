@@ -102,6 +102,7 @@ public class CreateNumbersRoute extends AbstractNumbersRoute {
             didProductRequest.setCurrencyId(request.getCurrencyId());
             didProductRequest.setPricelistVersionId(request.getPriceListVersionId());
             didProductRequest.setOrgId(request.getOrgId());
+            didProductRequest.setName(request.getName());
 
             exchange.getIn().setBody(didProductRequest);
         }
