@@ -85,6 +85,19 @@
     }'
 
 ## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound)
+
+Using filters:
+    filter.exclude.did - This prevents the creation of DID subs by the API call.
+    filter.exclude.inbound - This prevents the creation/update of inbound user prefs.
+    filter.exclude.call - This prevents the creation of call subs by the API call.
+
+    Filters can be combined with '&' (e.g. ?filter.exclude.did=true&filter.exclude.inbound=true)
+
+    An example of filter use would be in the case of provisioning numbers for migration. When doing this,
+    you don't want DID subs to be created or the Inbound user preferences to be updated. As a result
+    you would use the following filters:
+        ?filter.exclude.did=true&filter.exclude.inbound=true
+
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
