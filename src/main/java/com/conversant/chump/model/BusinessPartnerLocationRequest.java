@@ -21,4 +21,8 @@ public class BusinessPartnerLocationRequest {
     private String region;
     private int regionId;
     private int countryId;
+    private Boolean shipAddress;
+    private Boolean invoiceAddress;
+    private Boolean payFromAddress;
+    private Boolean remitToAddress;
 }

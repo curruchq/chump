@@ -464,13 +464,17 @@ Using filters:
         "address4": "",
         "city": "Hanger",
         "zip": "1109",
-        "countryId": 262
+        "countryId": 262,
+        "shipAddress": true,
+        "invoiceAddress": true,
+        "payFromAddress": false,
+        "remitToAddress" : true
     }'
 
 ## Update a business partner location
     curl -X PUT -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners/1000009/locations/1000350 -d \
     '{
-        "name" : "John's Office",
+        "name" : "Johns Office",
         "address1" : "1 Foo Road",
         "city": "Bar City",
         "countryId": 117
@@ -489,7 +493,7 @@ Using filters:
     curl http://localhost:9090/chump/v1/invoices/1000060/lines
 
 ## Get invoice radius accounts
-    curl http://localhost:9090/chump/v1/invoices/1000060/radiusAccounts   
+    curl http://localhost:9090/chump/v1/invoices/1000060/radiusAccounts
 
 ## Get subscriptions by business partner search key
     curl http://localhost:9090/chump/v1/subscriptions?businessPartnerSearchKey=1000009
