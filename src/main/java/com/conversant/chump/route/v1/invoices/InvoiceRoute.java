@@ -108,8 +108,15 @@ public class InvoiceRoute implements ChumpRoute {
 
             ReadInvoiceRequest request = new ReadInvoiceRequest();
             request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICE, ADEMPIERE_USER_INTALIO));
-            request.setInvoiceId(Integer.parseInt((String) exchange.getIn().getHeader("invoiceId")));
-            request.setGuid("");
+
+            String id = (String) exchange.getIn().getHeader("invoiceId");
+            try {
+                request.setInvoiceId(Integer.parseInt(id));
+                request.setGuid("");
+            }
+            catch (NumberFormatException e) {
+                request.setGuid(id);
+            }
 
             exchange.getIn().setBody(request);
         }
@@ -124,7 +131,15 @@ public class InvoiceRoute implements ChumpRoute {
 
             ReadInvoiceLinesRequest request = new ReadInvoiceLinesRequest();
             request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICE_LINES, ADEMPIERE_USER_INTALIO));
-            request.setInvoiceId(Integer.parseInt((String) exchange.getIn().getHeader("invoiceId")));
+
+            String id = (String) exchange.getIn().getHeader("invoiceId");
+            try {
+                request.setInvoiceId(Integer.parseInt(id));
+                request.setGuid("");
+            }
+            catch (NumberFormatException e) {
+                request.setGuid(id);
+            }
 
             exchange.getIn().setBody(request);
         }
@@ -139,7 +154,15 @@ public class InvoiceRoute implements ChumpRoute {
 
             ReadRadiusAccountsByInvoiceRequest request = new ReadRadiusAccountsByInvoiceRequest();
             request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_RADIUS_ACCOUNTS, ADEMPIERE_USER_INTALIO));
-            request.setInvoiceId(Integer.parseInt((String) exchange.getIn().getHeader("invoiceId")));
+
+            String id = (String) exchange.getIn().getHeader("invoiceId");
+            try {
+                request.setInvoiceId(Integer.parseInt(id));
+                request.setGuid("");
+            }
+            catch (NumberFormatException e) {
+                request.setGuid(id);
+            }
 
             exchange.getIn().setBody(request);
         }

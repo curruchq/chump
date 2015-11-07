@@ -488,12 +488,18 @@ Using filters:
 
 ## Get invoice by id
     curl http://localhost:9090/chump/v1/invoices/1000060
+     OR
+    curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4
 
 ## Get invoice lines by id
     curl http://localhost:9090/chump/v1/invoices/1000060/lines
+     OR
+    curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4/lines
 
 ## Get invoice radius accounts
     curl http://localhost:9090/chump/v1/invoices/1000060/radiusAccounts
+     OR
+    curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4/radiusAccounts
 
 ## Get subscriptions by business partner search key
     curl http://localhost:9090/chump/v1/subscriptions?businessPartnerSearchKey=1000009
