@@ -10,4 +10,5 @@ public class BusinessPartnerRequest {
 	private String name;
 	private boolean taxExempt;
 	private int businessPartnerGroupId;
+	private int salesRepId;
 }
