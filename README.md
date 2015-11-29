@@ -5,7 +5,7 @@
 3. Run `java -jar target/chump-0.0.1-SNAPSHOT.jar`
 
 # REST - v2
-## Create a number (optional - filter.exclude.did)
+## Create a number (optional - filter.exclude.did) [**************** DONE ****************]
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
     '{
         "number": "6494297021",
@@ -84,7 +84,7 @@
         ]
     }'
 
-## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound)
+## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound) [**************** DONE ****************]
 
 Using filters:
     filter.exclude.did - This prevents the creation of DID subs by the API call.
@@ -197,7 +197,7 @@ Using filters:
         ]
     }'
 
-## Set number as primary caller id
+## Set number as primary caller id  [**************** DONE ****************]
     curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297026/callerId -d \
     '{
         "businessPartnerId": 1000076,
@@ -205,7 +205,7 @@ Using filters:
         "startDate": "2015-07-06"
     }'
 
-## Provision an order (optional - filter.exclude.did and filter.exclude.call)
+## Provision an order (optional - filter.exclude.did and filter.exclude.call)  [**************** DONE ****************]
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/orders/80088/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -213,10 +213,10 @@ Using filters:
     }'
 
 # REST - v1
-## Get status
+## Get status [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/status
 
-## Create a number (optional - filter.exclude.did)
+## Create a number (optional - filter.exclude.did) [**************** DONE ****************]
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
     '{
         "number": "6494297021",
@@ -295,7 +295,7 @@ Using filters:
         ]
     }'
 
-## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound)
+## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound) [**************** DONE ****************]
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -395,14 +395,14 @@ Using filters:
         ]
     }'
 
-## Set number as primary caller id
+## Set number as primary caller id [**************** DONE ****************]
     curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297026/callerId -d \
     '{
         "businessPartnerId": 1000076,
         "startDate": "2015-07-06"
     }'
 
-## Create an order
+## Create an order [**************** DONE ****************]
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders -d \
     '{
         "businessPartnerId": 1002255,
@@ -414,7 +414,7 @@ Using filters:
         "orgId": 1000001
     }'
 
-## Update an order
+## Update an order [**************** DONE ****************]
     curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/52732 -d \
     '{
         "businessPartnerId": 1002255,
@@ -426,35 +426,35 @@ Using filters:
         "orgId": 1000001
     }'
 
-## Provision an order (optional - filter.exclude.did and filter.exclude.call)
-    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/80088/provision -d \
+## Provision an order (optional - filter.exclude.did and filter.exclude.call) [**************** DONE ****************]
+    curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/52734/provision -d \
     '{
         "realm": "conversant.co.nz",
         "proxy": "c-vm-02.conversant.co.nz"
     }'
 
-## Read an order
+## Read an order [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/orders/52732
 
-## Read order lines (optional query parameters - productId and productCategoryId)
+## Read order lines (optional query parameters - productId and productCategoryId) [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/orders/52732/lines
 
-## Search call records
+## Search call records [**************** DONE ****************]
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/callrecords/search -d \
     '{
         "ids": ["22985c454b0977543912753e5d1d3ff0@202.180.76.164", "6cc1347370082741616f98dc286a30e6@conversant.co.nz"]
     }'
 
-## Get a list of orders belonging to a business partner
+## Get a list of orders belonging to a business partner [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/businesspartners/1000009/orders
 
 ## Get a list of locations for a business partner
-    curl http://localhost:9090/chump/v1/businesspartners/1000009/locations
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/locations [**************** DONE ****************]
 
 ## Get a list of users for a business partner
-    curl http://localhost:9090/chump/v1/businesspartners/1000009/users
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/users [**************** DONE ****************]
 
-## Create a business partner location
+## Create a business partner location [**************** DONE ****************]
     curl -X POST -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners/1000009/locations -d \
     '{
         "name": "Warehouse",
@@ -471,7 +471,7 @@ Using filters:
         "remitToAddress" : true
     }'
 
-## Update a business partner location
+## Update a business partner location [**************** DONE ****************]
     curl -X PUT -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners/1000009/locations/1000350 -d \
     '{
         "name" : "Johns Office",
@@ -480,28 +480,28 @@ Using filters:
         "countryId": 117
     }'
 
-## Get subscribed numbers
+## Get subscribed numbers [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/businesspartners/1000009/numbers
 
-## Get a list of invoices for a business partner
+## Get a list of invoices for a business partner [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/businesspartners/1000009/invoices
 
-## Get invoice by id
+## Get invoice by id [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/invoices/1000060
      OR
     curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4
 
-## Get invoice lines by id
+## Get invoice lines by id [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/invoices/1000060/lines
      OR
     curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4/lines
 
-## Get invoice radius accounts
+## Get invoice radius accounts [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/invoices/1000060/radiusAccounts
      OR
     curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4/radiusAccounts
 
-## Get subscriptions by business partner search key
+## Get subscriptions by business partner search key [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/subscriptions?businessPartnerSearchKey=1000009
 
 ## Get subscription by id
@@ -642,7 +642,7 @@ Using filters:
         "timezone": "Pacific/Honolulu"
     }'
     
-## Create business partner (optional searchKey parameter, if not supplied will be generated by ADempiere)
+## Create business partner (optional searchKey parameter, if not supplied will be generated by ADempiere) [**************** DONE ****************]
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners -d \
     '{
         "orgId": 1000001,
@@ -651,13 +651,13 @@ Using filters:
         "businessPartnerGroupId" : 1000013
     }'
     
-## Read business partner
+## Read business partner [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/businesspartners/1000009
     
-## Read business partner by group id
+## Read business partner by group id [**************** DONE ****************]
     curl http://localhost:9090/chump/v1/businesspartners?businessPartnerGroupId=1000004
     
-## Update business partner (optional searchKey parameter, if not supplied will be generated by ADempiere)
+## Update business partner (optional searchKey parameter, if not supplied will be generated by ADempiere) [**************** DONE ****************]
     curl -XPUT http://localhost:9090/chump/v1/businesspartners/1000009 -d \
    '{
        "orgId": 1000001,

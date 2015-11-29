@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '0.0.1-SNAPSHOT'
+  version: '1.0.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -11,6 +11,7 @@ consumes:
 produces:
   - application/json
 paths:
+
   /v1/status:
     get:
       tags:
@@ -21,7 +22,16 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/status'
+            type: object
+            properties:
+              git.commit.id:
+                type: string
+              git.branch:
+                type: string
+              git.commit.time:
+                type: string
+              git.build.time:
+                type: string
 
   /v1/invoices/{invoiceId}:
     get:
@@ -31,14 +41,52 @@ paths:
       parameters:
         - in: path
           name: invoiceId
-          description: Invoice id
+          description: Invoice id or guid
           required: true
-          type: integer
+          type: string
       responses:
         200:
           description: OK
           schema:
-            $ref: '#/definitions/invoice'
+            $ref: '#/definitions/invoiceResponse'
+
+  /v1/invoices/{invoiceId}/lines:
+    get:
+      tags:
+        - invoices
+      summary: Returns an invoice's lines.
+      parameters:
+        - in: path
+          name: invoiceId
+          description: Invoice id or guid
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/invoiceLineResponse'
+
+  /v1/invoices/{invoiceId}/radiusAccounts:
+    get:
+      tags:
+        - invoices
+      summary: Returns an invoice's radius accounts.
+      parameters:
+        - in: path
+          name: invoiceId
+          description: Invoice id or guid
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/radiusAccountResponse'
 
   /v1/businesspartners:
     get:
@@ -57,7 +105,23 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/businesspartner'
+              $ref: '#/definitions/businesspartnerResponse'
+    post:
+      tags:
+        - businesspartners
+      summary: Creates a business partner.
+      parameters:
+        - in: body
+          name: businessPartner
+          description: New business partner
+          required: true
+          schema:
+            $ref: '#/definitions/businessPartnerRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/businesspartnerResponse'
 
   /v1/businesspartners/{businessPartnerSearchKey}:
     get:
@@ -74,7 +138,7 @@ paths:
         200:
           description: OK
           schema:
-            $ref: '#/definitions/businesspartner'
+            $ref: '#/definitions/businesspartnerResponse'
     put:
       tags:
         - businesspartners
@@ -86,48 +150,646 @@ paths:
           required: true
           type: string
         - in: body
-          name: searchKey
-          description: New business partner search key
-          required: false
+          name: businessPartner
+          description: Updated business partner
+          required: true
+          schema:
+            $ref: '#/definitions/businessPartnerRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/businesspartnerResponse'
+
+  /v1/businesspartners/{businessPartnerSearchKey}/orders:
+    get:
+      tags:
+        - businesspartners
+        - orders
+      summary: Returns a business partner's orders.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/orderResponse'
+
+  /v1/businesspartners/{businessPartnerSearchKey}/locations:
+    get:
+      tags:
+        - businesspartners
+        - locations
+      summary: Returns a business partner's locations.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/locationResponse'
+    post:
+      tags:
+        - businesspartners
+        - locations
+      summary: Creates a business partner location.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
           type: string
         - in: body
-          name: orgId
-          description: Organization id
-          required: false
+          name: businessPartnerLocation
+          description: Business partner location
+          required: true
+          schema:
+            $ref: '#/definitions/locationRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/businesspartners/{businessPartnerSearchKey}/locations/{businessPartnerLocationId}:
+    put:
+      tags:
+        - businesspartners
+        - locations
+      summary: Updates a business partner location.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+        - in: path
+          name: businessPartnerLocationId
+          description: Business partner location id
+          required: true
           type: integer
         - in: body
-          name: name
-          description: Name
-          required: false
+          name: businessPartnerLocation
+          description: Updated business partner location
+          required: true
+          schema:
+            $ref: '#/definitions/locationRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/businesspartners/{businessPartnerSearchKey}/users:
+    get:
+      tags:
+        - businesspartners
+        - users
+      summary: Returns a business partner's users.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
           type: string
-        - in: body
-          name: taxExempt
-          description: Tax exemption
-          required: false
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/userResponse'
+
+  /v1/businesspartners/{businessPartnerSearchKey}/numbers:
+    get:
+      tags:
+        - businesspartners
+        - numbers
+      summary: Returns a business partner's numbers.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
           type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: string
+
+  /v1/businesspartners/{businessPartnerSearchKey}/invoices:
+    get:
+      tags:
+        - businesspartners
+        - invoices
+      summary: Returns a business partner's invoices.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/invoiceResponse'
+
+  /v1/orders:
+    post:
+      tags:
+        - orders
+      summary: Creates an order.
+      parameters:
         - in: body
-          name: businessPartnerGroupId
-          description: Business partner group id
-          required: false
+          name: order
+          description: New order
+          required: true
+          schema:
+            $ref: '#/definitions/orderRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/orders/{orderNo}:
+    get:
+      tags:
+        - orders
+      summary: Returns an order.
+      parameters:
+        - in: path
+          name: orderNo
+          description: Order number
+          required: true
           type: integer
       responses:
         200:
           description: OK
           schema:
-            $ref: '#/definitions/businesspartner'
+            $ref: '#/definitions/orderResponse'
+    put:
+      tags:
+        - orders
+      summary: Updates an order.
+      parameters:
+        - in: path
+          name: orderNo
+          description: Order number
+          required: true
+          type: integer
+        - in: body
+          name: order
+          description: Updated order
+          required: true
+          schema:
+            $ref: '#/definitions/orderRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/orderResponse'
+
+  /v1/orders/{orderNo}/lines:
+    get:
+      tags:
+        - orders
+      summary: Returns an order's lines.
+      parameters:
+        - in: path
+          name: orderNo
+          description: Order number
+          required: true
+          type: integer
+        - in: query
+          name: productId
+          description: Product id
+          type: integer
+        - in: query
+          name: productCategoryId
+          description: Product catgeory id
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/orderLineResponse'
+
+  /v1/orders/{orderNo}/provision:
+    post:
+      tags:
+        - orders
+      summary: Provisions an order.
+      parameters:
+        - in: path
+          name: orderNo
+          description: Order number
+          required: true
+          type: integer
+        - in: query
+          name: filter.exclude.did
+          description: Exclude DID subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.call
+          description: Exclude CALL subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.inbound
+          description: Exclude inbound user preference creation/update
+          type: boolean
+        - in: body
+          name: orderProvisionRequest
+          description: Order provision request
+          required: true
+          schema:
+            type: object
+            properties:
+              realm:
+                type: string
+              proxy:
+                type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v2/orders/{orderNo}/provision:
+    post:
+      tags:
+        - orders
+        - v2
+      summary: Provisions an order.
+      parameters:
+        - in: path
+          name: orderNo
+          description: Order number
+          required: true
+          type: integer
+        - in: query
+          name: filter.exclude.did
+          description: Exclude DID subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.call
+          description: Exclude CALL subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.inbound
+          description: Exclude inbound user preference creation/update
+          type: boolean
+        - in: body
+          name: orderProvisionRequest
+          description: Order provision request
+          required: true
+          schema:
+            type: object
+            properties:
+              realm:
+                type: string
+              proxy:
+                type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/numbers:
+    post:
+      tags:
+        - numbers
+      summary: Creates number products.
+      parameters:
+        - in: query
+          name: filter.exclude.did
+          description: Exclude DID product creation
+          type: boolean
+        - in: body
+          name: numberCreateRequest
+          description: Number create request
+          required: true
+          schema:
+            $ref: '#/definitions/numberCreateRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v2/numbers:
+    post:
+      tags:
+        - numbers
+        - v2
+      summary: Creates number products.
+      parameters:
+        - in: query
+          name: filter.exclude.did
+          description: Exclude DID product creation
+          type: boolean
+        - in: query
+          name: filter.exclude.call
+          description: Exclude CALL product creation
+          type: boolean
+        - in: body
+          name: numberCreateRequest
+          description: Number create request
+          required: true
+          schema:
+            $ref: '#/definitions/numberCreateRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/numbers/provision:
+    post:
+      tags:
+        - numbers
+      summary: Provisions number(s).
+      parameters:
+        - in: query
+          name: filter.exclude.did
+          description: Exclude DID subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.call
+          description: Exclude CALL subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.inbound
+          description: Exclude inbound user preference creation/update
+          type: boolean
+        - in: body
+          name: numberProvisionRequest
+          description: Number provision request
+          required: true
+          schema:
+            $ref: '#/definitions/numberProvisionRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v2/numbers/provision:
+    post:
+      tags:
+        - numbers
+        - v2
+      summary: Provisions number(s).
+      parameters:
+        - in: query
+          name: filter.exclude.did
+          description: Exclude DID subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.call
+          description: Exclude CALL subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.inbound
+          description: Exclude inbound user preference creation/update
+          type: boolean
+        - in: body
+          name: numberProvisionRequest
+          description: Number provision request
+          required: true
+          schema:
+            $ref: '#/definitions/numberProvisionRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/numbers/{number}/provision:
+    post:
+      tags:
+        - numbers
+      summary: Provisions number(s).
+      parameters:
+        - in: path
+          name: number
+          description: DID number
+          required: true
+          type: string
+        - in: query
+          name: filter.exclude.did
+          description: Exclude DID subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.call
+          description: Exclude CALL subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.inbound
+          description: Exclude inbound user preference creation/update
+          type: boolean
+        - in: body
+          name: numberProvisionRequest
+          description: Number provision request
+          required: true
+          schema:
+            $ref: '#/definitions/numberProvisionRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v2/numbers/{number}/provision:
+    post:
+      tags:
+        - numbers
+        - v2
+      summary: Provisions number(s).
+      parameters:
+        - in: path
+          name: number
+          description: DID number
+          required: true
+          type: string
+        - in: query
+          name: filter.exclude.did
+          description: Exclude DID subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.call
+          description: Exclude CALL subscription creation
+          type: boolean
+        - in: query
+          name: filter.exclude.inbound
+          description: Exclude inbound user preference creation/update
+          type: boolean
+        - in: body
+          name: numberProvisionRequest
+          description: Number provision request
+          required: true
+          schema:
+            $ref: '#/definitions/numberProvisionRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/numbers/{number}/callerId:
+    put:
+      tags:
+        - numbers
+      summary: Updates primary caller id.
+      parameters:
+        - in: path
+          name: number
+          description: DID number
+          required: true
+          type: string
+        - in: body
+          name: numberCallerIdRequest
+          description: Number caller id request
+          required: true
+          schema:
+            type: object
+            properties:
+              businessPartnerId:
+                type: integer
+              startDate:
+                type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v2/numbers/{number}/callerId:
+    put:
+      tags:
+        - numbers
+        - v2
+      summary: Updates primary caller id.
+      parameters:
+        - in: path
+          name: number
+          description: DID number
+          required: true
+          type: string
+        - in: body
+          name: numberCallerIdRequest
+          description: Number caller id request
+          required: true
+          schema:
+            type: object
+            properties:
+              businessPartnerId:
+                type: integer
+              realm:
+                type: string
+              startDate:
+                type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/callrecords/search:
+    post:
+      tags:
+        - callrecords
+      summary: Searches call records.
+      parameters:
+        - in: body
+          name: ids
+          description: Call record ids
+          required: true
+          schema:
+            type: object
+            properties:
+              ids:
+                type: array
+                items:
+                  type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                all-radacct-fields:
+                  type: string
+
+  /v1/subscriptions:
+    get:
+      tags:
+        - subscriptions
+      summary: Returns subscriptions.
+      parameters:
+        - in: query
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/subscriptionResponse'
 
 definitions:
-  status:
+
+  apiResponse:
     properties:
-      git.commit.id:
+      code:
+        type: integer
+      message:
         type: string
-      git.branch:
+      success:
+        type: boolean
+      data:
+        type: object
+
+  businessPartnerRequest:
+    properties:
+      searchKey:
         type: string
-      git.commit.time:
+      name:
         type: string
-      git.build.time:
-        type: string
-  businesspartner:
+      orgId:
+        type: integer
+      businessPartnerGroupId:
+        type: integer
+      taxExempt:
+        type: boolean
+
+  businesspartnerResponse:
     properties:
       businessPartnerId:
         type: integer
@@ -141,7 +803,8 @@ definitions:
         type: integer
       taxExempt:
         type: boolean
-  invoice:
+
+  invoiceResponse:
     properties:
       invoiceId:
         type: integer
@@ -167,3 +830,335 @@ definitions:
         type: integer
       guid:
         type: string
+
+  invoiceLineResponse:
+    properties:
+      invoiceLineId:
+        type: integer
+      invoiceId:
+        type: integer
+      productId:
+        type: integer
+      description:
+        type: string
+      line:
+        type: integer
+      qtyInvoiced:
+        type: integer
+      qtyEntered:
+        type: integer
+      priceEntered:
+        type: integer
+      priceActual:
+        type: integer
+      lineNetAmt:
+        type: integer
+      lineTotalAmt:
+        type: integer
+      chargeId:
+        type: integer
+      uomId:
+        type: integer
+      taxId:
+        type: integer
+      productSearchKey:
+        type: string
+      productName:
+        type: string
+      productDescription:
+        type: string
+      productCategoryId:
+        type: integer
+      productType:
+        type: string
+      productCategoryDescription:
+        type: string
+      productCategoryName:
+        type: string
+      parentProductCategoryName:
+        type: string
+      attributeSubscriptionOccurance:
+        type: string
+
+  radiusAccountResponse:
+    properties:
+      radAcctId:
+        type: integer
+      invoiceId:
+        type: integer
+      invoiceLineId:
+        type: integer
+      username:
+        type: string
+      billingId:
+        type: string
+      acctStartTime:
+        type: string
+      acctStopTime:
+        type: string
+      callingStationId:
+        type: string
+      calledStationId:
+        type: string
+      originNumber:
+        type: string
+      destinationNumber:
+        type: string
+      destination:
+        type: string
+      price:
+        type: string
+      rate:
+        type: string
+
+  orderRequest:
+    properties:
+      businessPartnerId:
+        type: integer
+      businessPartnerLocationId:
+        type: integer
+      pricelistId:
+        type: integer
+      warehouseId:
+        type: integer
+      datePromised:
+        type: string
+      dateOrdered:
+        type: string
+      orgId:
+        type: integer
+
+  orderResponse:
+    properties:
+      orderId:
+        type: integer
+      documentNo:
+        type: string
+      businessPartnerId:
+        type: integer
+      businessPartnerLocationId:
+        type: integer
+      datePromised:
+        type: string
+      dateOrdered:
+        type: string
+      orgId:
+        type: integer
+
+  orderLineResponse:
+    properties:
+      orderLineId:
+        type: integer
+      orderId:
+        type: integer
+      productId:
+        type: integer
+      description:
+        type: string
+      line:
+        type: integer
+      qtyOrdered:
+        type: integer
+      priceEntered:
+        type: integer
+      lineNetAmt:
+        type: integer
+      chargeId:
+        type: integer
+      uomId:
+        type: integer
+      taxId:
+        type: integer
+
+  numberCreateRequest:
+    properties:
+      domain:
+        type: string
+      number:
+        type: string
+      numbers:
+        type: array
+        items:
+          type: string
+      priceListVersionId:
+        type: integer
+      countryId:
+        type: string
+      countryCode:
+        type: string
+      areaCode:
+        type: string
+      areaCodeDescription:
+        type: string
+      freeMinutes:
+        type: string
+      perMinuteCharge:
+        type: string
+      businessPartnerId:
+        type: integer
+      setupCost:
+        type: string
+      monthlyCharge:
+        type: string
+      currencyId:
+        type: integer
+      orgId:
+        type: integer
+      name:
+        type: string
+
+  numberProvisionRequest:
+    properties:
+      number:
+        type: string
+      numbers:
+        type: array
+        items:
+          type: string
+      realm:
+        type: string
+      proxy:
+        type: string
+      businessPartnerId:
+        type: integer
+      businessPartnerLocationId:
+        type: integer
+      startDate:
+        type: string
+      paidUntilDate:
+        type: string
+      orgId:
+        type: integer
+
+  locationRequest:
+    properties:
+      name:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      address3:
+        type: string
+      address4:
+        type: string
+      city:
+        type: string
+      cityId:
+        type: integer
+      zip:
+        type: string
+      region:
+        type: string
+      regionId:
+        type: integer
+      countryId:
+        type: integer
+      shipAddress:
+        type: boolean
+      invoiceAddress:
+        type: boolean
+      payFromAddress:
+        type: boolean
+      remitToAddress:
+        type: boolean
+
+  locationResponse:
+    properties:
+      businessPartnerId:
+        type: integer
+      businessPartnerLocationId:
+        type: integer
+      locationId:
+        type: integer
+      name:
+        type: string
+      phone:
+        type: string
+      secondPhone:
+        type: string
+      fax:
+        type: string
+      isdn:
+        type: string
+      isActive:
+        type: boolean
+      address1:
+        type: string
+      address2:
+        type: string
+      address3:
+        type: string
+      address4:
+        type: string
+      city:
+        type: string
+      cityId:
+        type: integer
+      zip:
+        type: string
+      region:
+        type: string
+      regionId:
+        type: integer
+      countryId:
+        type: integer
+      shipAddress:
+        type: boolean
+      invoiceAddress:
+        type: boolean
+      payFromAddress:
+        type: boolean
+      remitToAddress:
+        type: boolean
+
+  userResponse:
+    properties:
+      userId:
+        type: integer
+      name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      mobile:
+        type: string
+      businessPartnerId:
+        type: integer
+      role:
+        type: array
+        items:
+          type: object
+          properties:
+            roleId:
+              type: integer
+            name:
+              type: string
+
+  subscriptionResponse:
+    properties:
+      subscriptionId:
+        type: integer
+      name:
+        type: string
+      businessPartnerId:
+        type: integer
+      businessPartnerLocationId:
+        type: integer
+      productId:
+        type: integer
+      subscriptionTypeId:
+        type: integer
+      startDate:
+        type: string
+      paidUntilDate:
+        type: string
+      renewalDate:
+        type: string
+      billInAdvance:
+        type: boolean
+      qty:
+        type: integer
+      userId:
+        type: integer
