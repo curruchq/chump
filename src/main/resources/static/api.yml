@@ -32,6 +32,8 @@ paths:
                 type: string
               git.build.time:
                 type: string
+              build.version:
+                type: string
 
   /v1/invoices/{invoiceId}:
     get:
@@ -745,10 +747,26 @@ paths:
                   type: string
 
   /v1/subscriptions:
+    post:
+      tags:
+        - subscriptions
+      summary: Creates a subscription.
+      parameters:
+        - in: body
+          name: subscription
+          description: New subscription
+          required: true
+          schema:
+            $ref: '#/definitions/subscriptionRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
     get:
       tags:
         - subscriptions
-      summary: Returns subscriptions.
+      summary: Returns a list of subscriptions.
       parameters:
         - in: query
           name: businessPartnerSearchKey
@@ -762,6 +780,322 @@ paths:
             type: array
             items:
               $ref: '#/definitions/subscriptionResponse'
+
+  /v1/subscriptions/{subscriptionId}:
+    put:
+      tags:
+        - subscriptions
+      summary: Updates a subscription.
+      parameters:
+        - in: path
+          name: subscriptionId
+          description: Subscription id
+          required: true
+          type: integer
+        - in: body
+          name: subscription
+          description: Updated subscription
+          required: true
+          schema:
+            $ref: '#/definitions/subscriptionRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/subscriptionResponse'
+
+  /v1/products:
+    get:
+      tags:
+        - products
+      summary: Returns a list of products.
+      parameters:
+        - in: query
+          name: productCategoryId
+          description: Product category id
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/productResponse'
+
+  /v1/products/{productId}:
+    get:
+      tags:
+        - products
+      summary: Returns a product.
+      parameters:
+        - in: path
+          name: productId
+          description: Product id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/productResponse'
+
+  /v1/products/{productId}/price:
+    get:
+      tags:
+        - products
+      summary: Returns a list of products.
+      parameters:
+        - in: path
+          name: productId
+          description: Product id
+          required: true
+          type: integer
+        - in: query
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/productPriceResponse'
+
+  /v1/organisations/{orgId}:
+    get:
+      tags:
+        - organisations
+      summary: Returns an organisation.
+      parameters:
+        - in: path
+          name: orgId
+          description: Organisation id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              organizationId:
+                type: integer
+              searchKey:
+                type: string
+              name:
+                type: string
+              isActive:
+                type: boolean
+              summaryLevel:
+                type: boolean
+              parentOrgId:
+                type: integer
+              taxId:
+                type: string
+              address1:
+                type: string
+              address2:
+                type: string
+              address3:
+                type: string
+              address4:
+                type: string
+              city:
+                type: string
+              zip:
+                type: string
+              region:
+                type: string
+              regionId:
+                type: integer
+              countryId:
+                type: integer
+              countryName:
+                type: string
+
+  /v1/users:
+    post:
+      tags:
+        - users
+      summary: Creates a user.
+      parameters:
+        - in: body
+          name: user
+          description: New user
+          required: true
+          schema:
+            $ref: '#/definitions/userRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/users/{userId}:
+    get:
+      tags:
+        - users
+      summary: Returns a user.
+      parameters:
+        - in: path
+          name: userId
+          description: User id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/userResponse'
+    put:
+      tags:
+        - users
+      summary: Updates a user.
+      parameters:
+        - in: path
+          name: userId
+          description: User id
+          required: true
+          type: integer
+        - in: body
+          name: user
+          description: Updated user
+          required: true
+          schema:
+            $ref: '#/definitions/userRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+    delete:
+      tags:
+        - users
+      summary: Deletes a user.
+      parameters:
+        - in: path
+          name: userId
+          description: User id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/users/{userId}/roles:
+    post:
+      tags:
+        - users
+        - roles
+      summary: Creates a user role.
+      parameters:
+        - in: path
+          name: userId
+          description: User id
+          required: true
+          type: integer
+        - in: body
+          name: userRole
+          description: User role
+          required: true
+          schema:
+            type: object
+            properties:
+              roleId:
+                type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+    delete:
+      tags:
+        - users
+        - roles
+      summary: Deletes a user role.
+      parameters:
+        - in: path
+          name: userId
+          description: User id
+          required: true
+          type: integer
+        - in: body
+          name: userRole
+          description: User role
+          required: true
+          schema:
+            type: object
+            properties:
+              roleId:
+                type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+
+  /v1/users/{userId}/roles/{roleId}:
+    get:
+      tags:
+        - users
+        - roles
+      summary: Returns a user role.
+      parameters:
+        - in: path
+          name: userId
+          description: User id
+          required: true
+          type: integer
+        - in: path
+          name: roleId
+          description: Role id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+
+  /v1/usageratings/billingcustomers:
+    post:
+      tags:
+        - usageratings
+      summary: Creates a usage rating.
+      parameters:
+        - in: body
+          name: usageRating
+          description: Usage rating
+          required: true
+          schema:
+            $ref: '#/definitions/usageRating'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
+    put:
+      tags:
+        - usageratings
+      summary: Updates a usage rating.
+      parameters:
+        - in: body
+          name: usageRating
+          description: Usage rating
+          required: true
+          schema:
+            $ref: '#/definitions/usageRating'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/apiResponse'
 
 definitions:
 
@@ -1112,30 +1446,6 @@ definitions:
       remitToAddress:
         type: boolean
 
-  userResponse:
-    properties:
-      userId:
-        type: integer
-      name:
-        type: string
-      email:
-        type: string
-      phone:
-        type: string
-      mobile:
-        type: string
-      businessPartnerId:
-        type: integer
-      role:
-        type: array
-        items:
-          type: object
-          properties:
-            roleId:
-              type: integer
-            name:
-              type: string
-
   subscriptionResponse:
     properties:
       subscriptionId:
@@ -1162,3 +1472,116 @@ definitions:
         type: integer
       userId:
         type: integer
+
+  productResponse:
+    properties:
+      productId:
+        type: integer
+      searchKey:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      productCategoryId:
+        type: integer
+      productType:
+        type: string
+      productCategoryDescription:
+        type: string
+
+  productPriceResponse:
+    properties:
+      productId:
+        type: integer
+      businessPartnerId:
+        type: integer
+      listPrice:
+        type: number
+      standardPrice:
+        type: number
+      limitPrice:
+        type: number
+
+  subscriptionRequest:
+    properties:
+      name:
+        type: string
+      businessPartnerId:
+        type: integer
+      businessPartnerLocationId:
+        type: integer
+      productId:
+        type: integer
+      subscriptionTypeId:
+        type: integer
+      startDate:
+        type: string
+      paidUntilDate:
+        type: string
+      renewalDate:
+        type: string
+      billInAdvance:
+        type: boolean
+      qty:
+        type: integer
+      userId:
+        type: integer
+      orgId:
+        type: integer
+
+  userRequest:
+    properties:
+      searchKey:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      mobile:
+        type: string
+      businessPartnerId:
+        type: integer
+      businessPartnerLocationId:
+        type: integer
+
+  userResponse:
+    properties:
+      userId:
+        type: integer
+      name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      mobile:
+        type: string
+      businessPartnerId:
+        type: integer
+      role:
+        type: array
+        items:
+          type: object
+          properties:
+            roleId:
+              type: integer
+            name:
+              type: string
+
+  usageRating:
+    properties:
+      domain:
+        type: string
+      subscriber:
+        type: string
+      profileName:
+        type: string
+      profileNameAlt:
+        type: string
+      timezone:
+        type: string

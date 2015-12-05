@@ -4,8 +4,11 @@
 3. Configure `chump.properties`
 3. Run `java -jar target/chump-0.0.1-SNAPSHOT.jar`
 
+> **Important**
+> Documentation below is deprecated - see [swagger docs](http://localhost:9090/docs)
+
 # REST - v2
-## Create a number (optional - filter.exclude.did) [**************** DONE ****************]
+## Create a number (optional - filter.exclude.did) (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers -d \
     '{
         "number": "6494297021",
@@ -84,7 +87,7 @@
         ]
     }'
 
-## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound) [**************** DONE ****************]
+## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound) (see swagger docs)
 
 Using filters:
     filter.exclude.did - This prevents the creation of DID subs by the API call.
@@ -197,7 +200,7 @@ Using filters:
         ]
     }'
 
-## Set number as primary caller id  [**************** DONE ****************]
+## Set number as primary caller id  (see swagger docs)
     curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v2/numbers/6494297026/callerId -d \
     '{
         "businessPartnerId": 1000076,
@@ -205,7 +208,7 @@ Using filters:
         "startDate": "2015-07-06"
     }'
 
-## Provision an order (optional - filter.exclude.did and filter.exclude.call)  [**************** DONE ****************]
+## Provision an order (optional - filter.exclude.did and filter.exclude.call)  (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v2/orders/80088/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -213,10 +216,10 @@ Using filters:
     }'
 
 # REST - v1
-## Get status [**************** DONE ****************]
+## Get status (see swagger docs)
     curl http://localhost:9090/chump/v1/status
 
-## Create a number (optional - filter.exclude.did) [**************** DONE ****************]
+## Create a number (optional - filter.exclude.did) (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers -d \
     '{
         "number": "6494297021",
@@ -295,7 +298,7 @@ Using filters:
         ]
     }'
 
-## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound) [**************** DONE ****************]
+## Provision a number (optional - filter.exclude.did, filter.exclude.call, and filter.exclude.inbound) (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297021/provision -d \
     '{
         "realm": "conversant.co.nz",
@@ -395,14 +398,14 @@ Using filters:
         ]
     }'
 
-## Set number as primary caller id [**************** DONE ****************]
+## Set number as primary caller id (see swagger docs)
     curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/numbers/6494297026/callerId -d \
     '{
         "businessPartnerId": 1000076,
         "startDate": "2015-07-06"
     }'
 
-## Create an order [**************** DONE ****************]
+## Create an order (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders -d \
     '{
         "businessPartnerId": 1002255,
@@ -414,7 +417,7 @@ Using filters:
         "orgId": 1000001
     }'
 
-## Update an order [**************** DONE ****************]
+## Update an order (see swagger docs)
     curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/52732 -d \
     '{
         "businessPartnerId": 1002255,
@@ -426,35 +429,35 @@ Using filters:
         "orgId": 1000001
     }'
 
-## Provision an order (optional - filter.exclude.did and filter.exclude.call) [**************** DONE ****************]
+## Provision an order (optional - filter.exclude.did and filter.exclude.call) (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/orders/52734/provision -d \
     '{
         "realm": "conversant.co.nz",
         "proxy": "c-vm-02.conversant.co.nz"
     }'
 
-## Read an order [**************** DONE ****************]
+## Read an order (see swagger docs)
     curl http://localhost:9090/chump/v1/orders/52732
 
-## Read order lines (optional query parameters - productId and productCategoryId) [**************** DONE ****************]
+## Read order lines (optional query parameters - productId and productCategoryId) (see swagger docs)
     curl http://localhost:9090/chump/v1/orders/52732/lines
 
-## Search call records [**************** DONE ****************]
+## Search call records (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/callrecords/search -d \
     '{
         "ids": ["22985c454b0977543912753e5d1d3ff0@202.180.76.164", "6cc1347370082741616f98dc286a30e6@conversant.co.nz"]
     }'
 
-## Get a list of orders belonging to a business partner [**************** DONE ****************]
+## Get a list of orders belonging to a business partner (see swagger docs)
     curl http://localhost:9090/chump/v1/businesspartners/1000009/orders
 
 ## Get a list of locations for a business partner
-    curl http://localhost:9090/chump/v1/businesspartners/1000009/locations [**************** DONE ****************]
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/locations (see swagger docs)
 
 ## Get a list of users for a business partner
-    curl http://localhost:9090/chump/v1/businesspartners/1000009/users [**************** DONE ****************]
+    curl http://localhost:9090/chump/v1/businesspartners/1000009/users (see swagger docs)
 
-## Create a business partner location [**************** DONE ****************]
+## Create a business partner location (see swagger docs)
     curl -X POST -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners/1000009/locations -d \
     '{
         "name": "Warehouse",
@@ -471,7 +474,7 @@ Using filters:
         "remitToAddress" : true
     }'
 
-## Update a business partner location [**************** DONE ****************]
+## Update a business partner location (see swagger docs)
     curl -X PUT -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners/1000009/locations/1000350 -d \
     '{
         "name" : "Johns Office",
@@ -480,40 +483,40 @@ Using filters:
         "countryId": 117
     }'
 
-## Get subscribed numbers [**************** DONE ****************]
+## Get subscribed numbers (see swagger docs)
     curl http://localhost:9090/chump/v1/businesspartners/1000009/numbers
 
-## Get a list of invoices for a business partner [**************** DONE ****************]
+## Get a list of invoices for a business partner (see swagger docs)
     curl http://localhost:9090/chump/v1/businesspartners/1000009/invoices
 
-## Get invoice by id [**************** DONE ****************]
+## Get invoice by id (see swagger docs)
     curl http://localhost:9090/chump/v1/invoices/1000060
      OR
     curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4
 
-## Get invoice lines by id [**************** DONE ****************]
+## Get invoice lines by id (see swagger docs)
     curl http://localhost:9090/chump/v1/invoices/1000060/lines
      OR
     curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4/lines
 
-## Get invoice radius accounts [**************** DONE ****************]
+## Get invoice radius accounts (see swagger docs)
     curl http://localhost:9090/chump/v1/invoices/1000060/radiusAccounts
      OR
     curl http://localhost:9090/chump/v1/invoices/493330df-a5c5-4c46-9b87-a1ddea4c30d4/radiusAccounts
 
-## Get subscriptions by business partner search key [**************** DONE ****************]
+## Get subscriptions by business partner search key (see swagger docs)
     curl http://localhost:9090/chump/v1/subscriptions?businessPartnerSearchKey=1000009
 
-## Get subscription by id
+## Get subscription by id (see swagger docs)
     curl http://localhost:9090/chump/v1/subscriptions/1000619
 
-## Get products by category id
+## Get products by category id (see swagger docs)
     curl http://localhost:9090/chump/v1/products?productCategoryId=1000022
 
-## Get product by product id
+## Get product by product id (see swagger docs)
     curl http://localhost:9090/chump/v1/products/1015750
 
-## Get product price for business partner
+## Get product price for business partner (see swagger docs)
     curl http://localhost:9090/chump/v1/products/1015750/price?businessPartnerSearchKey=1000009
 
 ## Migrate a customer
@@ -529,7 +532,7 @@ Using filters:
         "businessPartnerLocationId": 1000014
     }'
 
-## Update subscription
+## Update subscription (see swagger docs)
     curl -XPUT -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions/1000619 -d \
     '{
         "name" : "+12124016222",
@@ -545,7 +548,7 @@ Using filters:
         "userId" : 0
     }'
 
-## Create a new subscription
+## Create a new subscription (see swagger docs)
     curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/subscriptions -d \
     '{
         "name" : "+12121234567",
@@ -562,10 +565,10 @@ Using filters:
         "orgId": 1000001
     }'
 
-## Get organisation by id
+## Get organisation by id (see swagger docs)
     curl http://localhost:9090/chump/v1/organisations/1000008
 
-## Create user
+## Create user (see swagger docs)
     curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/users -d \
     '{
         "searchKey" : "test",
@@ -578,10 +581,10 @@ Using filters:
         "businessPartnerLocationId" : "1000198"
      }'
 
-## Read user
+## Read user (see swagger docs)
     curl http://localhost:9090/chump/v1/users/test
 
-## Update user
+## Update user (see swagger docs)
     curl -XPUT -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/1003400 -d \
     '{
 	    "searchKey" : "testconversant",
@@ -591,22 +594,22 @@ Using filters:
 	    "phone" : "9010006723"
     }'
 
-## Delete user
+## Delete user (see swagger docs)
     curl -XDELETE http://localhost:9090/chump/v1/users/1003400
 
-## Create user role
+## Create user role (see swagger docs)
     curl -XPOST -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/1001257/roles -d \
     '{
 		   "roleId": 1000000
 	 }'
 
-## Read user role
+## Read user role (see swagger docs)
     curl http://localhost:9090/chump/v1/users/1001257/roles/1000017
 
-## Delete user role
+## Delete user role (see swagger docs)
     curl -XDELETE http://localhost:9090/chump/v1/users/1001257/roles/1000017
 
-## Create usage rating - Inbound billing customer
+## Create usage rating - Inbound billing customer (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/usageratings/billingcustomers -d \
     '{
         "subscriber": "1000009@conversant.co.nz",
@@ -615,7 +618,7 @@ Using filters:
         "timezone": "Pacific/Auckland"
     }'
 
-## Create usage rating - Outbound billing customer
+## Create usage rating - Outbound billing customer (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/usageratings/billingcustomers -d \
     '{
         "domain": "conversant.co.nz",
@@ -624,7 +627,7 @@ Using filters:
         "timezone": "Pacific/Auckland"
     }'
 
-## Update usage rating - Inbound billing customer
+## Update usage rating - Inbound billing customer (see swagger docs)
     curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/usageratings/billingcustomers -d \
     '{
         "subscriber": "1000009@conversant.co.nz",
@@ -633,7 +636,7 @@ Using filters:
         "timezone": "Pacific/Honolulu"
     }'
 
-## Update usage rating - Outbound billing customer
+## Update usage rating - Outbound billing customer (see swagger docs)
     curl -XPUT -H "Content-type: application/json" http://localhost:9090/chump/v1/usageratings/billingcustomers -d \
     '{
         "domain": "conversant.co.nz",
@@ -642,7 +645,7 @@ Using filters:
         "timezone": "Pacific/Honolulu"
     }'
     
-## Create business partner (optional searchKey parameter, if not supplied will be generated by ADempiere) [**************** DONE ****************]
+## Create business partner (optional searchKey parameter, if not supplied will be generated by ADempiere) (see swagger docs)
     curl -XPOST -H "Content-type: application/json" http://localhost:9090/chump/v1/businesspartners -d \
     '{
         "orgId": 1000001,
@@ -651,13 +654,13 @@ Using filters:
         "businessPartnerGroupId" : 1000013
     }'
     
-## Read business partner [**************** DONE ****************]
+## Read business partner (see swagger docs)
     curl http://localhost:9090/chump/v1/businesspartners/1000009
     
-## Read business partner by group id [**************** DONE ****************]
+## Read business partner by group id (see swagger docs)
     curl http://localhost:9090/chump/v1/businesspartners?businessPartnerGroupId=1000004
     
-## Update business partner (optional searchKey parameter, if not supplied will be generated by ADempiere) [**************** DONE ****************]
+## Update business partner (optional searchKey parameter, if not supplied will be generated by ADempiere) (see swagger docs)
     curl -XPUT http://localhost:9090/chump/v1/businesspartners/1000009 -d \
    '{
        "orgId": 1000001,
