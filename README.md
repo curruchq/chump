@@ -579,7 +579,7 @@ Using filters:
      }'
 
 ## Read user
-    curl http://localhost:9090/chump/v1/users/1003400
+    curl http://localhost:9090/chump/v1/users/test
 
 ## Update user
     curl -XPUT -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/1003400 -d \
