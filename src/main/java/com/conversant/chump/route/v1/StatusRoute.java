@@ -43,6 +43,7 @@ public class StatusRoute implements ChumpRoute {
 
             Properties properties = new Properties();
             properties.load(getClass().getClassLoader().getResourceAsStream("git.properties"));
+            properties.load(getClass().getClassLoader().getResourceAsStream("build.properties"));
 
             if (exchange.getIn().getHeader("all") != null) {
                 exchange.getIn().setBody(properties);
@@ -53,6 +54,7 @@ public class StatusRoute implements ChumpRoute {
                 filtered.put("git.commit.id", properties.getProperty("git.commit.id"));
                 filtered.put("git.commit.time", properties.getProperty("git.commit.time"));
                 filtered.put("git.build.time", properties.getProperty("git.build.time"));
+                filtered.put("build.version", properties.getProperty("build.version"));
 
                 exchange.getIn().setBody(filtered);
             }
