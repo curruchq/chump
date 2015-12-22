@@ -44,7 +44,7 @@ public class UserRoute implements ChumpRoute {
             .rest(RestOperation.builder()
                     .method(GET)
                     .resource(RESOURCE)
-                    .path("/{searchKey}")
+                    .path("/{userId}")
                     .build())
             .to(Arrays.asList(ChumpOperation.pair(ReadUserRequestProcessor.INSTANCE, AdempiereRoute.READ_USER.getUri())))
             .postProcessors(Arrays.asList(new StandardResponseRemover("user"), ApiResponseProcessor.INSTANCE))
@@ -106,8 +106,7 @@ public class UserRoute implements ChumpRoute {
 
             ReadUserRequest request = new ReadUserRequest();
             request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_USER, ADEMPIERE_USER_DRUPAL));
-            request.setSearchKey((String) exchange.getIn().getHeader("searchKey"));
-            request.setIsSalesPerson(Boolean.parseBoolean((String) exchange.getIn().getHeader("salesPerson", "false")));
+            request.setUserId(Integer.parseInt((String) exchange.getIn().getHeader("userId")));
 
             exchange.getIn().setBody(request);
         }
