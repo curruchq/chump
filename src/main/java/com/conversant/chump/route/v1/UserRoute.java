@@ -10,6 +10,7 @@ import com.conversant.chump.processor.StandardResponseRemover;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.webservice.DeleteUserRequest;
 import com.conversant.webservice.ReadUserRequest;
+import com.conversant.webservice.ReadUserBySearchKeyRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,17 @@ public class UserRoute implements ChumpRoute {
                     .path("/{userId}")
                     .build())
             .to(Arrays.asList(ChumpOperation.pair(ReadUserRequestProcessor.INSTANCE, AdempiereRoute.READ_USER.getUri())))
+            .postProcessors(Arrays.asList(new StandardResponseRemover("user"), ApiResponseProcessor.INSTANCE))
+            .build();
+
+    public static final ChumpOperation READ_USER_BY_SEARCH_KEY = ChumpOperation.builder()
+            .trx(false)
+            .rest(RestOperation.builder()
+                    .method(GET)
+                    .resource(RESOURCE)
+                    .path("/searchkey/{searchKey}")
+                    .build())
+            .to(Arrays.asList(ChumpOperation.pair(ReadUserBySearchKeyRequestProcessor.INSTANCE, AdempiereRoute.READ_USER_BY_SEARCH_KEY.getUri())))
             .postProcessors(Arrays.asList(new StandardResponseRemover("user"), ApiResponseProcessor.INSTANCE))
             .build();
 
@@ -107,6 +119,21 @@ public class UserRoute implements ChumpRoute {
             ReadUserRequest request = new ReadUserRequest();
             request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_USER, ADEMPIERE_USER_DRUPAL));
             request.setUserId(Integer.parseInt((String) exchange.getIn().getHeader("userId")));
+
+            exchange.getIn().setBody(request);
+        }
+    }
+
+    private static final class ReadUserBySearchKeyRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new ReadUserBySearchKeyRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            ReadUserBySearchKeyRequest request = new ReadUserBySearchKeyRequest();
+            request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_USER_BY_SEARCH_KEY, ADEMPIERE_USER_INTALIO));
+            request.setSearchKey((String) exchange.getIn().getHeader("searchKey"));
 
             exchange.getIn().setBody(request);
         }
