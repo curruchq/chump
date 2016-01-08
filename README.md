@@ -2,7 +2,7 @@
 1. Clone `git clone git@bitbucket.org:conversantltd/chump.git && cd chump`
 2. Build `mvn clean install`
 3. Configure `chump.properties`
-3. Run `java -jar target/chump-0.0.1-SNAPSHOT.jar`
+3. Run `java -jar target/chump-1.0.0.jar`
 
 > **Important**
 > Documentation below is deprecated - see [swagger docs](http://localhost:9090/docs)
