@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-01-08 - 1.2.0
+- CHUMP-88 - ReadUserBySearchKey
+
 ## 2015-12-16 - 1.1.0
 - CHUMP-92 - ReadBusinessPartnerSubscriptionsRoute
 
