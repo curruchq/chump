@@ -146,4 +146,11 @@
         <jaxb:class name="ReadOrderByBusinessPartnerSearchKeyResponseWsdlMessagePart"/>
     </jaxws:bindings>
 
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readUserBySearchKeyResponse']">
+        <jaxb:factoryMethod name="ReadUserBySearchKeyResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readUserBySearchKeyResponse']">
+        <jaxb:class name="ReadUserBySearchKeyResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
 </jaxws:bindings>

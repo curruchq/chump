@@ -83,6 +83,7 @@ public class AdempiereRoute implements ChumpRoute {
     
     public static final ChumpOperation CREATE_USER = build(ENDPOINT_ADMIN, "direct://createUser");
     public static final ChumpOperation READ_USER = build(ENDPOINT_ADMIN, "direct://readUser");
+    public static final ChumpOperation READ_USER_BY_SEARCH_KEY = build(ENDPOINT_ADMIN, "direct://readUserBySearchKey");
     public static final ChumpOperation UPDATE_USER = build(ENDPOINT_ADMIN, "direct://updateUser");
     public static final ChumpOperation DELETE_USER = build(ENDPOINT_ADMIN, "direct://deleteUser");
 

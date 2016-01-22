@@ -582,7 +582,10 @@ Using filters:
      }'
 
 ## Read user (see swagger docs)
-    curl http://localhost:9090/chump/v1/users/test
+    curl http://localhost:9090/chump/v1/users/1003400
+
+## Read user by Search Key (see swagger docs)
+    curl http://localhost:9090/chump/v1/users/searchkey/taterobe
 
 ## Update user (see swagger docs)
     curl -XPUT -H "Content-Type: application/json" http://localhost:9090/chump/v1/users/1003400 -d \
