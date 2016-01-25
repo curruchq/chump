@@ -41,4 +41,11 @@
         <jaxb:class name="ReadInvoicesByBusinessPartnerResponseWsdlMessagePart"/>
     </jaxws:bindings>
 
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readBPBankAccountResponse']">
+        <jaxb:factoryMethod name="ReadBPBankAccountResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readBPBankAccountResponse']">
+        <jaxb:class name="ReadBPBankAccountResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
 </jaxws:bindings>
