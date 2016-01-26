@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-01-26 - 1.3.0
+- CHUMP-94 - CreateBPBankAccount
+
 ## 2016-01-08 - 1.2.0
 - CHUMP-88 - ReadUserBySearchKey
 
