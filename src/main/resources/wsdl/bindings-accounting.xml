@@ -34,6 +34,13 @@
         <jaxb:class name="ReadInvoiceLinesResponseWsdlMessagePart"/>
     </jaxws:bindings>
 
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readInvoiceTaxLinesResponse']">
+        <jaxb:factoryMethod name="ReadInvoiceTaxLinesResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:complexType[@name='readInvoiceTaxLinesResponse']">
+        <jaxb:class name="ReadInvoiceTaxLinesResponseWsdlMessagePart"/>
+    </jaxws:bindings>
+
     <jaxws:bindings node="wsdl:definitions/wsdl:types/xsd:schema/xsd:element[@name='readInvoicesByBusinessPartnerResponse']">
         <jaxb:factoryMethod name="ReadInvoicesByBusinessPartnerResponseWsdlMessagePart"/>
     </jaxws:bindings>
