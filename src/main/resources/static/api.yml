@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.0.0'
+  version: '1.3.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -162,6 +162,32 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/businesspartnerResponse'
+
+  /v1/businesspartners/{businessPartnerSearchKey}/bankaccount:
+    put:
+      tags:
+        - businesspartners
+        - bankaccount
+      summary: Adds bank account details to a business partner.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+        - in: body
+          name: businessPartnerBankAccount
+          description: Business partner bank account.
+          required: true
+          schema:
+            $ref: '#/definitions/bankAccountRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bankAccountResponse'
 
   /v1/businesspartners/{businessPartnerSearchKey}/orders:
     get:
@@ -934,6 +960,23 @@ paths:
           schema:
             $ref: '#/definitions/apiResponse'
 
+  /v1/users/searchkey/{userSearchKey}:
+    get:
+      tags:
+        - users
+      summary: Returns a user by search key.
+      parameters:
+        - in: path
+          name: userSearchKey
+          description: User Search Key
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/userResponse'
+
   /v1/users/{userId}:
     get:
       tags:
@@ -1244,6 +1287,26 @@ definitions:
         type: string
       rate:
         type: string
+
+  bankAccountRequest:
+    properties:
+      searchKey:
+        type: string
+      userId:
+        type: integer
+      accountName:
+        type: string
+      accountNo:
+        type: string
+
+  bankAccountResponse:
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      id:
+        type: integer
 
   orderRequest:
     properties:
