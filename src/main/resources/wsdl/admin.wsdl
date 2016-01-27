@@ -795,6 +795,30 @@
       <xs:element name="LoginRequest" type="tns:LoginRequest" />
     </xs:sequence>
   </xs:complexType>
+<xs:complexType name="ReadRadiusAccountsResponse">
+    <xs:sequence>
+      <xs:element name="StandardResponse" type="tns:StandardResponse" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="radiusAccount" nillable="true" type="tns:RadiusAccount" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="RadiusAccount">
+    <xs:sequence>
+      <xs:element name="radAcctId" type="xs:int" />
+      <xs:element name="invoiceId" type="xs:int" />
+      <xs:element name="invoiceLineId" type="xs:int" />
+      <xs:element name="username" type="xs:string" />
+      <xs:element name="billingId" type="xs:string" />
+      <xs:element name="acctStartTime" type="xs:dateTime" />
+      <xs:element name="acctStopTime" type="xs:dateTime" />
+      <xs:element name="callingStationId" type="xs:string" />
+      <xs:element name="calledStationId" type="xs:string" />
+      <xs:element name="originNumber" type="xs:string" />
+      <xs:element name="destinationNumber" type="xs:string" />
+      <xs:element name="destination" type="xs:string" />
+      <xs:element name="price" type="xs:string" />
+      <xs:element name="rate" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
 <xs:complexType name="BPBankAccount">
     <xs:sequence>
       <xs:element name="LoginRequest" type="tns:LoginRequest" />
@@ -812,19 +836,6 @@
       <xs:element name="creditCardExpiryMonth" type="xs:int" />
       <xs:element name="creditCardExpiryYear" type="xs:int" />
       <xs:element name="orgId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="Payment">
-    <xs:sequence>
-      <xs:element name="paymentId" type="xs:int" />
-      <xs:element name="documentNo" type="xs:string" />
-      <xs:element name="docTypeTargetId" type="xs:int" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-      <xs:element name="transDate" type="xs:dateTime" />
-      <xs:element name="currency" type="xs:string" />
-      <xs:element name="paymentAmount" type="xs:decimal" />
-      <xs:element name="discountAmount" type="xs:decimal" />
-      <xs:element name="writeOffAmount" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
 <xs:complexType name="Invoice">
@@ -846,6 +857,25 @@
       <xs:element name="paymentTermId" type="xs:int" />
       <xs:element name="paymentMethod" type="xs:string" />
       <xs:element name="invoiceDueDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="Payment">
+    <xs:sequence>
+      <xs:element name="paymentId" type="xs:int" />
+      <xs:element name="documentNo" type="xs:string" />
+      <xs:element name="docTypeTargetId" type="xs:int" />
+      <xs:element name="businessPartnerId" type="xs:int" />
+      <xs:element name="transDate" type="xs:dateTime" />
+      <xs:element name="currency" type="xs:string" />
+      <xs:element name="paymentAmount" type="xs:decimal" />
+      <xs:element name="discountAmount" type="xs:decimal" />
+      <xs:element name="writeOffAmount" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="ReadBPBankAccountResponse">
+    <xs:sequence>
+      <xs:element name="StandardResponse" type="tns:StandardResponse" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="bpBankAccount" nillable="true" type="tns:BPBankAccount" />
     </xs:sequence>
   </xs:complexType>
 <xs:complexType name="ReadInvoiceResponse">
@@ -914,123 +944,6 @@
       <xs:element maxOccurs="unbounded" minOccurs="0" name="payment" nillable="true" type="tns:Payment" />
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="ReadBPBankAccountResponse">
-    <xs:sequence>
-      <xs:element name="StandardResponse" type="tns:StandardResponse" />
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="bpBankAccount" nillable="true" type="tns:BPBankAccount" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="DeleteVoicemailUserPreferencesRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="mailboxNumber" type="xs:string" />
-      <xs:element name="domain" type="xs:string" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="ReadInvoiceLinesRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="invoiceId" type="xs:int" />
-      <xs:element name="guid" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="CreateVoicemailUserPreferencesRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="mailboxNumber" type="xs:string" />
-      <xs:element name="domain" type="xs:string" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="CreateCallSubscription2Request">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="number" type="xs:string" />
-      <xs:element name="domain" type="xs:string" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-      <xs:element name="businessPartnerLocationId" type="xs:int" />
-      <xs:element name="startDate" type="xs:dateTime" />
-      <xs:element name="orgId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="CreateCvoxUserRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="username" type="xs:string" />
-      <xs:element name="password" type="xs:string" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="CreateDIDProductRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="number" type="xs:string" />
-      <xs:element name="countryId" type="xs:string" />
-      <xs:element name="countryCode" type="xs:string" />
-      <xs:element name="areaCode" type="xs:string" />
-      <xs:element name="areaCodeDescription" type="xs:string" />
-      <xs:element name="freeMinutes" type="xs:string" />
-      <xs:element name="perMinuteCharge" type="xs:string" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-      <xs:element name="setupCost" type="xs:string" />
-      <xs:element name="monthlyCharge" type="xs:string" />
-      <xs:element name="currencyId" type="xs:int" />
-      <xs:element name="pricelistVersionId" type="xs:int" />
-      <xs:element name="orgId" type="xs:int" />
-      <xs:element name="name" type="xs:string" />
-      <xs:element name="fax" type="xs:boolean" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="ProcessPaymentRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-      <xs:element name="paymentId" type="xs:int" />
-      <xs:element name="creditCardVerificationCode" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="UpdateInvoiceRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="EndVoicemailUserPreferencesRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="mailboxNumber" type="xs:string" />
-      <xs:element name="domain" type="xs:string" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-      <xs:element name="endDate" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="ReadRadiusAccountsByInvoiceRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="invoiceId" type="xs:int" />
-      <xs:element name="guid" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="UpdateUserPreferenceStartDateRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="uuid" type="xs:string" />
-      <xs:element name="username" type="xs:string" />
-      <xs:element name="domain" type="xs:string" />
-      <xs:element name="attribute" type="xs:string" />
-      <xs:element name="startDate" type="xs:date" />
-    </xs:sequence>
-  </xs:complexType>
-<xs:complexType name="CreatePaymentRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="bankAccountId" type="xs:int" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-      <xs:element name="businessPartnerBankAccountId" type="xs:int" />
-      <xs:element name="amount" type="xs:decimal" />
-      <xs:element name="orgId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
 <xs:complexType name="UpdateDIDProductRequest">
     <xs:sequence>
       <xs:element name="LoginRequest" type="tns:LoginRequest" />
@@ -1091,13 +1004,6 @@
       <xs:element name="orgId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="ReadPaymentsByBusinessPartnerRequest">
-    <xs:sequence>
-      <xs:element name="LoginRequest" type="tns:LoginRequest" />
-      <xs:element name="docTypeTargetId" type="xs:int" />
-      <xs:element name="businessPartnerId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
 <xs:complexType name="CreateCallProductRequest">
     <xs:sequence>
       <xs:element name="LoginRequest" type="tns:LoginRequest" />
@@ -1105,6 +1011,13 @@
       <xs:element name="domain" type="xs:string" />
       <xs:element name="pricelistVersionId" type="xs:int" />
       <xs:element name="orgId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="ReadPaymentsByBusinessPartnerRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="docTypeTargetId" type="xs:int" />
+      <xs:element name="businessPartnerId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
 <xs:complexType name="DeleteSubscriberRequest">
@@ -1414,28 +1327,115 @@
       <xs:element name="orgId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="ReadRadiusAccountsResponse">
+<xs:complexType name="DeleteVoicemailUserPreferencesRequest">
     <xs:sequence>
-      <xs:element name="StandardResponse" type="tns:StandardResponse" />
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="radiusAccount" nillable="true" type="tns:RadiusAccount" />
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="mailboxNumber" type="xs:string" />
+      <xs:element name="domain" type="xs:string" />
+      <xs:element name="businessPartnerId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="RadiusAccount">
+<xs:complexType name="ReadInvoiceLinesRequest">
     <xs:sequence>
-      <xs:element name="radAcctId" type="xs:int" />
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
       <xs:element name="invoiceId" type="xs:int" />
-      <xs:element name="invoiceLineId" type="xs:int" />
+      <xs:element name="guid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="CreateVoicemailUserPreferencesRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="mailboxNumber" type="xs:string" />
+      <xs:element name="domain" type="xs:string" />
+      <xs:element name="businessPartnerId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="CreateCallSubscription2Request">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="number" type="xs:string" />
+      <xs:element name="domain" type="xs:string" />
+      <xs:element name="businessPartnerId" type="xs:int" />
+      <xs:element name="businessPartnerLocationId" type="xs:int" />
+      <xs:element name="startDate" type="xs:dateTime" />
+      <xs:element name="orgId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="CreateCvoxUserRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
       <xs:element name="username" type="xs:string" />
-      <xs:element name="billingId" type="xs:string" />
-      <xs:element name="acctStartTime" type="xs:dateTime" />
-      <xs:element name="acctStopTime" type="xs:dateTime" />
-      <xs:element name="callingStationId" type="xs:string" />
-      <xs:element name="calledStationId" type="xs:string" />
-      <xs:element name="originNumber" type="xs:string" />
-      <xs:element name="destinationNumber" type="xs:string" />
-      <xs:element name="destination" type="xs:string" />
-      <xs:element name="price" type="xs:string" />
-      <xs:element name="rate" type="xs:string" />
+      <xs:element name="password" type="xs:string" />
+      <xs:element name="businessPartnerId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="CreateDIDProductRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="number" type="xs:string" />
+      <xs:element name="countryId" type="xs:string" />
+      <xs:element name="countryCode" type="xs:string" />
+      <xs:element name="areaCode" type="xs:string" />
+      <xs:element name="areaCodeDescription" type="xs:string" />
+      <xs:element name="freeMinutes" type="xs:string" />
+      <xs:element name="perMinuteCharge" type="xs:string" />
+      <xs:element name="businessPartnerId" type="xs:int" />
+      <xs:element name="setupCost" type="xs:string" />
+      <xs:element name="monthlyCharge" type="xs:string" />
+      <xs:element name="currencyId" type="xs:int" />
+      <xs:element name="pricelistVersionId" type="xs:int" />
+      <xs:element name="orgId" type="xs:int" />
+      <xs:element name="name" type="xs:string" />
+      <xs:element name="fax" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="ProcessPaymentRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="businessPartnerId" type="xs:int" />
+      <xs:element name="paymentId" type="xs:int" />
+      <xs:element name="creditCardVerificationCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="UpdateInvoiceRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="EndVoicemailUserPreferencesRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="mailboxNumber" type="xs:string" />
+      <xs:element name="domain" type="xs:string" />
+      <xs:element name="businessPartnerId" type="xs:int" />
+      <xs:element name="endDate" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="ReadRadiusAccountsByInvoiceRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="invoiceId" type="xs:int" />
+      <xs:element name="guid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="UpdateUserPreferenceStartDateRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="uuid" type="xs:string" />
+      <xs:element name="username" type="xs:string" />
+      <xs:element name="domain" type="xs:string" />
+      <xs:element name="attribute" type="xs:string" />
+      <xs:element name="startDate" type="xs:date" />
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="CreatePaymentRequest">
+    <xs:sequence>
+      <xs:element name="LoginRequest" type="tns:LoginRequest" />
+      <xs:element name="bankAccountId" type="xs:int" />
+      <xs:element name="businessPartnerId" type="xs:int" />
+      <xs:element name="businessPartnerBankAccountId" type="xs:int" />
+      <xs:element name="amount" type="xs:decimal" />
+      <xs:element name="orgId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
 </xs:schema>
