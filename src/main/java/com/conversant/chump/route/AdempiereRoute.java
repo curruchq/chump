@@ -59,6 +59,7 @@ public class AdempiereRoute implements ChumpRoute {
     public static final ChumpOperation READ_BUSINESS_PARTNERS_BY_GROUP = build(ENDPOINT_ADMIN, "direct://readBusinessPartnersByGroup");
     public static final ChumpOperation READ_BUSINESS_PARTNER_LOCATION = build(ENDPOINT_ADMIN, "direct://readBPLocations");
     public static final ChumpOperation READ_BUSINESS_PARTNER_USERS = build(ENDPOINT_ADMIN, "direct://readUsersByBusinessPartner");
+    public static final ChumpOperation READ_BUSINESS_PARTNER_PAYMENTS = build(ENDPOINT_ACCOUNTING, "direct://readPaymentByBusinessPartner");
     public static final ChumpOperation READ_BUSINESS_PARTNER_ORDERS = build(ENDPOINT_ADMIN, "direct://readOrderByBusinessPartnerSearchKey");
     public static final ChumpOperation READ_BUSINESS_PARTNER_INVOICES = build(ENDPOINT_ACCOUNTING, "direct://readInvoicesByBusinessPartner");
     public static final ChumpOperation UPDATE_BUSINESS_PARTNER = build(ENDPOINT_ADMIN, "direct://updateBusinessPartner");
