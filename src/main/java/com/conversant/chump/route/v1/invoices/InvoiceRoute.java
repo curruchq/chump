@@ -69,6 +69,19 @@ public class InvoiceRoute implements ChumpRoute {
                     Arrays.asList(new StandardResponseRemover("invoiceLine"), ApiResponseProcessor.INSTANCE))
             .build();
 
+    public static final ChumpOperation GET_TAX_LINES = ChumpOperation.builder()
+            .trx(false)
+            .rest(RestOperation.builder()
+                    .path("/{invoiceId}/taxlines")
+                    .resource(RESOURCE)
+                    .method(GET)
+                    .build())
+            .to(Collections.singletonList(
+                    ChumpOperation.pair(ReadInvoiceTaxLinesRequestProcessor.INSTANCE, AdempiereRoute.READ_INVOICE_TAX_LINES.getUri())))
+            .postProcessors(
+                    Arrays.asList(new StandardResponseRemover("invoiceTaxLine"), ApiResponseProcessor.INSTANCE))
+            .build();
+
     public static final ChumpOperation GET_RADIUS_ACCOUNTS = ChumpOperation.builder()
             .trx(false)
             .rest(RestOperation.builder()
@@ -131,6 +144,29 @@ public class InvoiceRoute implements ChumpRoute {
 
             ReadInvoiceLinesRequest request = new ReadInvoiceLinesRequest();
             request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICE_LINES, ADEMPIERE_USER_INTALIO));
+
+            String id = (String) exchange.getIn().getHeader("invoiceId");
+            try {
+                request.setInvoiceId(Integer.parseInt(id));
+                request.setGuid("");
+            }
+            catch (NumberFormatException e) {
+                request.setGuid(id);
+            }
+
+            exchange.getIn().setBody(request);
+        }
+    }
+
+    private static final class ReadInvoiceTaxLinesRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new ReadInvoiceTaxLinesRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            ReadInvoiceTaxLinesRequest request = new ReadInvoiceTaxLinesRequest();
+            request.setLoginRequest(createLoginRequest(exchange, TYPE_READ_INVOICE_TAX_LINES, ADEMPIERE_USER_INTALIO));
 
             String id = (String) exchange.getIn().getHeader("invoiceId");
             try {

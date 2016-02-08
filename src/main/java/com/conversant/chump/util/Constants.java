@@ -45,6 +45,7 @@ public class Constants {
     public static final String TYPE_READ_SUBSCRIBED_NUMBERS = "AD-readSubscribedNumbers-Drupal";
     public static final String TYPE_READ_INVOICE = "AC-readInvoice-Intalio";
     public static final String TYPE_READ_INVOICE_LINES = "AC-readInvoiceLines-Intalio";
+    public static final String TYPE_READ_INVOICE_TAX_LINES = "AC-readInvoiceTaxLines-Intalio";
     public static final String TYPE_READ_INVOICES_BY_BUSINESS_PARTNER = "AC-readInvoicesByBusinessPartner-Drupal";
     public static final String TYPE_READ_RADIUS_ACCOUNTS = "P-readRadiusAccountsByInvoice-Intalio";
     public static final String TYPE_READ_SUBSCRIPTIONS = "AD-readSubscriptions-Drupal";
