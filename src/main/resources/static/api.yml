@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.4.0'
+  version: '1.5.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -70,6 +70,25 @@ paths:
             type: array
             items:
               $ref: '#/definitions/invoiceLineResponse'
+
+  /v1/invoices/{invoiceId}/taxlines:
+    get:
+      tags:
+        - invoices
+      summary: Returns an invoice's tax lines.
+      parameters:
+        - in: path
+          name: invoiceId
+          description: Invoice id or guid
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/invoiceTaxLineResponse'
 
   /v1/invoices/{invoiceId}/radiusAccounts:
     get:
@@ -1276,6 +1295,19 @@ definitions:
         type: string
       attributeSubscriptionOccurance:
         type: string
+
+  invoiceTaxLineResponse:
+    properties:
+      invoiceId:
+        type: integer
+      taxId:
+        type: integer
+      taxAmt:
+        type: integer
+      taxBaseAmt:
+        type: integer
+      priceIncludesTax:
+        type: boolean
 
   radiusAccountResponse:
     properties:

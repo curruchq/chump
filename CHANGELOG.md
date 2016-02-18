@@ -1,7 +1,10 @@
 # Change Log
 
+## 2016-02-02 - 1.5.0
+- CHUMP-97 - ReadInvoiceTaxLines
+
 ## 2016-01-27 - 1.4.0
-- CHUMP-94 - ReadBusinessPartnerPaymentsRoute
+- CHUMP-96 - ReadBusinessPartnerPaymentsRoute
 
 ## 2016-01-26 - 1.3.0
 - CHUMP-94 - CreateBPBankAccount
