@@ -16,10 +16,8 @@ public class BusinessPartnerLocationRequest {
     private String address3;
     private String address4;
     private String city;
-    private int cityId;
     private String zip;
     private String region;
-    private int regionId;
     private int countryId;
     private Boolean shipAddress;
     private Boolean invoiceAddress;

@@ -59,10 +59,8 @@ public class UpdateBusinessPartnerLocationsRoute extends AbstractBusinessPartner
             updateBusinessPartnerLocationRequest.setAddress3(businessPartnerLocationRequest.getAddress3());
             updateBusinessPartnerLocationRequest.setAddress4(businessPartnerLocationRequest.getAddress4());
             updateBusinessPartnerLocationRequest.setCity(businessPartnerLocationRequest.getCity());
-            updateBusinessPartnerLocationRequest.setCityId(businessPartnerLocationRequest.getCityId());
             updateBusinessPartnerLocationRequest.setZip(businessPartnerLocationRequest.getZip());
             updateBusinessPartnerLocationRequest.setRegion(businessPartnerLocationRequest.getRegion());
-            updateBusinessPartnerLocationRequest.setRegionId(businessPartnerLocationRequest.getRegionId());
             updateBusinessPartnerLocationRequest.setCountryId(businessPartnerLocationRequest.getCountryId());
 
             if (businessPartnerLocationRequest.getShipAddress() != null && businessPartnerLocationRequest.getShipAddress())

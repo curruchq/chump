@@ -67,10 +67,8 @@ public class CreateBusinessPartnerLocationsRoute extends AbstractBusinessPartner
             createLocationRequest.setAddress3(businessPartnerLocationRequest.getAddress3());
             createLocationRequest.setAddress4(businessPartnerLocationRequest.getAddress4());
             createLocationRequest.setCity(businessPartnerLocationRequest.getCity());
-            createLocationRequest.setCityId(businessPartnerLocationRequest.getCityId());
             createLocationRequest.setZip(businessPartnerLocationRequest.getZip());
             createLocationRequest.setRegion(businessPartnerLocationRequest.getRegion());
-            createLocationRequest.setRegionId(businessPartnerLocationRequest.getRegionId());
             createLocationRequest.setCountryId(businessPartnerLocationRequest.getCountryId());
 
             exchange.getIn().setBody(createLocationRequest);
