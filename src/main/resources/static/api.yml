@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.5.1'
+  version: '1.5.2'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -1514,14 +1514,10 @@ definitions:
         type: string
       city:
         type: string
-      cityId:
-        type: integer
       zip:
         type: string
       region:
         type: string
-      regionId:
-        type: integer
       countryId:
         type: integer
       shipAddress:
@@ -1563,14 +1559,10 @@ definitions:
         type: string
       city:
         type: string
-      cityId:
-        type: integer
       zip:
         type: string
       region:
         type: string
-      regionId:
-        type: integer
       countryId:
         type: integer
       shipAddress:
