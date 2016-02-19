@@ -31,6 +31,7 @@ public class Constants {
     public static final String TYPE_READ_BUSINESS_PARTNER_USERS = "AD-readUsersByBusinessPartner-Drupal";
     public static final String TYPE_READ_BUSINESS_PARTNER_ORDERS = "AD-readOrderByBPartnerSearchKey-Intalio";
     public static final String TYPE_READ_BUSINESS_PARTNER_PAYMENTS = "AC-readPaymentsByBusinessPartner-Intalio";
+    public static final String TYPE_READ_BUSINESS_PARTNER_RADIUS_ACCOUNTS = "P-readRadiusAccountsSearch-Drupal";
     public static final String TYPE_READ_BUSINESS_PARTNER_INVOICES = "AC-readInvoicesByBusinessPartner-Intalio";
     public static final String TYPE_READ_BUSINESS_PARTNER_SUBSCRIPTIONS = "AD-readSubscriptions-Drupal";
     public static final String TYPE_CREATE_BUSINESS_PARTNER = "AD-createBusinessPartner-Drupal";
