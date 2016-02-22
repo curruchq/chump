@@ -27,5 +27,5 @@ public class BusinessPartnerBankAccountRequest {
     private String accountType;
     private String accountNo;
     private int orgId;
-
+    private int locationId;
 }
