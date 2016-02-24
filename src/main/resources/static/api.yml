@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.6.1'
+  version: '1.7.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -200,6 +200,31 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/bankAccountRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bankAccountResponse'
+
+  /v1/businesspartners/{businessPartnerSearchKey}/bankaccount/{bankAccountId}:
+    delete:
+      tags:
+        - businesspartners
+        - bankaccount
+      summary: Deletes a bank account from a business partner.
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+        - in: path
+          name: bankAccountId
+          description: Business partner bank account Id.
+          required: true
+          type: string
       responses:
         200:
           description: OK
