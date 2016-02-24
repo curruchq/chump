@@ -248,6 +248,32 @@ paths:
             items:
               $ref: '#/definitions/paymentResponse'
 
+  /v1/businesspartners/{businessPartnerSearchKey}/radius:
+    post:
+      tags:
+        - businesspartners
+        - radius
+      summary: Get radius accounts for a business partner
+      parameters:
+        - in: path
+          name: businessPartnerSearchKey
+          description: Business partner search key
+          required: true
+          type: string
+        - in: body
+          name: Radius
+          description: The radius account
+          required: true
+          schema:
+            $ref: '#/definitions/readRadiusAccountsSearchRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/readRadiusAccountsSearchResponse'
+
   /v1/businesspartners/{businessPartnerSearchKey}/locations:
     get:
       tags:
@@ -1357,6 +1383,52 @@ definitions:
         type: string
       id:
         type: integer
+
+  readRadiusAccountsSearchRequest:
+      properties:
+        searchKey:
+          type: string
+        otherParty:
+          type: string
+        billingId:
+          type: string
+        dateFrom:
+          type: string
+        dateTo:
+          type: string
+        billingParty:
+          type: string
+
+  readRadiusAccountsSearchResponse:
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        invoiceId:
+          type: integer
+        invoiceLineId:
+          type: integer
+        billingId:
+          type: integer
+        acctStartTime:
+          type: string
+        acctStopTime:
+          type: string
+        callingStationId:
+          type: integer
+        calledStationId:
+          type: integer
+        originNumber:
+          type: string
+        destinationNumber:
+          type: string
+        price:
+          type: integer
+        rate:
+          type: integer
+        username:
+          type: string
 
   orderRequest:
     properties:
