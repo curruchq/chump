@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-02-25 - 1.7.0
+- CHUMP-99 - DeleteBusinessPartnerBankAccountRoute
+
 ## 2016-02-22 - 1.6.1
 - CHUMP-94 - UserId no longer required for BPBankAccountCreation
 
