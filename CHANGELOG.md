@@ -1,5 +1,17 @@
 # Change Log
 
+## 2016-02-22 - 1.6.1
+- CHUMP-94 - UserId no longer required for BPBankAccountCreation
+
+## 2016-02-22 - 1.6.0
+- CHUMP-98 - Added BusinessPartnerRadiusAccountsSearch
+
+## 2016-02-19 - 1.5.2
+- CHUMP-96 - Patched location requests to no longer require cityId and regionId
+
+## 2016-02-19 - 1.5.1
+- CHUMP-96 - Added location to BPBankAccount requests
+
 ## 2016-02-02 - 1.5.0
 - CHUMP-97 - ReadInvoiceTaxLines
 
