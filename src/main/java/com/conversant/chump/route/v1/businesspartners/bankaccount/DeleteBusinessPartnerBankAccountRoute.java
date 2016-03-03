@@ -2,15 +2,16 @@ package com.conversant.chump.route.v1.businesspartners.bankaccount;
 
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.RestOperation;
-import com.conversant.chump.model.BusinessPartnerBankAccountRequest;
 import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.chump.route.v1.businesspartners.AbstractBusinessPartnersRoute;
-import com.conversant.webservice.DeleteBPBankAccountRequest;
+import com.conversant.webservice.*;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static com.conversant.chump.common.RestOperation.HttpMethod.DELETE;
 import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
@@ -20,17 +21,17 @@ import static com.conversant.chump.util.Constants.TYPE_DELETE_BUSINESS_PARTNER_B
 /**
  * Created by Tate on 25/02/2016.
  */
+@Component
 public class DeleteBusinessPartnerBankAccountRoute extends AbstractBusinessPartnersRoute {
 
-    public static final ChumpOperation DELETE_BUSINESS_PARTNER_BANK_ACCOUNT = ChumpOperation.builder()
+    public static final ChumpOperation REMOVE = ChumpOperation.builder()
             .trx(false)
             .rest(RestOperation.builder()
                     .method(DELETE)
                     .resource(RESOURCE)
                     .path("/{businessPartnerSearchKey}/bankaccount/{bpBankAccountId}")
                     .build())
-            .to(Arrays.asList(ChumpOperation.pair(DeleteBusinessPartnerBankAccountRequestProcessor.INSTANCE, AdempiereRoute.DELETE_BUSINESS_PARTNER_BANK_ACCOUNT.getUri())))
-            .postProcessors(Arrays.asList(ApiResponseProcessor.INSTANCE))
+            .to(Collections.singletonList(ChumpOperation.pair(DeleteBusinessPartnerBankAccountRequestProcessor.INSTANCE, AdempiereRoute.DELETE_BUSINESS_PARTNER_BANK_ACCOUNT.getUri())))
             .build();
 
     private static final class DeleteBusinessPartnerBankAccountRequestProcessor implements Processor {

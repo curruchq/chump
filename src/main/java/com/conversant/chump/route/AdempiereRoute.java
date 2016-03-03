@@ -54,7 +54,7 @@ public class AdempiereRoute implements ChumpRoute {
     public static final ChumpOperation CREATE_LOCATION = build(ENDPOINT_ADMIN, "direct://createLocation");
     public static final ChumpOperation CREATE_BUSINESS_PARTNER_LOCATION = build(ENDPOINT_ADMIN, "direct://createBusinessPartnerLocation");
     public static final ChumpOperation CREATE_BUSINESS_PARTNER_BANK_ACCOUNT = build(ENDPOINT_ACCOUNTING, "direct://createBPBankAccount");
-    public static final ChumpOperation DELETE_BUSINESS_PARTNER_BANK_ACCOUNT = build(ENDPOINT_ACCOUNTING, "direct://deleteBpBankAccount");
+    public static final ChumpOperation DELETE_BUSINESS_PARTNER_BANK_ACCOUNT = build(ENDPOINT_ACCOUNTING, "direct://deleteBPBankAccount");
     public static final ChumpOperation READ_BUSINESS_PARTNER_BY_SEARCH_KEY = build(ENDPOINT_ADMIN, "direct://readBusinessPartnerBySearchKey");
     public static final ChumpOperation READ_BUSINESS_PARTNER_BY_ID = build(ENDPOINT_ADMIN, "direct://readBusinessPartner");
     public static final ChumpOperation READ_BUSINESS_PARTNERS_BY_GROUP = build(ENDPOINT_ADMIN, "direct://readBusinessPartnersByGroup");
