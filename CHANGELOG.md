@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-03-17 - 1.9.0
+- CHUMP-100 - Added payment term and payment rule to businessPartner
+
 ## 2016-03-17 - 1.8.0
 - CHUMP-101 - Added priceListId to create and update businessPartner
 
