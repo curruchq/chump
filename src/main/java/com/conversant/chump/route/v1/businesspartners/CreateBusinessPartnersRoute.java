@@ -57,6 +57,9 @@ public class CreateBusinessPartnersRoute extends AbstractBusinessPartnersRoute {
             createBusinessPartnerRequest.setTaxExempt(businessPartnerRequest.isTaxExempt());
             createBusinessPartnerRequest.setBusinessPartnerGroupId(businessPartnerRequest.getBusinessPartnerGroupId());
             createBusinessPartnerRequest.setSalesRepId(businessPartnerRequest.getSalesRepId());
+            createBusinessPartnerRequest.setPriceListId(businessPartnerRequest.getPriceListId());
+            createBusinessPartnerRequest.setPaymentRule(businessPartnerRequest.getPaymentRule());
+            createBusinessPartnerRequest.setPaymentTermId(businessPartnerRequest.getPaymentTermId());
 
             exchange.getIn().setBody(createBusinessPartnerRequest);
         }
