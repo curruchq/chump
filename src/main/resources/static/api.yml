@@ -752,15 +752,7 @@ paths:
             type: string
           - in: query
             name: filter.exclude.did
-            description: Exclude DID subscription creation
-            type: boolean
-          - in: query
-            name: filter.exclude.call
-            description: Exclude CALL subscription creation
-            type: boolean
-          - in: query
-            name: filter.exclude.inbound
-            description: Exclude inbound user preference creation/update
+            description: Exclude DID subscription end dating
             type: boolean
           - in: body
             name: businessPartnerId
