@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-03-31 - 1.10.0
+- CHUMP-95 - Added unsubscribe number(s) route
+
 ## 2016-03-17 - 1.9.0
 - CHUMP-100 - Added payment term and payment rule to businessPartner
 

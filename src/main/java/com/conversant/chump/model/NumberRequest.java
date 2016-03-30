@@ -21,6 +21,7 @@ public class NumberRequest extends BatchRequest<NumberRequest> {
     private Date startDate;
     private Date paidUntilDate;
     private int orgId;
+    private String endDate;
 
     public void setStartDate(Date startDate) {
         this.startDate = DateUtil.zeroTime(startDate);
