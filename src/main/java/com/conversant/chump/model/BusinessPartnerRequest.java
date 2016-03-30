@@ -11,4 +11,7 @@ public class BusinessPartnerRequest {
 	private boolean taxExempt;
 	private int businessPartnerGroupId;
 	private int salesRepId;
+	private int priceListId;
+	private String paymentRule;
+	private int paymentTermId;
 }
