@@ -15,8 +15,10 @@ public class Constants {
     public static final String TYPE_CREATE_CALL_PRODUCT_2 = "P-createCallProduct2-Intalio";
     public static final String TYPE_CREATE_DID_PRODUCT = "P-createDIDProduct-Intalio";
     public static final String TYPE_CREATE_CALL_SUBSCRIPTION = "P-createCallSubscription-Intalio";
+    public static final String TYPE_END_CALL_SUBSCRIPTION = "P-endCallSubscription-Intalio";
     public static final String TYPE_CREATE_CALL_SUBSCRIPTION_2 = "P-createCallSubscription2-Intalio";
     public static final String TYPE_CREATE_DID_SUBSCRIPTION = "P-createDIDSubscription-Intalio";
+    public static final String TYPE_END_DID_SUBSCRIPTION = "P-endDIDSubscription-Intalio";
     public static final String TYPE_CREATE_NUMBER_PORT_SUBSCRIPTION = "P-createNumberPortSubscription-Intalio";
     public static final String TYPE_UPDATE_DID_PRODUCT = "P-updateDIDProduct-Intalio";
     public static final String TYPE_CREATE_ORDER = "AD-createOrder-Intalio";

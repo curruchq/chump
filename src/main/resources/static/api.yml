@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.9.0'
+  version: '1.10.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -738,6 +738,37 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/apiResponse'
+
+  /v1/numbers/{number}/unsubscribe:
+      post:
+        tags:
+          - numbers
+        summary: Unsubscribes number(s).
+        parameters:
+          - in: path
+            name: number
+            description: DID number
+            required: true
+            type: string
+          - in: query
+            name: filter.exclude.did
+            description: Exclude DID subscription end dating
+            type: boolean
+          - in: body
+            name: businessPartnerId
+            description: Business Partner ID which has the number subscription
+            type: integer
+            required: true
+          - in: body
+            name: endDate
+            description: Date to end the subscription on, format dd/MM/yyyy HH:mm:ss
+            type: string
+            required: true
+        responses:
+          200:
+            description: OK
+            schema:
+              $ref: '#/definitions/apiResponse'
 
   /v2/numbers/{number}/provision:
     post:
