@@ -57,5 +57,26 @@ public class UserPreferenceNumbersRoute extends AbstractNumbersRoute {
             exchange.getIn().setBody(request);
         }
     }
+
+    /**
+     * End date user preference request processor
+     */
+    private static final class EndDateUserPreferenceRequestProcessor implements Processor {
+
+        public static final Processor INSTANCE = new EndDateUserPreferenceRequestProcessor();
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+
+            NumberRequest numberRequest = exchange.getProperty(NumberRequest.class.getName(), NumberRequest.class);
+
+            EndDateUserPreferenceRequest request = new EndDateUserPreferenceRequest();
+            request.setUuid(String.valueOf(numberRequest.getBusinessPartnerId()));
+            request.setAttribute("20301");
+            request.setDateEnd(numberRequest.getStartDate());
+
+            exchange.getIn().setBody(request);
+        }
+    }
 }
 
