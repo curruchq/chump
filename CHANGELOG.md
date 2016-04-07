@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-04-07 - 1.10.1
+- CHUMP-103 - Fixed createBankAccount and updateBankAccount to include bankId
+
 ## 2016-03-31 - 1.10.0
 - CHUMP-95 - Added unsubscribe number(s) route
 
