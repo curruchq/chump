@@ -63,6 +63,9 @@ public class CreateBusinessPartnerBankAccountRoute extends AbstractBusinessPartn
             //Required fields
             createBPBankAccountRequest.setAccountName(businessPartnerBankAccountRequest.getAccountName());
             createBPBankAccountRequest.setLocationId(businessPartnerBankAccountRequest.getLocationId());
+            createBPBankAccountRequest.setACH(businessPartnerBankAccountRequest.getACH());
+            createBPBankAccountRequest.setAccountNo(businessPartnerBankAccountRequest.getAccountNo());
+            createBPBankAccountRequest.setBankId(businessPartnerBankAccountRequest.getBankId());
 
             exchange.getIn().setBody(createBPBankAccountRequest);
         }
