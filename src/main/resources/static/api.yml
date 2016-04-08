@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.10.1'
+  version: '1.11.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -1383,6 +1383,8 @@ definitions:
         type: string
       attributeSubscriptionOccurance:
         type: string
+      taxAmount:
+        type: integer
 
   invoiceTaxLineResponse:
     properties:

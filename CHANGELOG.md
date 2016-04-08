@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-04-09 - 1.11.0
+- Updated WSDLs
+
 ## 2016-04-07 - 1.10.1
 - CHUMP-103 - Fixed createBankAccount to include bankId
 
