@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-04-14 - 1.12.0
+- Updated WSDLs
+
 ## 2016-04-09 - 1.11.0
 - Updated WSDLs
 
