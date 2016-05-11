@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-05-12 - 1.13.0
+- Updated WSDLs
+
 ## 2016-04-21 - 1.12.1
 - Fixed UpdateBusinessPartnersRoute to include paymentTermId, priceListId, paymentRule
 
