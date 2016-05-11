@@ -62,6 +62,9 @@ public class UpdateBusinessPartnersRoute extends AbstractBusinessPartnersRoute {
             updateBusinessPartnerRequest.setName(businessPartnerRequest.getName());
             updateBusinessPartnerRequest.setTaxExempt(businessPartnerRequest.isTaxExempt());
             updateBusinessPartnerRequest.setBusinessPartnerGroupId(businessPartnerRequest.getBusinessPartnerGroupId());
+            updateBusinessPartnerRequest.setPaymentRule(businessPartnerRequest.getPaymentRule());
+            updateBusinessPartnerRequest.setPaymentTermId(businessPartnerRequest.getPaymentTermId());
+            updateBusinessPartnerRequest.setPriceListId(businessPartnerRequest.getPriceListId());
 
             exchange.getIn().setBody(updateBusinessPartnerRequest);
         }
