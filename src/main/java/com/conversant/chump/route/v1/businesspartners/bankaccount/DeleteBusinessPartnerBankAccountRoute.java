@@ -6,7 +6,6 @@ import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.chump.route.v1.businesspartners.AbstractBusinessPartnersRoute;
 import com.conversant.webservice.*;
-import javafx.scene.layout.Pane;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
