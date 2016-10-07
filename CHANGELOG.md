@@ -1,5 +1,9 @@
 # Change Log
 
+## 2016-10-07 - 1.14.0
+- Updated WSDLs
+- Modified delete BP Bank Account to accept Account Name
+
 ## 2016-05-12 - 1.13.0
 - Updated WSDLs
 
