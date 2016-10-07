@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.13.0'
+  version: '1.14.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -223,7 +223,12 @@ paths:
         - in: path
           name: bankAccountId
           description: Business partner bank account Id.
-          required: true
+          required: false
+          type: int
+        - in: path
+          name: bankAccountName
+          description: Business partner bank account name
+          required: false
           type: string
       responses:
         200:
