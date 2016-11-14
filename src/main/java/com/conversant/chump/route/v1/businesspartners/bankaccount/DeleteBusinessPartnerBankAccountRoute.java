@@ -29,7 +29,7 @@ public class DeleteBusinessPartnerBankAccountRoute extends AbstractBusinessPartn
             .rest(RestOperation.builder()
                     .method(DELETE)
                     .resource(RESOURCE)
-                    .path("/{businessPartnerSearchKey}/bankaccount/{bpBankAccountId}")
+                    .path("/{businessPartnerSearchKey}/bankaccount/{bpBankAccount}")
                     .build())
             .to(Collections.singletonList(ChumpOperation.pair(DeleteBusinessPartnerBankAccountRequestProcessor.INSTANCE, AdempiereRoute.DELETE_BUSINESS_PARTNER_BANK_ACCOUNT.getUri())))
             .build();
@@ -44,7 +44,18 @@ public class DeleteBusinessPartnerBankAccountRoute extends AbstractBusinessPartn
             DeleteBPBankAccountRequest deleteBusinessPartnerBankAccountRequest = new DeleteBPBankAccountRequest();
 
             deleteBusinessPartnerBankAccountRequest.setLoginRequest(createLoginRequest(exchange, TYPE_DELETE_BUSINESS_PARTNER_BANK_ACCOUNT, ADEMPIERE_USER_INTALIO));
-            deleteBusinessPartnerBankAccountRequest.setBpBankAccountId(Integer.parseInt((String) exchange.getIn().getHeader("bpBankAccountId")));
+            String bpBankAccount = (String) exchange.getIn().getHeader("bpBankAccount");
+            try {
+                if(bpBankAccount.length() == 7) {
+                    int bankId = Integer.parseInt(bpBankAccount);
+                    deleteBusinessPartnerBankAccountRequest.setBpBankAccountId(bankId);
+                } else {
+                    throw new NumberFormatException();
+                }
+            } catch (NumberFormatException n) {
+                deleteBusinessPartnerBankAccountRequest.setAccountName(bpBankAccount);
+            }
+
 
             exchange.getIn().setBody(deleteBusinessPartnerBankAccountRequest);
         }
