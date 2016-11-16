@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.14.0'
+  version: '1.15.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -810,6 +810,42 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/apiResponse'
+
+  /v3/numbers/{number}/provision:
+      post:
+        tags:
+          - numbers
+          - v3
+        summary: Provisions number(s) and creates a number port subscription.
+        parameters:
+          - in: path
+            name: number
+            description: DID number
+            required: true
+            type: string
+          - in: query
+            name: filter.exclude.did
+            description: Exclude DID subscription creation
+            type: boolean
+          - in: query
+            name: filter.exclude.call
+            description: Exclude CALL subscription creation
+            type: boolean
+          - in: query
+            name: filter.exclude.inbound
+            description: Exclude inbound user preference creation/update
+            type: boolean
+          - in: body
+            name: numberProvisionRequest
+            description: Number provision request
+            required: true
+            schema:
+              $ref: '#/definitions/numberProvisionRequest'
+        responses:
+          200:
+            description: OK
+            schema:
+              $ref: '#/definitions/apiResponse'
 
   /v1/numbers/{number}/callerId:
     put:

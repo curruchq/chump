@@ -85,7 +85,7 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
     /**
      * Update did product request processor
      */
-    private static final class UpdateDIDProductRequestProcessor implements Processor {
+    public static final class UpdateDIDProductRequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new UpdateDIDProductRequestProcessor();
 
@@ -106,7 +106,7 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
     /**
      * Inbound destination user preference request processor
      */
-    private static final class InboundDestinationUserPreferenceRequestProcessor implements Processor {
+    public static final class InboundDestinationUserPreferenceRequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new InboundDestinationUserPreferenceRequestProcessor();
 
@@ -138,7 +138,7 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
     /**
      * Caller id v2 user preference request processor
      */
-    protected static final class CallerIdv2UserPreferenceRequestProcessor implements Processor {
+    public static final class CallerIdv2UserPreferenceRequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new CallerIdv2UserPreferenceRequestProcessor();
 
@@ -170,7 +170,7 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
     /**
      * Authorised caller id user preference request processor
      */
-    private static final class AuthorisedCallerIdUserPreferenceRequestProcessor implements Processor {
+    public static final class AuthorisedCallerIdUserPreferenceRequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new AuthorisedCallerIdUserPreferenceRequestProcessor();
 

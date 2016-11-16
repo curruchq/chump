@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-11-17 - 1.15.0
+- Created provision v3 to enable automated number port subscription creation
+
 ## 2016-10-07 - 1.14.0
 - Updated WSDLs
 - Modified delete BP Bank Account to accept Account Name
