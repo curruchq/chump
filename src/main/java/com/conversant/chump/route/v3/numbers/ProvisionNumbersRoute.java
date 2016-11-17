@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 import static com.conversant.chump.common.RestOperation.HttpMethod.POST;
 import static com.conversant.chump.route.v2.numbers.SubscribeNumbersRoute.CreateCallSubscription2RequestProcessor;
@@ -105,7 +107,11 @@ public class ProvisionNumbersRoute extends AbstractNumbersRoute {
             createSubscriptionRequest.setSubscriptionTypeId(1000005);
             createSubscriptionRequest.setStartDate(request.getStartDate());
             createSubscriptionRequest.setPaidUntilDate(request.getPaidUntilDate());
-            createSubscriptionRequest.setRenewalDate(request.getPaidUntilDate());
+            Calendar c = Calendar.getInstance();
+            c.setTime(request.getPaidUntilDate());
+            c.add(Calendar.YEAR, 200);
+            Date renewalDate = c.getTime();
+            createSubscriptionRequest.setRenewalDate(renewalDate);
             createSubscriptionRequest.setBillInAdvance(true);
             createSubscriptionRequest.setQty(BigDecimal.valueOf(1));
             createSubscriptionRequest.setUserId(0);
