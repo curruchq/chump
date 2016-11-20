@@ -78,7 +78,7 @@ public class SubscribeNumbersRoute extends AbstractNumbersRoute {
     /**
      * Create call subscription request processor
      */
-    static final class CreateCallSubscription2RequestProcessor implements Processor {
+    public static final class CreateCallSubscription2RequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new CreateCallSubscription2RequestProcessor();
 
@@ -103,7 +103,7 @@ public class SubscribeNumbersRoute extends AbstractNumbersRoute {
     /**
      * Create did subscription request processor
      */
-    static final class CreateDidSubscriptionRequestProcessor implements Processor {
+    public static final class CreateDidSubscriptionRequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new CreateDidSubscriptionRequestProcessor();
 
