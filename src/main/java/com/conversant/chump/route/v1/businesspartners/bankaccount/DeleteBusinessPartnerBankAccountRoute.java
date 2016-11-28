@@ -48,6 +48,7 @@ public class DeleteBusinessPartnerBankAccountRoute extends AbstractBusinessPartn
             try {
                 if(bpBankAccount.length() == 7) {
                     int bankId = Integer.parseInt(bpBankAccount);
+                    deleteBusinessPartnerBankAccountRequest.setAccountName("");
                     deleteBusinessPartnerBankAccountRequest.setBpBankAccountId(bankId);
                 } else {
                     throw new NumberFormatException();

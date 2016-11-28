@@ -1,5 +1,8 @@
 # Change Log
 
+## 2016-11-28 - 1.15.1
+- Fixed deleting bank account by id
+
 ## 2016-11-17 - 1.15.0
 - Created provision v3 to enable automated number port subscription creation
 
