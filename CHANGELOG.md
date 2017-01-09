@@ -1,5 +1,9 @@
 # Change Log
 
+## 2017-01-09 - 1.16.0
+ - Updated WSDLs
+ - Modified BusinessPartnerLocation to include paymentRule
+
 ## 2016-11-28 - 1.15.1
 - Fixed deleting bank account by id
 
