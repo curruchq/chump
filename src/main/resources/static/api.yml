@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.15.1'
+  version: '1.16.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -1717,6 +1717,8 @@ definitions:
         type: boolean
       remitToAddress:
         type: boolean
+      paymentRule:
+        type: string
 
   locationResponse:
     properties:
@@ -1762,6 +1764,8 @@ definitions:
         type: boolean
       remitToAddress:
         type: boolean
+      paymentRule:
+        type: string
 
   subscriptionResponse:
     properties:

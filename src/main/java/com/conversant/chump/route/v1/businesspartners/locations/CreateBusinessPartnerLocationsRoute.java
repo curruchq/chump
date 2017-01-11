@@ -97,6 +97,11 @@ public class CreateBusinessPartnerLocationsRoute extends AbstractBusinessPartner
             createBusinessPartnerLocationRequest.setBusinessPartnerId(businessPartnerLocationRequest.getBusinessPartnerId());
             createBusinessPartnerLocationRequest.setLocationId(createLocationResponse.getId());
 
+            if(businessPartnerLocationRequest.getPaymentRule() != null)
+                createBusinessPartnerLocationRequest.setPaymentRule(businessPartnerLocationRequest.getPaymentRule());
+            else
+                createBusinessPartnerLocationRequest.setPaymentRule("");
+
             if (businessPartnerLocationRequest.getShipAddress() != null && businessPartnerLocationRequest.getShipAddress())
                 createBusinessPartnerLocationRequest.setShipAddress(businessPartnerLocationRequest.getShipAddress());
 

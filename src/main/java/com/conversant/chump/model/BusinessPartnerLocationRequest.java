@@ -19,6 +19,7 @@ public class BusinessPartnerLocationRequest {
     private String zip;
     private String region;
     private int countryId;
+    private String paymentRule;
     private Boolean shipAddress;
     private Boolean invoiceAddress;
     private Boolean payFromAddress;
