@@ -14,4 +14,5 @@ public class BusinessPartnerRequest {
 	private int priceListId;
 	private String paymentRule;
 	private int paymentTermId;
+	private int subscriptionDelay;
 }

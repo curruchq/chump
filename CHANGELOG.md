@@ -1,5 +1,9 @@
 # Change Log
 
+## 2017-01-25 - 1.17.0
+ - Updated WSDLs
+ - Added subscription delay
+
 ## 2017-01-09 - 1.16.0
  - Updated WSDLs
  - Modified BusinessPartnerLocation to include paymentRule
