@@ -1,28 +1,32 @@
 # Change Log
 
+## 2017-01-26 - 1.18.0
+ - Updated WSDLs
+ - CHUMP-117 - Fixed updating business partner locations
+
 ## 2017-01-25 - 1.17.0
  - Updated WSDLs
- - Added subscription delay
+ - CHUMP-115 - Added subscription delay
 
 ## 2017-01-09 - 1.16.0
  - Updated WSDLs
- - Modified BusinessPartnerLocation to include paymentRule
+ - CHUMP-116 - Modified BusinessPartnerLocation to include paymentRule
 
 ## 2016-11-28 - 1.15.1
-- Fixed deleting bank account by id
+- CHUMP-112 - Fixed deleting bank account by id
 
 ## 2016-11-17 - 1.15.0
-- Created provision v3 to enable automated number port subscription creation
+- CHUMP-111 - Created provision v3 to enable automated number port subscription creation
 
 ## 2016-10-07 - 1.14.0
 - Updated WSDLs
-- Modified delete BP Bank Account to accept Account Name
+- CHUMP-110 - Modified delete BP Bank Account to accept Account Name
 
 ## 2016-05-12 - 1.13.0
 - Updated WSDLs
 
 ## 2016-04-21 - 1.12.1
-- Fixed UpdateBusinessPartnersRoute to include paymentTermId, priceListId, paymentRule
+- CHUMP-105 - Fixed UpdateBusinessPartnersRoute to include paymentTermId, priceListId, paymentRule
 
 ## 2016-04-14 - 1.12.0
 - Updated WSDLs

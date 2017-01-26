@@ -3,15 +3,19 @@ package com.conversant.chump.route.v1.businesspartners.locations;
 import com.conversant.chump.common.ChumpOperation;
 import com.conversant.chump.common.RestOperation;
 import com.conversant.chump.model.BusinessPartnerLocationRequest;
+import com.conversant.chump.processor.ApiResponseProcessor;
 import com.conversant.chump.route.AdempiereRoute;
 import com.conversant.chump.route.v1.businesspartners.AbstractBusinessPartnersRoute;
+import com.conversant.webservice.StandardResponse;
 import com.conversant.webservice.UpdateBusinessPartnerLocationRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Collections;
 
+import com.conversant.chump.route.v1.businesspartners.locations.CreateBusinessPartnerLocationsRoute;
 import static com.conversant.chump.common.RestOperation.HttpMethod.PUT;
 import static com.conversant.chump.util.AdempiereHelper.createLoginRequest;
 import static com.conversant.chump.util.Constants.ADEMPIERE_USER_INTALIO;
@@ -34,7 +38,11 @@ public class UpdateBusinessPartnerLocationsRoute extends AbstractBusinessPartner
                     .method(PUT)
                     .build())
             .trx(false)
-            .to(Collections.singletonList(ChumpOperation.pair(UpdateBusinessPartnerLocationRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_BUSINESS_PARTNER_LOCATION.getUri())))
+            .to(Arrays.asList(
+                    ChumpOperation.pair(ReadBusinessPartnerBySearchKeyRequestProcessor.INSTANCE, AdempiereRoute.READ_BUSINESS_PARTNER_BY_SEARCH_KEY.getUri()),
+                    ChumpOperation.pair(CreateBusinessPartnerLocationsRoute.CreateLocationRequestProcessor.INSTANCE, AdempiereRoute.CREATE_LOCATION.getUri()),
+                    ChumpOperation.pair(UpdateBusinessPartnerLocationRequestProcessor.INSTANCE, AdempiereRoute.UPDATE_BUSINESS_PARTNER_LOCATION.getUri())))
+            .postProcessors(Collections.singletonList(ApiResponseProcessor.INSTANCE))
             .build();
 
     /**
@@ -47,33 +55,27 @@ public class UpdateBusinessPartnerLocationsRoute extends AbstractBusinessPartner
         @Override
         public void process(Exchange exchange) throws Exception {
 
+            StandardResponse createLocationResponse = exchange.getIn().getBody(StandardResponse.class);
+
             BusinessPartnerLocationRequest businessPartnerLocationRequest = exchange.getProperty(BusinessPartnerLocationRequest.class.getName(), BusinessPartnerLocationRequest.class);
-            businessPartnerLocationRequest.setBusinessPartnerLocationId(Integer.parseInt((String) exchange.getIn().getHeader("businessPartnerLocationId")));
 
             UpdateBusinessPartnerLocationRequest updateBusinessPartnerLocationRequest = new UpdateBusinessPartnerLocationRequest();
             updateBusinessPartnerLocationRequest.setLoginRequest(createLoginRequest(exchange, TYPE_UPDATE_BUSINESS_PARTNER_LOCATION, ADEMPIERE_USER_INTALIO));
             updateBusinessPartnerLocationRequest.setBusinessPartnerLocationId(businessPartnerLocationRequest.getBusinessPartnerLocationId());
             updateBusinessPartnerLocationRequest.setName(businessPartnerLocationRequest.getName());
-            updateBusinessPartnerLocationRequest.setAddress1(businessPartnerLocationRequest.getAddress1());
-            updateBusinessPartnerLocationRequest.setAddress2(businessPartnerLocationRequest.getAddress2());
-            updateBusinessPartnerLocationRequest.setAddress3(businessPartnerLocationRequest.getAddress3());
-            updateBusinessPartnerLocationRequest.setAddress4(businessPartnerLocationRequest.getAddress4());
-            updateBusinessPartnerLocationRequest.setCity(businessPartnerLocationRequest.getCity());
-            updateBusinessPartnerLocationRequest.setZip(businessPartnerLocationRequest.getZip());
-            updateBusinessPartnerLocationRequest.setRegion(businessPartnerLocationRequest.getRegion());
-            updateBusinessPartnerLocationRequest.setCountryId(businessPartnerLocationRequest.getCountryId());
+            updateBusinessPartnerLocationRequest.setLocationId(createLocationResponse.getId());
             updateBusinessPartnerLocationRequest.setPaymentRule(businessPartnerLocationRequest.getPaymentRule());
 
-            if (businessPartnerLocationRequest.getShipAddress() != null && businessPartnerLocationRequest.getShipAddress())
+            if (businessPartnerLocationRequest.getShipAddress() != null)
                 updateBusinessPartnerLocationRequest.setShipAddress(businessPartnerLocationRequest.getShipAddress());
 
-            if (businessPartnerLocationRequest.getInvoiceAddress() != null && businessPartnerLocationRequest.getInvoiceAddress())
+            if (businessPartnerLocationRequest.getInvoiceAddress() != null)
                 updateBusinessPartnerLocationRequest.setInvoiceAddress(businessPartnerLocationRequest.getInvoiceAddress());
 
-            if (businessPartnerLocationRequest.getPayFromAddress() != null && businessPartnerLocationRequest.getPayFromAddress())
+            if (businessPartnerLocationRequest.getPayFromAddress() != null)
                 updateBusinessPartnerLocationRequest.setPayFromAddress(businessPartnerLocationRequest.getPayFromAddress());
 
-            if (businessPartnerLocationRequest.getRemitToAddress() != null && businessPartnerLocationRequest.getRemitToAddress())
+            if (businessPartnerLocationRequest.getRemitToAddress() != null)
                 updateBusinessPartnerLocationRequest.setRemitToAddress(businessPartnerLocationRequest.getRemitToAddress());
 
             exchange.getIn().setBody(updateBusinessPartnerLocationRequest);
