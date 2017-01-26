@@ -58,7 +58,6 @@ public class UpdateBusinessPartnerLocationsRoute extends AbstractBusinessPartner
             StandardResponse createLocationResponse = exchange.getIn().getBody(StandardResponse.class);
 
             BusinessPartnerLocationRequest businessPartnerLocationRequest = exchange.getProperty(BusinessPartnerLocationRequest.class.getName(), BusinessPartnerLocationRequest.class);
-            System.out.println(businessPartnerLocationRequest.toString());
 
             UpdateBusinessPartnerLocationRequest updateBusinessPartnerLocationRequest = new UpdateBusinessPartnerLocationRequest();
             updateBusinessPartnerLocationRequest.setLoginRequest(createLoginRequest(exchange, TYPE_UPDATE_BUSINESS_PARTNER_LOCATION, ADEMPIERE_USER_INTALIO));
