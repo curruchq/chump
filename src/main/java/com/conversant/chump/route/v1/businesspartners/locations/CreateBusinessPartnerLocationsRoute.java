@@ -47,7 +47,7 @@ public class CreateBusinessPartnerLocationsRoute extends AbstractBusinessPartner
     /**
      * Create location request processor
      */
-    private static final class CreateLocationRequestProcessor implements Processor {
+    protected static final class CreateLocationRequestProcessor implements Processor {
 
         public static final Processor INSTANCE = new CreateLocationRequestProcessor();
 
