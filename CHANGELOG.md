@@ -1,5 +1,9 @@
 # Change Log
 
+## 2017-02-16 - 1.19.0
+ - Updated WSDLs
+ - OPT-20 - Created One Off Payment Route under BP Payments
+
 ## 2017-01-26 - 1.18.0
  - Updated WSDLs
  - CHUMP-117 - Fixed updating business partner locations
