@@ -41,6 +41,7 @@ public class Constants {
     public static final String TYPE_CREATE_BUSINESS_PARTNER_BANK_ACCOUNT = "AC-createBpBankAccount-Intalio";
     public static final String TYPE_DELETE_BUSINESS_PARTNER_BANK_ACCOUNT = "AC-deleteBpBankAccount-Intalio";
     public static final String TYPE_CREATE_BUSINESS_PARTNER_LOCATION = "AD-createBusinessPartnerLocation-Intalio";
+    public static final String TYPE_CREATE_BUSINESS_PARTNER_PAYMENT = "AC-createOneOffPayment-Intalio";
     public static final String TYPE_READ_BUSINESS_PARTNERS = "AD-readBusinessPartner-Drupal";
     public static final String TYPE_UPDATE_BUSINESS_PARTNER = "AD-updateBusinessPartner-Intalio";
     public static final String TYPE_UPDATE_BUSINESS_PARTNER_LOCATION = "AD-updateBusinessPartnerLocation-Intalio";
