@@ -13,5 +13,6 @@ public class BusinessPartnerRadiusAccountsRequest {
 	private String dateFrom;
 	private String dateTo;
 	private String billingId;
+	private boolean classified;
 
 }

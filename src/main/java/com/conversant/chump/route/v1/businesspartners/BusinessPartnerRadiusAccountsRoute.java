@@ -69,6 +69,11 @@ public class BusinessPartnerRadiusAccountsRoute extends AbstractBusinessPartners
             request.setDateFrom(businessPartnerRadiusAccountsRequest.getDateFrom());
             request.setDateTo(businessPartnerRadiusAccountsRequest.getDateTo());
             request.setOtherParty(businessPartnerRadiusAccountsRequest.getOtherParty());
+            if(businessPartnerRadiusAccountsRequest.isClassified()) {
+                request.setClassified(true);
+            } else {
+                request.setClassified(false);
+            }
 
             exchange.getIn().setBody(request);
         }
