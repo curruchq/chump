@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.19.0'
+  version: '1.20.0'
   title: Chump
   description: Conversant REST API
 basePath: /chump
@@ -1480,6 +1480,8 @@ definitions:
         type: string
       rate:
         type: string
+      classification:
+        type: string
 
   bankAccountRequest:
     properties:
@@ -1519,6 +1521,8 @@ definitions:
           type: string
         billingParty:
           type: string
+        classified:
+          type: boolean
 
   readRadiusAccountsSearchResponse:
       properties:

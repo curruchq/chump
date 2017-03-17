@@ -1,5 +1,9 @@
 # Change Log
 
+## 2017-03-17 - 1.20.0
+ - Updated WSDLs
+ - RAD-2 - Added classified option to BusinessPartnerRadiusAccountsRoute
+
 ## 2017-02-16 - 1.19.0
  - Updated WSDLs
  - OPT-20 - Created One Off Payment Route under BP Payments
